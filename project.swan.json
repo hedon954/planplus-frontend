@@ -1,0 +1,22 @@
+{
+    "appid": "22868233",
+    "compilation-args": {
+        "common": {
+            "enhance": true
+        }
+    },
+    "host": "baiduboxapp",
+    "preview": {
+        "packageId": 899489
+    },
+    "projectname": "planplus",
+    "setting": {
+        "urlCheck": false
+    },
+    "swan": {
+        "baiduboxapp": {
+            "extensionJsVersion": "1.16.2",
+            "swanJsVersion": "3.200.116"
+        }
+    }
+}

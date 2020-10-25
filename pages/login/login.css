@@ -1,0 +1,15 @@
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../images/bk-image.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+.action-area {
+    position: fixed;
+    bottom: 193.24rpx;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

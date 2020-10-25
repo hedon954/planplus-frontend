@@ -1,0 +1,20 @@
+.access-btn {
+    background-color: #538DF4; /* 授权按钮背景色 */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 634.06rpx;
+    height: 79.71rpx;
+}
+.access-btn image {
+    width: 39.86rpx;
+    height: 39.86rpx;
+    margin-right: 16.3rpx;
+}
+.access-btn view {
+    color: #fff;
+    height: 32.61rpx;
+    font-size: 32.61rpx;
+    line-height: 1;
+}

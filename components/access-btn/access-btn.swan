@@ -1,0 +1,11 @@
+<!-- access-btn.swan -->
+<!-- <button type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="access-btn" style="background-color: {{color}}; width: {{width}}rpx; {{noBorder ? '': 'border-radius: 39.86rpx;'}}" catchtap="onTap">
+    <image class="miniapp-logo" mode="widthFix" src="../../images/baidu-logo.png"></image>
+    <view>百度用户授权登录</view>
+</button> -->
+
+<button open-type="getPhoneNumber" type="primary" bindgetphonenumber="getphonenumber"
+class="access-btn" style="background-color: {{color}}; width: {{width}}rpx; {{noBorder ? '': 'border-radius: 39.86rpx;'}}" catchtap="onTap">
+    <image class="miniapp-logo" mode="widthFix" src="../../images/baidu-logo.png"></image>
+    <view>联合登录/手机号授权</view>
+</button>

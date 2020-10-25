@@ -1,0 +1,12 @@
+<!-- immersive-pic.swan -->
+<smt-navigation
+    backIcon="{{true}}"
+    backgroundColor"transparent"
+    bindbackHdl="backHandler"
+    navigationAreaStyle="{{navigationAreaStyle}}"
+></smt-navigation>
+<view class="login-container">
+    <view class="action-area">
+        <access-btn width="{{btnWidth}}"></access-btn>
+    </view>
+</view>
