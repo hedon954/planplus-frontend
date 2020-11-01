@@ -48,12 +48,17 @@ Page({
             },
             success: res => {
                 console.log('request success', res);
-                swan.showModal({
-                    title: '请求到的数据',
-                    // content:res.code,
-                    content: JSON.stringify(res.data),
-                    showCancel: true
+
+                //成功的话就跳转
+                swan.navigateTo({
+                    url: '/pages/index/index?userId='+res.data.data.userId
                 });
+                // swan.showModal({
+                //     title: '请求到的数据',
+                //     // content:res.code,
+                //     content: JSON.stringify(res.data),
+                //     showCancel: true
+                // });
             },
             fail: err => {
                 swan.showToast({
