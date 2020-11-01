@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "smt-navigation": "@smt-ui/component/src/navigation",
+        "smt-icon": "@smt-ui/component/src/icon"
+    }
+}

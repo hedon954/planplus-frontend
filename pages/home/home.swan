@@ -1,0 +1,25 @@
+<!-- 头部任务输入区域 -->
+<view class="header">
+    <image src="../../images/microphone_24px.png"></image>
+    <input type="text" placeholder="请输入任务内容"/>
+    <image src="../../images/checkmark_24px.png"></image>
+</view>
+<!-- 任务列表区域 -->
+<view class="detail">
+    <!-- 标题区域，包含日期切换按钮 -->
+    <view class="title">
+        <!-- 标题 -->
+        <label>任务列表</label>
+        <!-- 切换按钮
+        <button class="btn1">今日</button>
+        <button class="btn2">明日</button> -->
+        <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
+            <tab-item class="tab1" name="today" label="今日" />
+            <tab-item class="tab2" name="tomorrow" label="明日" />
+        </tabs>
+    </view>
+    <!-- 任务列表 -->
+    <view class="list"></view>
+</view>
+<button bindtap="login">登录</button>
+<!-- 底部导航栏 -->
