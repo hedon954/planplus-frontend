@@ -35,7 +35,7 @@ Page({
         console.log(this.data.phoneNumber);
         console.log(this.data.password);
         swan.request({
-            url: 'http://localhost:10030/project/user/login?phoneNumber='+this.data.phoneNumber + '&password='+this.data.password,
+            url: 'http://182.61.131.18:10030/project/user/login?phoneNumber='+this.data.phoneNumber + '&password='+this.data.password,
             header: {
                 'content-type': 'application/json'
             },
@@ -54,13 +54,13 @@ Page({
                     content: JSON.stringify(res.data),
                     showCancel: true
                 });
-            }
-            // fail: err => {
-            //     swan.showToast({
-            //         title: JSON.stringify(err)
-            //     });
-            //     console.log('request fail', err);
-            // },
+            },
+            fail: err => {
+                swan.showToast({
+                    title: JSON.stringify(err)
+                });
+                console.log('request fail', err);
+            },
             // complete: () => {
             //     this.setData('loading', false);
             // }
