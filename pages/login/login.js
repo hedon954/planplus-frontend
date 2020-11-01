@@ -1,7 +1,7 @@
 Page({
     data: {
-        phoneNumber: "",
-        password: "",
+        phoneNumber: "15623205156",
+        password: "hedon",
         userInfo: {},
         hasUserInfo: false,
         canIUse: swan.canIUse('button.open-type.getUserInfo')
@@ -50,8 +50,8 @@ Page({
                 console.log('request success', res);
 
                 //成功的话就跳转
-                swan.navigateTo({
-                    url: '/pages/index/index?userId='+res.data.data.userId
+                swan.redirectTo({
+                    url: '/pages/user-info/user-info?userId='+res.data.data.userId
                 });
                 // swan.showModal({
                 //     title: '请求到的数据',

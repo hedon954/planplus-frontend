@@ -33,47 +33,68 @@ Page({
     },
 
 
-    onLoad: function () {
-        // 监听页面加载的生命周期函数
-        swan.request({
-            url: 'http://127.0.0.1:10030/project/user/2',
-            method:"GET",
-            success:res=>{
-                console.log("①");
-                console.log(res.data.data);
-                this.setData(
+    onLoad: function (options) {
+        console.log(options);
+        //先检查是否有登录
+        if(options.userId == undefined || options.userId == null){
+            //没有登录就提示信息，并跳转到登录界面
+            swan.showModal({
+                title: '未登录',
+                content: '请先登录！'
+            });
+            swan.redirectTo({
+                url: '/pages/login/login'
+            });
+        }else{
+            //有登录的话就拿出 id，查询用户信息
+            const userId = options.userId;
+            swan.request({
+                url: 'http://182.61.131.18:10030/project/user/'+userId,
+                method:"GET",
+                header: {
+                    'content-type': 'application/json'
+                },
+                dataType: 'json',
+                responseType: 'text',
+                success:res=>{
+                    console.log("①");
+                    console.log(res.data.data);
+                    this.setData(
+                        {
+                            userNickname:res.data.data.userNickname,
+                            userAvatarUrl:res.data.data.userAvatarUrl,
+                            userGender:res.data.data.userGender,
+                        }
+                    )
+                    switch(this.data.userGender)
                     {
-                        userNickname:res.data.data.userNickname,
-                        userAvatarUrl:res.data.data.userAvatarUrl,
-                        userGender:res.data.data.userGender,
+                        case 0:
+                            this.setData(
+                                {
+                                   userGenderText:"女",
+                                }
+                            );
+                            break;
+                        case 1:
+                            this.setData(
+                                {
+                                    userGenderText:"男",
+                                }
+                            );
+                            break;
+                        default:
+                            this.setData(
+                                {
+                                    userGenderText:"未知",
+                                }
+                            );
+                            break;
                     }
-                )
-                switch(this.data.userGender)
-                {
-                    case 0:
-                        this.setData(
-                            {
-                               userGenderText:"女",
-                            }
-                        );
-                        break;
-                    case 1:
-                        this.setData(
-                            {
-                                userGenderText:"男",
-                            }
-                        );
-                        break;
-                    default:
-                        this.setData(
-                            {
-                                userGenderText:"未知",
-                            }
-                        );
-                        break;
                 }
-            }
-        });
+            });
+        }
+        // 监听页面加载的生命周期函数
+
     },
     onReady: function() {
         // 监听页面初次渲染完成的生命周期函数

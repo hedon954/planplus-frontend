@@ -23,7 +23,7 @@ Page({
                 title: '未登录',
                 content: '请先登录！'
             });
-            swan.navigateTo({
+            swan.redirectTo({
                 url: '/pages/login/login'
             });
         }else{
@@ -51,6 +51,7 @@ Page({
                 }
             });
         }
+
         // 监听页面加载的生命周期函数
 
 
