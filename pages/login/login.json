@@ -1,8 +1,5 @@
 {
-    "navigationStyle": "custom",
-    "disableScroll": true,
     "usingComponents": {
-        "access-btn": "../../components/access-btn/access-btn",
-        "smt-navigation": "@smt-ui/component/src/navigation"
+        "smt-icon": "@smt-ui/component/src/icon"
     }
 }

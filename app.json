@@ -9,6 +9,7 @@
     "window": {
         "navigationBarBackgroundColor": "#ffffff",
         "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
     }
 }
