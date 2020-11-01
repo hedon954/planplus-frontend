@@ -1,15 +1,92 @@
-.login-container {
-    width: 100vw;
-    height: 100vh;
-    background-image: url(../../images/bk-image.png);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-color: #fff;
-}
-.action-area {
-    position: fixed;
-    bottom: 193.24rpx;
+.cover {
     width: 100%;
+    /* todo:待视觉确认，height: 1182px */
+    height: 713.768rpx;
+    display: block;
+    margin: 0 auto;
+}
+
+.login-container {
+    position: relative;
+    width: 713.768rpx;
+    height: 1132.85rpx;
+    box-sizing: border-box;
+    left: 50%;
+    margin: 23.551rpx 0 60.99rpx -356.884rpx;
+    background: #E0E0E0;
+    border-radius: 21.739rpx;
+    overflow: hidden;
+}
+.login-container form {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    padding: 10.87rpx 23.551rpx 0 23.551rpx;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.form-item {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 21.739rpx;
+    width: 666.667rpx;
+    height: 79.71rpx;
+    border: 1.208rpx solid #C2C5CC;
+    border-radius: 10.87rpx;
+    background: #fff;
+    font-size: 25.362rpx;
+}
+.form-item label {
+    color: #525252;
+    padding: -5 16.304rpx 0 21.739rpx;
+}
+.form-item input {
+    padding-left: 2%;
+    color: #000;
+    height: 100%;
+    font-size: 27.778rpx;
+    font-weight: bold;
+}
+.form-item-placeholder {
+    font-size: 25.362rpx;
+    color: #999;
+    font-weight: normal;
+}
+.login-icon {
+    padding-left: 2%;
+    width: 39.855rpx;
+    height: 39.855rpx;
+    margin-right: 23.551rpx;
+}
+
+.login-submit {
+    height: 79.71rpx;
+    font-size: 32.609rpx;
+    color: #fff;
+    background: linear-gradient(90deg, rgb(241, 177, 81) 0%, rgb(245, 131, 66) 100%);
+    border-radius: 39.855rpx;
+    margin: 32.609rpx 0;
+}
+.login-submit.default {
+    background: #fff;
+    color: #333;
+    border: 1.208rpx solid #999;
+}
+.login-submit::after {
+    display: none;
+}
+
+
+.our-docs {
+    display: flex;
+    align-items: center;
+    padding-bottom: 38.043rpx;
+    color: #525252;
+    font-size: 25.362rpx;
+}
+.our-docs smt-icon {
+    display: flex;
 }
