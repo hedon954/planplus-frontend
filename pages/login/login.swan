@@ -1,12 +1,53 @@
-<!-- immersive-pic.swan -->
-<smt-navigation
-    backIcon="{{true}}"
-    backgroundColor"transparent"
-    bindbackHdl="backHandler"
-    navigationAreaStyle="{{navigationAreaStyle}}"
-></smt-navigation>
 <view class="login-container">
-    <view class="action-area">
-        <access-btn width="{{btnWidth}}"></access-btn>
-    </view>
+    <!-- 图片展示区 -->
+    <image
+        preview="true",
+        mode="aspectFill",
+        src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk9h1kl93oj3040040glk.jpg"
+        class="cover">
+    </image>
+    <!-- 登录表单 -->
+    <form bindsubmit="loginSubmit">
+        <!-- 手机号 -->
+        <view class="form-item"
+            bindtap="handleUpload">
+            <image src="../../images/id-card.png"
+                class="login-icon">
+            </image>
+            <label>手机号</label>
+            <input cursor-spacing="{{30}}"
+            id="phone-number-input"
+            type="text"
+            placeholder="请输入手机号"
+            value="{= phoneNumber =}"
+            placeholder-class="form-item-placeholder"
+            bindinput="bindPhoneNumberInput"/>
+        </view>
+        <!-- 密码 -->
+        <view class="form-item"
+            bindtap="handleUpload">
+            <image src="../../images/password.png"
+                class="login-icon">
+            </image>
+            <label>密<span style="color:white">密</span>码</label>
+            <input cursor-spacing="{{30}}"
+            id="password-input"
+            password="true"
+            placeholder="请输入密码"
+            value="{= password =}"
+            placeholder-class="form-item-placeholder"
+            bindinput="bindPasswordInput"/>
+        </view>
+        <!-- 登录按钮 -->
+        <button form-type="submit"
+            type="default"
+            class="login-submit">
+            登录
+        </button>
+        <!-- 关于我们 -->
+        <view class="our-docs" bindtap="redirectToOurDocs">
+            关于我们
+            <smt-icon size="14px" name="arrow"></smt-icon>
+        </view>
+    </form>
 </view>
