@@ -12,10 +12,12 @@
     width: 60rpx;
     margin: 42rpx 5rpx;
 }
-.header input {
+.header textarea {
     margin-left: 18rpx;
     margin-right: 18rpx;
     height: 144rpx;
+    padding-top: 30rpx;
+
 }
 
 .detail {
@@ -32,6 +34,7 @@
     border-top-left-radius: 36rpx;
     border-top-right-radius: 36rpx;
     height: 60rpx;
+    overflow: hidden;
 }
 .title label {
     margin: 10rpx 260rpx 10rpx 20rpx;
@@ -47,18 +50,25 @@
 }
 .title tab-item {
     background-color: lightgrey;
+    font-size: 6.039rpx;
 }
 
 
-/* .title button {
+ /* .title button {
     height: 40rpx;
     width: 140rpx;
-    font-size: smaller;
+    font-size: 30rpx;
     text-align: center;
     margin: 10rpx 0 10rpx 0;
     background-color: silver;
+    padding-top: -32.077rpx;
+    border: none;
 }
-.btn1 {
+
+.title button::after {
+    border: 0;
+}  */
+/* .btn1 {
     background-color: silver;
     border-top-right-radius: 0rpx;
     border-bottom-right-radius: 0rpx;

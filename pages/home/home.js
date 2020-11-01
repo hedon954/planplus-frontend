@@ -7,8 +7,6 @@ Page({
         swan.request({
             url: 'http://localhost:10030/project/task/today',
             method: 'GET',
-            dataType: 'json',
-            responseType: 'application/json',
             data: {
                 userId: 1
             },
@@ -31,8 +29,6 @@ Page({
         swan.request({
             url: 'http://localhost:10030/project/task/' + e.detail.name,
             method: 'GET',
-            dataType: 'json',
-            responseType: 'application/json',
             data: {
                 userId: 1
             },
