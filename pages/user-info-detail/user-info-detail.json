@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+        "smt-calendar": "@smt-ui/component/src/calendar"
+    }
+}

@@ -1,0 +1,18 @@
+<view class="info-container">
+    <view class="info-card">
+        <view class="username-box">
+            <text class="username">{{userNickname}}</text>
+            <image src="../../images/test_avatar.JPG"
+                class="avatar">
+            </image>
+        </view>
+        <view class="detail">
+            <text class="text-box">19岁</text>
+            <text class="text-box">{{userGenderText}}</text>
+            <text class="text-box">双鱼座</text>
+            <button class="update-botton" bind:tap="goToDetail">
+                <smt-icon name="comment-editor" color="#6D6E74"></smt-icon>
+            </button>
+        </view>
+    </view>
+</view>
