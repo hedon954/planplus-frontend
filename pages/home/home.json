@@ -1,6 +1,7 @@
 {
     "usingComponents": {
         "smt-navigation": "@smt-ui/component/src/navigation",
-        "smt-icon": "@smt-ui/component/src/icon"
+        "smt-icon": "@smt-ui/component/src/icon",
+        "task-detail": "/components/task-detail/task-detail"
     }
 }
