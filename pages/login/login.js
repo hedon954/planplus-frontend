@@ -1,3 +1,6 @@
+
+const app = getApp()
+
 Page({
     data: {
         phoneNumber: "15623205156",
@@ -49,9 +52,11 @@ Page({
             success: res => {
                 console.log('request success', res);
 
+                app.setData(res.data.data.access_token)
+
                 //成功的话就跳转
                 swan.redirectTo({
-                    url: '/pages/user-info/user-info?access_token='+res.data.data.access_token
+                    url: '/pages/user-info/user-info'
                 });
                 // swan.showModal({
                 //     title: '请求到的数据',
