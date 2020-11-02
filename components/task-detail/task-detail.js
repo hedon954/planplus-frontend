@@ -11,6 +11,18 @@ Component({
         place: {
             type: String,
             value: ''
+        },
+        hours: {
+            type: String,
+            value: ''
+        },
+        minutes: {
+            type: String,
+            value: ''
+        },
+        seconds: {
+            type: String,
+            value: ''
         }
     },
 

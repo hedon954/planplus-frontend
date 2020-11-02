@@ -26,8 +26,11 @@
         content="{{task.taskContent}}"
         time="{{task.taskStartTime}}"
         place="{{task.taskPlace}}"
-        ></task-detail>
+        hours="{{hours}}"
+        minutes="{{minutes}}"
+        seconds="{{seconds}}">
+        </task-detail>
     </view>
 </view>
-<button bindtap="login">登录</button>
+
 <!-- 底部导航栏 -->
