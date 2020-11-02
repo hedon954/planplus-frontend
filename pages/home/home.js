@@ -1,14 +1,14 @@
 Page({
     data: {
-        activeName: ''
+        tasks: []
     },
 
     login: function() {
         swan.request({
             url: 'http://localhost:10030/project/task/today',
             method: 'GET',
-            data: {
-                userId: 1
+            header: {
+                'Authorization': 'bearer ' + this.data.access_token
             },
             success: res => {
                 try {
@@ -17,6 +17,7 @@ Page({
                         content: JSON.stringify(res.data),
                         showCancel: false
                     });
+                    this.setData({tasks: res.data});
                 }
                 catch (error) {
                     console.log(error);
@@ -29,8 +30,8 @@ Page({
         swan.request({
             url: 'http://localhost:10030/project/task/' + e.detail.name,
             method: 'GET',
-            data: {
-                userId: 1
+            header: {
+                'Authorization': 'bearer ' + this.data.access_token
             },
             success: res => {
                 try {

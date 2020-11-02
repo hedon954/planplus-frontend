@@ -1,4 +1,7 @@
 <view class="container">
     <!--to do-->
-    jjjjj
+    <label>内容：{{content}}</label> <br>
+    <label>时间：{{time}}</label> <br>
+    <label>地点：{{place}}</label> <br>
+    <label>倒计时</label>
 </view>

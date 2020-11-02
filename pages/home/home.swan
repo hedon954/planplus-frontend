@@ -21,7 +21,12 @@
     </view>
     <!-- 任务列表 -->
     <view class="list">
-        <task-detail></task-detail>
+        <task-detail
+        s-for="task in tasks"
+        content="{{task.taskContent}}"
+        time="{{task.taskStartTime}}"
+        place="{{task.taskPlace}}"
+        ></task-detail>
     </view>
 </view>
 <button bindtap="login">登录</button>
