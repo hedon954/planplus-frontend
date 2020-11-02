@@ -6,6 +6,15 @@
 /* globals swan */
 
 App({
+
+    data:{
+        access_token:null
+    },
+
+    setData:function(param){
+        this.data.access_token = param
+    },
+
     onLaunch(options) {
         // do something when launch
     },

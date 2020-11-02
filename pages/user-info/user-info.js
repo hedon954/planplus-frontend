@@ -1,7 +1,8 @@
+const app = getApp();
+
 Page({
     data: {
         currentUserId: null,
-        access_token: null,
         userId:1,
         userNickname:"kk",
         userGender:-1,
@@ -35,13 +36,13 @@ Page({
     },
 
 
-    onLoad: function (options) {
-        console.log("options:"+options.access_token)
+    onLoad: function () {
+        console.log("App里的token是："+app.data.access_token)
         //检查是否已经登录
         swan.request({
             url: 'http://localhost:9527/project/login/checkLogin',
             header: {
-                'Authorization': 'bearer '+options.access_token
+                'Authorization': 'bearer '+app.data.access_token
             },
             method: 'POST',
             responseType: 'text',
@@ -52,7 +53,6 @@ Page({
                     //设置当前用户ID
                     this.setData({
                         currentUserId: res.data.data,
-                        access_token: options.access_token
                     })
                     console.log("hhhhh"+res.data)
                     //读取当前用户数据
@@ -61,7 +61,7 @@ Page({
                         url: 'http://localhost:9527/project/user/info',
                         method: 'GET',
                         header:{
-                            'Authorization': 'bearer '+this.data.access_token
+                            'Authorization': 'bearer '+app.data.access_token
                         },
                         responseType: 'text',
                         success:res=>{
@@ -101,8 +101,6 @@ Page({
                         }
                     })
                     console.log("当前用户ID："+this.data.currentUserId)
-                    console.log("当前用户信息："+this.data.userInfo)
-                    console.log("当前token:"+this.data.access_token)
                 }else{
                     //未登录
                     swan.showModal({
