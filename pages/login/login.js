@@ -1,7 +1,7 @@
 Page({
     data: {
-        phoneNumber: "",
-        password: "",
+        phoneNumber: "15623205156",
+        password: "hedon",
         userInfo: {},
         hasUserInfo: false,
         canIUse: swan.canIUse('button.open-type.getUserInfo')
@@ -35,7 +35,7 @@ Page({
         console.log(this.data.phoneNumber);
         console.log(this.data.password);
         swan.request({
-            url: 'http://182.61.131.18:10030/project/user/login?phoneNumber='+this.data.phoneNumber + '&password='+this.data.password,
+            url: 'http://localhost:9527/project/login/login',
             header: {
                 'content-type': 'application/json'
             },
@@ -43,17 +43,22 @@ Page({
             dataType: 'json',
             responseType: 'text',
             data: {
-                // phoneNumber: "15623205156",
-                // password: "hedon"
+                phoneNumber: this.data.phoneNumber,
+                password: this.data.password
             },
             success: res => {
                 console.log('request success', res);
-                swan.showModal({
-                    title: '请求到的数据',
-                    // content:res.code,
-                    content: JSON.stringify(res.data),
-                    showCancel: true
+
+                //成功的话就跳转
+                swan.redirectTo({
+                    url: '/pages/user-info/user-info?access_token='+res.data.data.access_token
                 });
+                // swan.showModal({
+                //     title: '请求到的数据',
+                //     // content:res.code,
+                //     content: JSON.stringify(res.data),
+                //     showCancel: true
+                // });
             },
             fail: err => {
                 swan.showToast({
