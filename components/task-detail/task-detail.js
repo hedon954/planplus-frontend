@@ -12,15 +12,7 @@ Component({
             type: String,
             value: ''
         },
-        hours: {
-            type: String,
-            value: ''
-        },
-        minutes: {
-            type: String,
-            value: ''
-        },
-        seconds: {
+        countDownTime: {
             type: String,
             value: ''
         }

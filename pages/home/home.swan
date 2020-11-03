@@ -22,13 +22,12 @@
     <!-- 任务列表 -->
     <view class="list">
         <task-detail
-        s-for="task in tasks"
-        content="{{task.taskContent}}"
-        time="{{task.taskStartTime}}"
-        place="{{task.taskPlace}}"
-        hours="{{hours}}"
-        minutes="{{minutes}}"
-        seconds="{{seconds}}">
+        s-for="tasks"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        class="{{activeName}}">
         </task-detail>
     </view>
 </view>
