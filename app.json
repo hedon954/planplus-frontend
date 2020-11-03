@@ -1,11 +1,11 @@
 {
     "pages": [
+        "pages/modification/modification",
         "pages/home/home",
         "pages/user-info/user-info",
         "pages/index/index",
         "pages/user-info-detail/user-info-detail",
         "pages/login/login"
-
 
     ],
     "window": {
