@@ -3,7 +3,7 @@
     <image src="/images/microphone_24px.png"></image>
     <!-- <input type="text" placeholder="请输入任务内容"/> -->
     <textarea placeholder="请输入任务内容"/>
-    <image src="/images/checkmark_24px.png"></image>
+    <image src="/images/checkmark_24px.png" bindtap="verifyTask"></image>
 </view>
 <!-- 任务列表区域 -->
 <view class="detail">
@@ -23,11 +23,13 @@
     <view class="list">
         <task-detail
         s-for="tasks"
+        id="{{item.taskId}}"
         content="{{item.taskContent}}"
         time="{{item.taskStartTime}}"
         place="{{item.taskPlace}}"
         countDownTime="{{countDownList[index]}}"
-        class="{{activeName}}">
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
         </task-detail>
         <task-detail
         s-for="tasks"

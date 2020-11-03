@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/modification/modification",
         "pages/baidu-login/baidu-login",
         "pages/home/home",
         "pages/user-info/user-info",

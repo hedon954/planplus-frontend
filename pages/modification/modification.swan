@@ -1,0 +1,9 @@
+<view>
+    <view>
+        <label>任务内容：</label>
+        <input type="text" placeholder="吃饭"/>
+    </view>
+    <view>
+        <label></label>
+    </view>
+</view>
