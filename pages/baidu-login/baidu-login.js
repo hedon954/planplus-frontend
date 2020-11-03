@@ -168,15 +168,19 @@ Page({
     },
 
 
+    /**
+     * 临时方法：跳转到 home 界面
+     * 后面会删掉
+     */
     jumpToHome(e){
         swan.navigateTo({
             url: '/pages/home/home'
         });
     }
 
-    // /**
-    //  * 登录
-    //  */
+    /**
+     * 登录
+     */
     // login(e) {
     //     /**
     //      * 先检查是否已经登录
