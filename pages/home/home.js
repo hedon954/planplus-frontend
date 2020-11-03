@@ -34,9 +34,9 @@ Page({
                     });
 
                     // this.getTimeSpan();
-                    while(    setTimeout(this.getTimeSpan(this.data.endTimeList), 1000) >0){
+                    // while(setTimeout(this.getTimeSpan(this.data.endTimeList), 1000) >0){
 
-                    }
+                    // }
 
                     console.log("回来了。。。")
                     console.log(this.data.countDownList);

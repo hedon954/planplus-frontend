@@ -6,8 +6,6 @@ const app = getApp()
 
 Page({
     data: {
-        currentUserId: null,
-        access_token: null,
         userInfo: {},
         hasUserInfo: false,
         canIUse: swan.canIUse('button.open-type.getUserInfo')
@@ -16,14 +14,13 @@ Page({
     /**
      * 页面加载
      */
-    onLoad(options) {
-        console.log("options:"+options.access_token)
+    onLoad() {
         //检查是否已经登录
         swan.request({
-            url: 'http://localhost:9527/project/login/checkLogin',
+            url: 'http://10.133.171.1:9527/project/login/checkLogin',
             // url: 'http://182.61.131.18:9527/project/login/checkLogin',
             header: {
-                'Authorization': 'bearer '+options.access_token
+                'Authorization': 'bearer '+app.data.access_token
             },
             method: 'POST',
             responseType: 'text',
@@ -31,15 +28,10 @@ Page({
                 console.log(res);
                 //已登录
                 if(res.data.code == '1000'){
-                    //设置当前用户ID
-                    this.setData({
-                        currentUserId: res.data.data,
-                        access_token: options.access_token
-                    })
                     console.log("hhhhh"+res.data)
                     //读取当前用户数据
                     swan.request({
-                        url: 'http://localhost:9527/project/user/info',
+                        url: 'http://10.133.171.1:9527/project/user/info',
                         // url: 'http://182.61.131.18:9527/project/user/info',
                         method: 'GET',
                         header:{
@@ -57,9 +49,7 @@ Page({
                             }
                         },
                     })
-                    console.log("当前用户ID："+this.data.currentUserId)
                     console.log("当前用户信息："+this.data.userInfo)
-                    console.log("当前token:"+this.data.access_token)
                 }else{
                     //未登录
                     swan.showModal({
