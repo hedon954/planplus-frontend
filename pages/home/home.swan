@@ -31,6 +31,22 @@
         class="{{activeName}}"
         bindtap="jumpToDetail">
         </task-detail>
+        <task-detail
+        s-for="tasks"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        class="{{activeName}}">
+        </task-detail>
+        <task-detail
+        s-for="tasks"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        class="{{activeName}}">
+        </task-detail>
     </view>
 </view>
 

@@ -41,6 +41,7 @@ Page({
         //检查是否已经登录
         swan.request({
             url: 'http://localhost:9527/project/login/checkLogin',
+            // url: 'http://182.61.131.18:9527/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -59,6 +60,7 @@ Page({
                     swan.request({
 
                         url: 'http://localhost:9527/project/user/info',
+                        // url: 'http://182.61.131.18:9527/project/user/info',
                         method: 'GET',
                         header:{
                             'Authorization': 'bearer '+app.data.access_token
