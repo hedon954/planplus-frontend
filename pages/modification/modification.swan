@@ -51,11 +51,29 @@
     </view>
     <view class="sub-view">
         <label>频率：</label>
-        <input type="text" value="{{frequency}}"/>
+        <view class="pick">
+            <picker mode="selector"
+                    value="{{frequencyIndex}}"
+                    range="{{frequencyList}}"
+                    range-key="name"
+                    bind:change="selectorChange"
+                    id="frq">
+                {{frequencyList[frequencyIndex].name}}
+            </picker>
+        </view>
     </view>
     <view class="sub-view">
-        <label>提醒时间：</label>
-        <input type="text" value="{{remindTime}}"/>
+        <label>提前提醒：</label>
+        <view class="pick">
+            <picker mode="selector"
+                    value="{{aheadTimeIndex}}"
+                    range="{{aheadTimeList}}"
+                    range-key="name"
+                    bind:change="selectorChange"
+                    id="ahd">
+                {{aheadTimeList[aheadTimeIndex].name}}
+            </picker>
+        </view>
     </view>
 </view>
 <view>

@@ -10,6 +10,7 @@ Page({
     },
 
     onLoad: function() {
+        console.log("onLoad...")
         swan.request({
             url: 'http://localhost:9527/project/task/today',
             method: 'GET',
@@ -34,16 +35,15 @@ Page({
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
-                    // let tmp = 0;
-                    // while(this.data.maxTime>0){
-                    //     tmp = setTimeout(this.getTimeSpan(this.data.endTimeList), 1000);
-                    //     this.setData({maxTimeLeft: tmp});
-                    // }
+                    this.interval = setInterval(() => {
+                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
+                            this.interval && clearInterval(this.interval);
+                        }
+                    }, 1000);
+
 
                     console.log("回来了。。。")
                     console.log(this.data.countDownList);
-                    // this.countDown();
-                    // setTimeout(this.countDown, 1000);
                 }
                 catch (error) {
                     console.log(error);
@@ -91,7 +91,6 @@ Page({
     getTimeSpan: function(list) {
         console.log("进来了。。。")
         let nowTime = new Date().getTime();//现在时间（时间戳）
-        // let list = this.data.endTimeList;
         let tmpList = []; //临时存放倒计时列表中的各个元素
         let maxTime = 0;
         for(var i = 0; i < list.length; i++) {
@@ -109,6 +108,12 @@ Page({
         });
         return maxTime;
     },
+
+    onShow: function(){
+        console.log("onshow...")
+
+    },
+
 
     //格式化时间
     timeFormat: function(time) {
@@ -152,50 +157,9 @@ Page({
         console.log(taskId);
         // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
         // console.log(cpn);
-    },
-
-    //最初的倒计时，已废弃
-    countDown: function() {
-        var that = this;
-        var tmpList = that.data.countDownList;
-        tmpList = JSON.parse(JSON.stringify(tmpList));
-        console.log(tmpList);
-        var hour = 0, min = 0, sec = 0;
-        for(var i = 0; i < tmpList.length; i++) {
-            hour = parseInt(tmpList[i].substring(0, 2));
-            min = parseInt(tmpList[i].substring(3, 5));
-            sec = parseInt(tmpList[i].substring(6, 8));
-            console.log("倒计时函数");
-            if(sec > 0) {
-                sec--;
-            } else {
-                sec = 59;
-                if(min > 0) {
-                    min--;
-                } else {
-                    min = 59;
-                    if(hour > 0) {
-                        hour--;
-                    } else {
-                        min = 0; sec = 0;
-                    }
-                }
-            }
-            hour = this.timeFormat(hour);
-            min = this.timeFormat(min);
-            sec = this.timeFormat(sec);
-            tmpList[i] = (hour + ':' + min + ':' + sec);
-        }
-        if(hour>0 || min>0 || sec>0) {
-            this.setData({countDownList: tmpList});
-            console.log(this);
-            // setTimeout(this.countDown, 1000);
-        }
-
-        console.log(this.data.countDownList);
-        // setTimeout(this.countDown, 1000);
-        // this.countDown();
+        swan.navigateTo({
+            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
+        });
     }
-
 
 });

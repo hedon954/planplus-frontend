@@ -12,8 +12,6 @@
         <!-- 标题 -->
         <label>任务列表</label>
         <!-- 切换按钮 -->
-        <!-- <button class="btn1">今日</button>
-        <button class="btn2">明日</button> -->
         <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
             <tab-item class="tab1" name="today" label="今日" />
             <tab-item class="tab2" name="tomorrow" label="明日" />
@@ -33,19 +31,43 @@
         </task-detail>
         <task-detail
         s-for="tasks"
+        id="{{item.taskId}}"
         content="{{item.taskContent}}"
         time="{{item.taskStartTime}}"
         place="{{item.taskPlace}}"
         countDownTime="{{countDownList[index]}}"
-        class="{{activeName}}">
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
         </task-detail>
         <task-detail
         s-for="tasks"
+        id="{{item.taskId}}"
         content="{{item.taskContent}}"
         time="{{item.taskStartTime}}"
         place="{{item.taskPlace}}"
         countDownTime="{{countDownList[index]}}"
-        class="{{activeName}}">
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
+        </task-detail>
+        <task-detail
+        s-for="tasks"
+        id="{{item.taskId}}"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
+        </task-detail>
+        <task-detail
+        s-for="tasks"
+        id="{{item.taskId}}"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
         </task-detail>
     </view>
 </view>
