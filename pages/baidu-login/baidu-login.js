@@ -176,8 +176,17 @@ Page({
         swan.navigateTo({
             url: '/pages/home/home'
         });
-    }
+    },
 
+    formSubmit(e) {
+        console.log(e)
+        swan.showModal({
+            title: '表单数据',
+            content: JSON.stringify(e.detail.message) + '/' +JSON.stringify(e.detail.status),
+            confirmText: '确定',
+            showCancel: false
+        });
+    }
     /**
      * 登录
      */
