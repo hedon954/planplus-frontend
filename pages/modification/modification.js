@@ -1,29 +1,38 @@
 Page({
     data: {
-
+        content: "吃饭",
+        startDate: '2020-11-05',
+        startTime: '12:12',
+        endDate: '2020-11-06',
+        endTime: '14:00',
+        place: '银泰',
+        frequency: '仅一次',
+        remindTime: '提前5分钟'
     },
-    onLoad: function () {
-        // 监听页面加载的生命周期函数
+    dateChangeDay(e) {
+        console.log('picker-date changed，值为', e.detail.value);
+        console.log(e.currentTarget.id);
+        if(e.currentTarget.id == 'startD') {
+            this.setData(
+                'startDate', e.detail.value
+            );
+        } else {
+            this.setData(
+                'endDate', e.detail.value
+            );
+        }
+        console.log(this.data.startDate);
     },
-    onReady: function() {
-        // 监听页面初次渲染完成的生命周期函数
-    },
-    onShow: function() {
-        // 监听页面显示的生命周期函数
-    },
-    onHide: function() {
-        // 监听页面隐藏的生命周期函数
-    },
-    onUnload: function() {
-        // 监听页面卸载的生命周期函数
-    },
-    onPullDownRefresh: function() {
-        // 监听用户下拉动作
-    },
-    onReachBottom: function() {
-        // 页面上拉触底事件的处理函数
-    },
-    onShareAppMessage: function () {
-        // 用户点击右上角转发
+    timeChange(e) {
+        console.log('picker-time changed，值为', e.detail.value);
+        if(e.currentTarget.id == 'startT') {
+            this.setData(
+                'startTime', e.detail.value
+            );
+        } else {
+            this.setData(
+                'endTime', e.detail.value
+            );
+        }
     }
 });

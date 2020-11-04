@@ -1,9 +1,63 @@
-<view>
-    <view>
+<view class="main-view">
+    <view class="sub-view">
         <label>任务内容：</label>
-        <input type="text" placeholder="吃饭"/>
+        <input type="text" value="{{content}}"/>
     </view>
-    <view>
-        <label></label>
+    <view class="sub-view">
+        <label>开始时间：</label>
+        <view class="pick">
+            <picker mode="date"
+                    value="{{startDate}}"
+                    bind:change="dateChangeDay"
+                    fields="day"
+                    id="startD">
+                {{startDate}}
+            </picker>
+            <picker mode="time"
+                    value="{{startTime}}"
+                    start="1:01"
+                    end="22:59"
+                    bind:change="timeChange"
+                    disabled="false"
+                    id="startT">
+                {{startTime}}
+            </picker>
+        </view>
     </view>
+    <view class="sub-view">
+        <label>结束时间：</label>
+        <view class="pick">
+            <picker mode="date"
+                    value="{{endDate}}"
+                    bind:change="dateChangeDay"
+                    fields="day"
+                    id="endD">
+                {{endDate}}
+            </picker>
+            <picker mode="time"
+                    value="{{endTime}}"
+                    start="1:01"
+                    end="22:59"
+                    bind:change="timeChange"
+                    disabled="false"
+                    id="endT">
+                {{endTime}}
+            </picker>
+        </view>
+    </view>
+    <view class="sub-view">
+        <label>地点：</label>
+        <input type="text" value="{{place}}"/>
+    </view>
+    <view class="sub-view">
+        <label>频率：</label>
+        <input type="text" value="{{frequency}}"/>
+    </view>
+    <view class="sub-view">
+        <label>提醒时间：</label>
+        <input type="text" value="{{remindTime}}"/>
+    </view>
+</view>
+<view>
+    <button>保存修改</button>
 </view>
