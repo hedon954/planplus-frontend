@@ -12,7 +12,8 @@ Page({
     onLoad: function() {
         console.log("onLoad...")
         swan.request({
-            url: 'http://localhost:9527/project/task/today',
+            // url: 'http://localhost:9527/project/task/today',
+            url: 'http://10.133.171.1:9527/project/task/today',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -54,7 +55,8 @@ Page({
 
     getTasks: function(e) {
         swan.request({
-            url: 'http://localhost:9527/project/task/' + e.detail.name,
+            // url: 'http://localhost:9527/project/task/' + e.detail.name,
+            url: 'http://10.133.171.1:9527/project/task/' + e.detail.name,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
