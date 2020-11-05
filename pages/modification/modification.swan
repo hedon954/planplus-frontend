@@ -1,7 +1,7 @@
 <view class="main-view">
     <view class="sub-view">
         <label>任务内容：</label>
-        <input type="text" value="{{content}}"/>
+        <input type="text" value="{{content}}" bindinput="contentInput" confirm-type="done"/>
     </view>
     <view class="sub-view">
         <label>开始时间：</label>
@@ -15,8 +15,8 @@
             </picker>
             <picker mode="time"
                     value="{{startTime}}"
-                    start="1:01"
-                    end="22:59"
+                    start="00:00"
+                    end="23:59"
                     bind:change="timeChange"
                     disabled="false"
                     id="startT">
@@ -37,7 +37,7 @@
             <picker mode="time"
                     value="{{endTime}}"
                     start="1:01"
-                    end="22:59"
+                    end="23:59"
                     bind:change="timeChange"
                     disabled="false"
                     id="endT">
@@ -47,7 +47,7 @@
     </view>
     <view class="sub-view">
         <label>地点：</label>
-        <input type="text" value="{{place}}"/>
+        <input type="text" value="{{place}}" bindinput="placeInput" confirm-type="done"/>
     </view>
     <view class="sub-view">
         <label>频率：</label>
@@ -77,5 +77,8 @@
     </view>
 </view>
 <view>
-    <button>保存修改</button>
+    <button bindtap="save">保存修改</button>
+</view>
+<view>
+    <button bindtap="delete" class="delete">删除任务</button>
 </view>

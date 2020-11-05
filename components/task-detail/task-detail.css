@@ -5,12 +5,14 @@
     border-radius: 10rpx;
     display: flex;
 }
+.task-content {
+    width: 48vw;
+}
 label {
-
     font-size: 36rpx;
 }
 .count-down {
-    padding-left: 80rpx;
+    padding-left: 50rpx;
     margin-top: 48rpx;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 64rpx;

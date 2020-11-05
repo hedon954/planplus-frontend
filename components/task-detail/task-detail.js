@@ -15,6 +15,10 @@ Component({
         countDownTime: {
             type: String,
             value: ''
+        },
+        isToday: {
+            type: Boolean,
+            value: true
         }
     },
 

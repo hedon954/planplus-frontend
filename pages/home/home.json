@@ -2,6 +2,7 @@
     "usingComponents": {
         "smt-navigation": "@smt-ui/component/src/navigation",
         "smt-icon": "@smt-ui/component/src/icon",
-        "task-detail": "/components/task-detail/task-detail"
+        "task-detail": "/components/task-detail/task-detail",
+        "diy-modal": "/components/diy-modal/diy-modal"
     }
 }
