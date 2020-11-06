@@ -2,14 +2,18 @@ const app = getApp();
 
 Page({
     data: {
+        showVerifyModal: false, //是否显示自定义模态框
         tasks: [], //任务列表
         activeName: '', //当前选中的tab-item名称
+        isToday: true,
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
         maxTimeLeft: 0 //各个任务中倒计时剩余的最大值
     },
 
-    onLoad: function() {
+    onShow: function() {
+        this.setData('isToday', true);
+        console.log("onLoad...")
         swan.request({
             url: 'http://localhost:9527/project/task/today',
             // url: 'http://10.133.171.1:9527/project/task/today',
@@ -35,16 +39,15 @@ Page({
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
-                    // let tmp = 0;
-                    // while(this.data.maxTime>0){
-                    //     tmp = setTimeout(this.getTimeSpan(this.data.endTimeList), 1000);
-                    //     this.setData({maxTimeLeft: tmp});
-                    // }
+                    this.interval = setInterval(() => {
+                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
+                            this.interval && clearInterval(this.interval);
+                        }
+                    }, 1000);
+
 
                     console.log("回来了。。。")
                     console.log(this.data.countDownList);
-                    // this.countDown();
-                    // setTimeout(this.countDown, 1000);
                 }
                 catch (error) {
                     console.log(error);
@@ -54,6 +57,7 @@ Page({
     },
 
     getTasks: function(e) {
+        this.setData('isToday', e.detail.name == 'today'? true: false);
         swan.request({
             url: 'http://localhost:9527/project/task/' + e.detail.name,
             // url: 'http://10.133.171.1:9527/project/task/' + e.detail.name,
@@ -71,15 +75,6 @@ Page({
                         activeName: e.detail.name,
                         tasks: response
                     });
-
-                    //如果为今天，则显示倒计时；如果为明天，则不显示
-                    // if(e.detail.name == 'today') {
-                    //     let tmp = 0;
-                    //     while(this.data.maxTime>0){
-                    //         tmp = setTimeout(this.getTimeSpan(this.data.endTimeList), 1000);
-                    //         this.setData({maxTimeLeft: tmp});
-                    //     }
-                    // }
                 }
                 catch (error) {
                     console.log(error);
@@ -91,29 +86,35 @@ Page({
 
     // 获取时间差
     getTimeSpan: function(list) {
-        console.log("进来了。。。")
+        // console.log("进来了。。。")
         let nowTime = new Date().getTime();//现在时间（时间戳）
-        // let list = this.data.endTimeList;
         let tmpList = []; //临时存放倒计时列表中的各个元素
         let maxTime = 0;
         for(var i = 0; i < list.length; i++) {
-            console.log("进入循环。。。")
+            // console.log("进入循环。。。")
             let endTime = new Date(list[i]).getTime();//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
             let formatTime = this.timeFormat(time);
             tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
-            console.log("跳出循环。。。")
+            // console.log("跳出循环。。。")
             maxTime = time > maxTime? time: maxTime;
         }
-        console.log("结束循环。。。")
+        // console.log("结束循环。。。")
         this.setData({
             countDownList: tmpList
         });
         return maxTime;
     },
 
+
     //格式化时间
     timeFormat: function(time) {
+        if(time <= 0) {
+            ss = '00';
+            mm = '00';
+            hh = '00';
+            return {ss, mm, hh};
+        }
         let ss = parseInt(time / 1000);
         let mm = 0;
         let hh = 0;
@@ -131,20 +132,44 @@ Page({
         return { ss, mm, hh };
     },
 
-    //显示模态框，确认任务信息
+    //创建任务，显示模态框，确认任务信息
     verifyTask: function() {
-        swan.showModal({
-            title: '待确认任务',
-            content: "【滴答】将在1小时3分钟后提醒你吃饭" + "备注：在锅内锅外，明晚9:00，吃饭",
-            confirmColor: '#ff1111',
+        swan.request({
+            url: 'http://localhost:9527/project/task/create',
+            // url: 'http://10.133.171.1:9527/project/task/' + e.detail.name,
+            method: 'POST',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            data: {
+                taskContent: "黄河淘沙",
+                taskPlace: "壶口",
+                taskRate: 2,
+                taskStartTime: "2020-11-06T17:30:24.826000",
+                taskPredictedFinishTime: "2020-11-06T22:00:24.826000",
+                taskAdvanceRemindTime: 10
+            },
             success: res => {
-                if(res.confirm) {
-                    console.log("确认");
-                } else {
-                    console.log("取消");
+                try {
+                    console.log('任务创建成功...');
+                    console.log(res);
+                    console.log(res.data.data);
+                    this.setData({
+                        taskId: res.data.data
+                    });
+                    console.log(this.data.taskId);
+                }
+                catch (error) {
+                    console.log(error);
                 }
             }
         });
+        this.setData('showVerifyModal', true);
+    },
+
+    //关闭模态框
+    closeModal: function() {
+        this.setData('showVerifyModal', false);
     },
 
     //跳转至详情页
@@ -154,50 +179,9 @@ Page({
         console.log(taskId);
         // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
         // console.log(cpn);
-    },
-
-    //最初的倒计时，已废弃
-    countDown: function() {
-        var that = this;
-        var tmpList = that.data.countDownList;
-        tmpList = JSON.parse(JSON.stringify(tmpList));
-        console.log(tmpList);
-        var hour = 0, min = 0, sec = 0;
-        for(var i = 0; i < tmpList.length; i++) {
-            hour = parseInt(tmpList[i].substring(0, 2));
-            min = parseInt(tmpList[i].substring(3, 5));
-            sec = parseInt(tmpList[i].substring(6, 8));
-            console.log("倒计时函数");
-            if(sec > 0) {
-                sec--;
-            } else {
-                sec = 59;
-                if(min > 0) {
-                    min--;
-                } else {
-                    min = 59;
-                    if(hour > 0) {
-                        hour--;
-                    } else {
-                        min = 0; sec = 0;
-                    }
-                }
-            }
-            hour = this.timeFormat(hour);
-            min = this.timeFormat(min);
-            sec = this.timeFormat(sec);
-            tmpList[i] = (hour + ':' + min + ':' + sec);
-        }
-        if(hour>0 || min>0 || sec>0) {
-            this.setData({countDownList: tmpList});
-            console.log(this);
-            // setTimeout(this.countDown, 1000);
-        }
-
-        console.log(this.data.countDownList);
-        // setTimeout(this.countDown, 1000);
-        // this.countDown();
+        swan.navigateTo({
+            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
+        });
     }
-
 
 });
