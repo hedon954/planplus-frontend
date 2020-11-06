@@ -1,9 +1,18 @@
 <!-- 头部任务输入区域 -->
 <view class="header">
-    <image src="/images/microphone_24px.png"></image>
-    <!-- <input type="text" placeholder="请输入任务内容"/> -->
+    <image src="/images/microphone_24px.png" class="head-img"></image>
     <textarea placeholder="请输入任务内容"/>
-    <image src="/images/checkmark_24px.png" bindtap="verifyTask"></image>
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="10086110011"
+        bindsubmit="verifyTask"
+        bindreset="formReset">
+        <button formType="submit" type="primary" class="head-btn">
+            <image src="/images/checkmark_24px.png" class="form-img"></image>
+        </button>
+    </form>
 </view>
 <!-- 任务列表区域 -->
 <view class="detail">

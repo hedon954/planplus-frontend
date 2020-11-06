@@ -4,7 +4,7 @@ Page({
     data: {
         showVerifyModal: false, //是否显示自定义模态框
         tasks: [], //任务列表
-        activeName: '', //当前选中的tab-item名称
+        activeName: 'today', //当前选中的tab-item名称
         isToday: true,
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
@@ -12,7 +12,10 @@ Page({
     },
 
     onShow: function() {
-        this.setData('isToday', true);
+        this.setData({
+            activeName: 'today',
+            isToday: true
+        });
         console.log("onLoad...")
         swan.request({
             url: 'http://localhost:9527/project/task/today',
@@ -24,6 +27,7 @@ Page({
             success: res => {
                 try {
                     var response = res.data.data;
+                    console.log(res);
                     //防止引用被修改
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
@@ -145,8 +149,8 @@ Page({
                 taskContent: "黄河淘沙",
                 taskPlace: "壶口",
                 taskRate: 2,
-                taskStartTime: "2020-11-06T17:30:24.826000",
-                taskPredictedFinishTime: "2020-11-06T22:00:24.826000",
+                taskStartTime: "2020-11-09T17:30:24.826000",
+                taskPredictedFinishTime: "2020-11-09T22:00:24.826000",
                 taskAdvanceRemindTime: 10
             },
             success: res => {

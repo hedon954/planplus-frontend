@@ -3,6 +3,7 @@ const myDate = new Date();
 
 Page({
     data: {
+        showModal: false,
         taskId: 0,
         content: "", //任务内容
         startDate: '', //任务开始日期
@@ -65,7 +66,8 @@ Page({
         // console.log(myDate.getFullYear() + '-' + myDate.getMonth() + '-' + myDate.getDate());
         // console.log(myDate.getHours() + ':' + myDate.getMinutes());
         this.setData({
-            taskId: options.taskId
+            taskId: options.taskId,
+            showModal: false
         });
         swan.request({
             url: 'http://localhost:9527/project/task/single/' + this.data.taskId,
@@ -76,7 +78,7 @@ Page({
             success: res => {
                 try {
                     var response = res.data.data;
-
+                    console.log(res);
                     for(let i = 0; i < this.data.aheadIndexMap.length; i++) {
                         if(response['taskAdvanceRemindTime'] == this.data.aheadIndexMap[i]) {
                             this.setData('aheadTimeIndex', i);
@@ -98,28 +100,28 @@ Page({
                         aheadTime: response['taskAdvanceRemindTIme']
                     });
                     //初始化日期和时间选择器相关变量
-                    var nowPlusFiveMinutes = myDate.getHours() + ":" + myDate.getMinutes();
-                    var tmp1 = timeCal(nowPlusFiveMinutes, 5);
-                    nowPlusFiveMinutes = tmp1[0];
+                    // var nowPlusFiveMinutes = myDate.getHours() + ":" + myDate.getMinutes();
+                    // var tmp1 = this.timeCal(nowPlusFiveMinutes, 5);
+                    // nowPlusFiveMinutes = tmp1[0];
 
-                    var tmp2 = timeCal(nowPlusFiveMinutes, 1);
-                    var nowPlusSixMinutes = tmp2[0];
+                    // var tmp2 = this.timeCal(nowPlusFiveMinutes, 1);
+                    // var nowPlusSixMinutes = tmp2[0];
 
-                    var today = myDate.toLocaleDateString().replace(/\//g, '-');
-                    console.log('今天是：' + today);
-                    var tomorrow = this.dateCal(today, 1+tmp[1]);
-                    console.log('明天是：' + tomorrow);
-                    var nextday = this.dateCal(this.data.startDate, 1); //任务开始的后一天
-                    this.setData({
-                        startDateStart: today,
-                        startDateDisplay: tomorrow,
-                        startTimeStart: nowPlusFiveMinutes,
-                        startTimeDisplay: this.timeCal(nowPlusFiveMinutes, 1)[0],
-                        endDateStart: this.data.startDate,
-                        endDateDisplay: nextday,
-                        endTimeStart: this.data.startTime,
-                        endTimeDisplay: this.timeCal(this.data.startTime, 1)[0]
-                    });
+                    // var today = myDate.toLocaleDateString().replace(/\//g, '-');
+                    // console.log('今天是：' + today);
+                    // var tomorrow = this.dateCal(today, 1+tmp[1]);
+                    // console.log('明天是：' + tomorrow);
+                    // var nextday = this.dateCal(this.data.startDate, 1); //任务开始的后一天
+                    // this.setData({
+                    //     startDateStart: today,
+                    //     startDateDisplay: tomorrow,
+                    //     startTimeStart: nowPlusFiveMinutes,
+                    //     startTimeDisplay: this.timeCal(nowPlusFiveMinutes, 1)[0],
+                    //     endDateStart: this.data.startDate,
+                    //     endDateDisplay: nextday,
+                    //     endTimeStart: this.data.startTime,
+                    //     endTimeDisplay: this.timeCal(this.data.startTime, 1)[0]
+                    // });
                 }
                 catch (error) {
                     console.log(error);
@@ -208,9 +210,113 @@ Page({
         this.setData('place', e.detail.value);
     },
 
+    //检验开始时间和结束时间是否有效
+    timeValid(time1, time2) {
+        var oDate1 = new Date(time1);
+        var oDate2 = new Date(time2);
+        if(oDate1.getTime() < oDate2.getTime()) {
+            return true;
+        } else{
+            return false;
+        }
+    },
+
+    //将任务保存至草稿箱
+    draft() {
+        console.log('将任务保存至草稿箱。。。')
+        swan.request({
+            url: 'http://localhost:9527/project/task/draft/' + this.data.taskId,
+            method: 'PUT',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            success: res => {
+                try {
+                    console.log('成功保存至草稿箱。。。');
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    },
+
+    //删除任务
+    delete() {
+        swan.request({
+            url: 'http://localhost:9527/project/task/delete/' + this.data.taskId,
+            method: 'DELETE',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            success: res => {
+                try {
+                    console.log('删除成功。。。');
+                    swan.navigateBack({
+
+                    });
+
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    },
+
+    //开始任务
+    start() {
+        console.log('开始任务。。。')
+        swan.request({
+            url: 'http://localhost:9527/project/task/start/' + this.data.taskId,
+            method: 'PUT',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            success: res => {
+                try {
+                    console.log('任务已开始。。。');
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    },
+
+    //结束任务
+    finish() {
+        console.log('结束任务。。。')
+        swan.request({
+            url: 'http://localhost:9527/project/task/finish/' + this.data.taskId,
+            method: 'PUT',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            success: res => {
+                try {
+                    console.log('任务已结束。。。');
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    },
+
     //保存修改
     save() {
         console.log(this.data.content);
+        let begin = this.data.startDate + " " + this.data.startTime;
+        let end = this.data.endDate + " " + this.data.endTime;
+        if(!this.timeValid(begin, end)) {
+            swan.showToast({
+                title: '开始时间需早于结束时间',
+                icon: 'none',
+                duration: 3000
+            });
+            return;
+        }
         swan.request({
             url: 'http://localhost:9527/project/task/modify/' + this.data.taskId,
             method: 'PUT',
@@ -240,20 +346,37 @@ Page({
         });
     },
 
-    delete() {
+    //推迟任务
+    delay() {
+        this.setData('showModal', true);
+        console.log(this.data.showModal);
+    },
+
+    //关闭模态框
+    closeModal() {
+        this.setData('showModal', false);
+    },
+
+    delayConfirm(e) {
+        console.log("推迟任务。。。");
+        console.log(e.currentTarget.id);
+        console.log(this.data.taskId);
         swan.request({
-            url: 'http://localhost:9527/project/task/delete/' + this.data.taskId,
-            method: 'DELETE',
+            url: 'http://localhost:9527/project/task/delay/' + this.data.taskId,
+            method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
+            data: {
+                delayTime: e.currentTarget.id
+            },
             success: res => {
                 try {
-                    console.log('删除成功。。。');
+                    console.log(`任务已推迟${e.currentTarget.id}分钟。。。`);
+                    this.setData('showModal', false);
                     swan.navigateBack({
 
                     });
-
                 }
                 catch (error) {
                     console.log(error);

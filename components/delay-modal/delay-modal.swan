@@ -1,0 +1,11 @@
+<view class="modal-mask" s-if="showDelayModal"></view>
+<view class="modal-dialog" s-if="showDelayModal">
+    <view class="title">
+        <label>请选择推迟时间</label><br>
+    </view>
+    <!-- 通过id确认推迟时间 -->
+    <button bindtap="handleClick" id="15">15分钟</button>
+    <button bindtap="handleClick" id="30">30分钟</button>
+    <button bindtap="handleClick" id="60">60分钟</button>
+    <button bindtap="handleCancel">取消</button>
+</view>
