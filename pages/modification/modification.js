@@ -70,10 +70,6 @@ Page({
             showModal: false
         });
         app.setTaskChanged(false);
-        console.log("我他喵。。。。");
-        console.log(app.data.taskChanged);
-        console.log(app.data.access_token);
-        console.log("你他妈。。。");
         swan.request({
             url: 'http://localhost:9527/project/task/single/' + this.data.taskId,
             method: 'GET',
@@ -104,29 +100,20 @@ Page({
                         frequencyIndex: response['taskRate'],
                         aheadTime: response['taskAdvanceRemindTIme']
                     });
-                    //初始化日期和时间选择器相关变量
-                    // var nowPlusFiveMinutes = myDate.getHours() + ":" + myDate.getMinutes();
-                    // var tmp1 = this.timeCal(nowPlusFiveMinutes, 5);
-                    // nowPlusFiveMinutes = tmp1[0];
-
-                    // var tmp2 = this.timeCal(nowPlusFiveMinutes, 1);
-                    // var nowPlusSixMinutes = tmp2[0];
-
-                    // var today = myDate.toLocaleDateString().replace(/\//g, '-');
-                    // console.log('今天是：' + today);
-                    // var tomorrow = this.dateCal(today, 1+tmp[1]);
-                    // console.log('明天是：' + tomorrow);
-                    // var nextday = this.dateCal(this.data.startDate, 1); //任务开始的后一天
-                    // this.setData({
-                    //     startDateStart: today,
-                    //     startDateDisplay: tomorrow,
-                    //     startTimeStart: nowPlusFiveMinutes,
-                    //     startTimeDisplay: this.timeCal(nowPlusFiveMinutes, 1)[0],
-                    //     endDateStart: this.data.startDate,
-                    //     endDateDisplay: nextday,
-                    //     endTimeStart: this.data.startTime,
-                    //     endTimeDisplay: this.timeCal(this.data.startTime, 1)[0]
-                    // });
+                    var now = myDate.getHours() + ":" + myDate.getMinutes();
+                    var today = myDate.toLocaleDateString().replace(/\//g, '-');
+                    console.log('现在是：'+now);
+                    console.log("一分钟后："+this.timeCal(now, 1));
+                    this.setData({
+                        startDateStart: today,
+                        startDateDisplay: this.dateCal(today, 1),
+                        startTimeStart: now,
+                        startTimeDisplay: this.timeCal(now, 1),
+                        endDateStart: this.data.startDate,
+                        endDateDisplay: this.dateCal(this.data.startDate, 1),
+                        endTimeStart: this.data.startTime,
+                        endTimeDisplay: this.timeCal(this.data.startTime, 1)
+                    });
                 }
                 catch (error) {
                     console.log(error);
@@ -146,7 +133,6 @@ Page({
     timeCal(paramTime, n) {
         let mm = parseInt(paramTime.substring(3));
         let hh = parseInt(paramTime.substring(0, 2));
-        let carryIn = 0; //表示日期是否需要进位
         if(mm + n < 60) {
             mm += n;
         } else {
@@ -155,10 +141,9 @@ Page({
                 hh += 1;
             } else {
                 hh = '00';
-                carryIn = 1;
             }
         }
-        return [`${hh}:${mm}`, carryIn];
+        return `${hh}:${mm}`;
     },
 
     //日期修改
@@ -169,10 +154,23 @@ Page({
             this.setData(
                 'startDate', e.detail.value
             );
+            let today = myDate.toLocaleDateString().replace(/\//g, '-');
+            if(e.detail.value != today) {
+                this.setData('startTimeStart', '00:00');
+            }
+            this.setData({
+                endDateStart: this.data.startDate,
+                endDateDisplay: this.dateCal(this.data.startDate, 1),
+                endTimeStart: this.data.startTime,
+                endTimeDisplay: this.timeCal(this.data.startTime, 1)
+            });
         } else if(e.currentTarget.id == 'endD') {
             this.setData(
                 'endDate', e.detail.value
             );
+            if(e.detail.value != this.data.startDate) {
+                this.setData('endTimeStart', '00:00');
+            }
         }
         console.log(this.data.startDate);
     },
@@ -184,6 +182,12 @@ Page({
             this.setData(
                 'startTime', e.detail.value
             );
+            this.setData({
+                endDateStart: this.data.startDate,
+                endDateDisplay: this.dateCal(this.data.startDate, 1),
+                endTimeStart: this.data.startTime,
+                endTimeDisplay: this.timeCal(this.data.startTime, 1)
+            });
         } else {
             this.setData(
                 'endTime', e.detail.value
@@ -320,7 +324,7 @@ Page({
         let end = this.data.endDate + " " + this.data.endTime;
         if(!this.timeValid(begin, end)) {
             swan.showToast({
-                title: '开始时间需早于结束时间',
+                title: '结束时间需晚于开始时间',
                 icon: 'none',
                 duration: 3000
             });

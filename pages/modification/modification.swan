@@ -14,7 +14,8 @@
         <view class="pick">
         <!-- 注：value值必须小于start值，否则默认显示（选中）的是有效范围的最后一天（nao‘can设定） -->
             <picker mode="date"
-                    value="{{startDate}}"
+                    value="{{startDateDisplay}}"
+                    start="{{startDateStart}}"
                     bind:change="dateChangeDay"
                     fields="day"
                     id="startD">
@@ -22,8 +23,8 @@
             </picker>
             <!-- 时间选择器默认时间范围是1:00到22:59 -->
             <picker mode="time"
-                    value="{{startTime}}"
-                    start="00:00"
+                    value="{{startTimeDisplay}}"
+                    start="{{startTimeStart}}"
                     end="23:59"
                     bind:change="timeChange"
                     disabled="false"
@@ -44,8 +45,8 @@
                 {{endDate}}
             </picker>
             <picker mode="time"
-                    value="{{endTime}}"
-                    start="1:01"
+                    value="{{endTimeDisplay}}"
+                    start="{{endTimeStart}}"
                     end="23:59"
                     bind:change="timeChange"
                     disabled="false"
