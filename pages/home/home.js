@@ -3,6 +3,7 @@ const app = getApp();
 Page({
     data: {
         showVerifyModal: false, //是否显示自定义模态框
+        timeConflict: false, //新建任务所在时间段是否已存在任务，用于确定是否显示自定义模态框的警告区域
         tasks: [], //任务列表
         activeName: 'today', //当前选中的tab-item名称
         isToday: true,
@@ -11,12 +12,64 @@ Page({
         maxTimeLeft: 0 //各个任务中倒计时剩余的最大值
     },
 
-    onShow: function() {
+    onLoad: function() {
         this.setData({
             activeName: 'today',
             isToday: true
         });
         console.log("onLoad...")
+        swan.request({
+            url: 'http://localhost:9527/project/task/today',
+            // url: 'http://10.133.171.1:9527/project/task/today',
+            method: 'GET',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            success: res => {
+                try {
+                    var response = res.data.data;
+                    console.log(res);
+                    //防止引用被修改
+                    response = JSON.parse(JSON.stringify(response));
+                    var startTimeString = '';
+                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    for(var i = 0; i < response.length; i++) {
+                        startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
+                        startTimeString = response[i]['taskStartTime'].substring(11, 19);
+                        response[i]['taskStartTime'] = startTimeString;
+                    }
+                    this.setData({
+                        tasks: response,
+                        endTimeList: startTimeList
+                    });
+
+                    //每隔一秒刷新倒计时，直至所有倒计时都为0
+                    this.interval = setInterval(() => {
+                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
+                            this.interval && clearInterval(this.interval);
+                        }
+                    }, 1000);
+
+
+                    console.log("回来了。。。")
+                    console.log(this.data.countDownList);
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    },
+
+    onShow: function() {
+        this.setData({
+            activeName: 'today',
+            isToday: true
+        });
+        console.log("onShow...")
+        if(!app.data.taskChanged) {
+            return;
+        }
         swan.request({
             url: 'http://localhost:9527/project/task/today',
             // url: 'http://10.133.171.1:9527/project/task/today',

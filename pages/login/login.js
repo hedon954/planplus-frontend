@@ -53,7 +53,7 @@ Page({
             success: res => {
                 console.log('request success', res);
 
-                app.setData(res.data.data.access_token)
+                app.setAccessToken(res.data.data.access_token)
 
                 //成功的话就跳转
                 swan.redirectTo({

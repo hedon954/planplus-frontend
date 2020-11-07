@@ -69,6 +69,11 @@ Page({
             taskId: options.taskId,
             showModal: false
         });
+        app.setTaskChanged(false);
+        console.log("我他喵。。。。");
+        console.log(app.data.taskChanged);
+        console.log(app.data.access_token);
+        console.log("你他妈。。。");
         swan.request({
             url: 'http://localhost:9527/project/task/single/' + this.data.taskId,
             method: 'GET',
@@ -233,6 +238,7 @@ Page({
             success: res => {
                 try {
                     console.log('成功保存至草稿箱。。。');
+                    app.setTaskChanged(true);
                 }
                 catch (error) {
                     console.log(error);
@@ -252,6 +258,7 @@ Page({
             success: res => {
                 try {
                     console.log('删除成功。。。');
+                    app.setTaskChanged(true);
                     swan.navigateBack({
 
                     });
@@ -276,6 +283,7 @@ Page({
             success: res => {
                 try {
                     console.log('任务已开始。。。');
+                    app.setTaskChanged(true);
                 }
                 catch (error) {
                     console.log(error);
@@ -296,6 +304,7 @@ Page({
             success: res => {
                 try {
                     console.log('任务已结束。。。');
+                    app.setTaskChanged(true);
                 }
                 catch (error) {
                     console.log(error);
@@ -334,6 +343,7 @@ Page({
             success: res => {
                 try {
                     console.log('保存成功。。。');
+                    app.setTaskChanged(true);
                     swan.navigateBack({
 
                     });
@@ -362,17 +372,16 @@ Page({
         console.log(e.currentTarget.id);
         console.log(this.data.taskId);
         swan.request({
-            url: 'http://localhost:9527/project/task/delay/' + this.data.taskId,
+            url: 'http://localhost:9527/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
-            data: {
-                delayTime: e.currentTarget.id
-            },
             success: res => {
+                console.log(res);
                 try {
                     console.log(`任务已推迟${e.currentTarget.id}分钟。。。`);
+                    app.setTaskChanged(true);
                     this.setData('showModal', false);
                     swan.navigateBack({
 
