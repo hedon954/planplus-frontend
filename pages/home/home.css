@@ -7,7 +7,7 @@
     border-radius: 36rpx;
 
 }
-.header image {
+.head-img {
     height: 60rpx;
     width: 60rpx;
     margin: 42rpx 5rpx;
@@ -17,6 +17,17 @@
     margin-right: 18rpx;
     height: 15vh;
     padding-top: 30rpx;
+}
+.head-btn {
+    height: 60rpx;
+    width: 60rpx;
+    margin: 42rpx 5rpx;
+}
+.form-img {
+    height: 60rpx;
+    width: 60rpx;
+    margin-left: -30rpx;
+    margin-bottom: 10rpx;
 }
 
 .detail {

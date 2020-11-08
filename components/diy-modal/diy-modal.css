@@ -2,7 +2,7 @@
     height: 100vh;
     width: 100vw;
     position: fixed;
-    margin: -1030rpx 0rpx;
+    margin: -1530rpx 0rpx;
     z-index: 9000;
     background-color: white;
     opacity: 0.7;
@@ -14,7 +14,7 @@
     padding-top: 40rpx;
     border-radius: 40rpx;
     background-color: whitesmoke;
-    margin: -840rpx 130rpx;
+    margin: -1300rpx 130rpx;
     position: fixed;
     z-index: 9500;
 }

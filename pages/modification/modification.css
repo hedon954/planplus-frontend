@@ -1,3 +1,13 @@
+.head-view {
+    display: flex;
+    margin-top: 20rpx;
+}
+image {
+    height: 100rpx;
+    width: 100rpx;
+    margin-top: -20rpx;
+    margin-left: -48rpx;
+}
 .main-view {
     margin: 60rpx 20rpx 20rpx 10rpx;
 }
@@ -29,12 +39,13 @@ input {
     padding-left: 20rpx;
     border-radius: 10rpx;
 }
-button {
-    margin-top: 40rpx;
-    font-size: 36rpx;
-    height: 80rpx;
-    width: 440rpx;
+.bottom {
+    display: flex;
+    margin-bottom: 40rpx;
 }
-.delete {
-    color:red;
+button {
+    height: 60rpx;
+    width: 60rpx;
+    align-content: center;
+    margin-left: 100rpx;
 }
