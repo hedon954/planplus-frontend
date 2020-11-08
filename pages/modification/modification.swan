@@ -105,7 +105,7 @@
         subscribe-id="10086110011"
         bindsubmit="save"
         bindreset="formReset">
-        <button formType="submit" type="primary">
+        <button formType="submit">
             <image src="/images/save_24px.png"></image>
         </button>
     </form>
@@ -117,7 +117,7 @@
         subscribe-id="10086110011"
         bindsubmit="delay"
         bindreset="formReset">
-        <button formType="submit" type="primary">
+        <button formType="submit">
             <image src="/images/schedule_mail_24px.png"></image>
         </button>
     </form>

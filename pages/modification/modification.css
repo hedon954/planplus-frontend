@@ -48,4 +48,8 @@ button {
     width: 60rpx;
     align-content: center;
     margin-left: 100rpx;
+    background-color: whitesmoke;
+}
+button::after {
+    border: 0;
 }

@@ -16,23 +16,28 @@
         "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
     },
-
     "tabBar": {
         "color": "#666",
         "selectedColor": "#000",
         "borderStyle": "#D6D6D6",
-        "backgroundColor":"#4169E1",
+        "backgroundColor": "#FFF",
         "list": [
             {
                 "pagePath": "pages/home/home",
+                "iconPath": "/images/component_normal.png",
+                "selectedIconPath": "/images/component_selected.png",
                 "text": "首页"
             },
             {
-                "pagePath": "",
+                "pagePath": "pages/baidu-login/baidu-login",
+                "iconPath": "/images/API_normal.png",
+                "selectedIconPath": "/images/API_selected.png",
                 "text": "统计"
             },
             {
                 "pagePath": "pages/user-info/user-info",
+                "iconPath": "/images/smtui_normal.png",
+                "selectedIconPath": "/images/smtui_selected.png",
                 "text": "我的"
             }
         ]

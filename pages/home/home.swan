@@ -9,7 +9,7 @@
         subscribe-id="10086110011"
         bindsubmit="verifyTask"
         bindreset="formReset">
-        <button formType="submit" type="primary" class="head-btn">
+        <button formType="submit" class="head-btn">
             <image src="/images/checkmark_24px.png" class="form-img"></image>
         </button>
     </form>
