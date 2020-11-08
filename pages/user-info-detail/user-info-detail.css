@@ -1,9 +1,15 @@
 .item{
     height: 90.58rpx;
-    border-bottom: solid rgb(214, 211, 211) 1.208rpx;
+    /*border-bottom: solid rgb(214, 211, 211) 1.208rpx;*/
     display: flex;
     align-items: center;
     /* justify-content: space-around; */
+}
+
+.avatar-item{
+    height: 211.353rpx;
+    display: flex;
+    align-items: center;
 }
 
 .name-input{
@@ -13,7 +19,7 @@
 
 .property{
     font-size: 33.213rpx;
-    margin-left: 30.193rpx;
+    margin-left: 80rpx;
     margin-right: 120.773rpx;
 }
 
@@ -23,7 +29,24 @@
 }
 
 .button{
-    width: 70%;
+    width: 25%;
+    margin-left: 452.899rpx;
     margin-top: 60.386rpx;
     font-size: 30rpx;
+    border-radius: 6.039rpx;
+}
+
+.avatar{
+    margin-top: 12.077rpx;
+    margin-left: 66.425rpx;
+    border-radius: 85rpx;
+    width: 140rpx;
+    height: 140rpx;
+    border: 4rpx whitesmoke solid;
+}
+
+.title{
+    font-size: 42rpx;
+    margin-left: 70rpx;
+    margin-right: 220rpx;
 }

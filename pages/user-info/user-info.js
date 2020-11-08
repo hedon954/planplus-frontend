@@ -5,30 +5,12 @@ Page({
         userGender:-1,
         userBirthday:"",
         userAvatarUrl:"",
-        userGenderText:""
+        userGenderText:"未知"
     },
 
     goToDetail:function(id){
         swan.navigateTo({
             url: '../../pages/user-info-detail/user-info-detail'
-        });
-    },
-
-    getUserInfo:function(e){
-        swan.request({
-            url: 'http://127.0.0.1:10030/project/user/2',
-            method:"GET",
-            success:res=>{
-                console.log("①");
-                console.log(res.data.data);
-                this.setData(
-                    {
-                        userNickname:res.data.data.userNickname,
-                        userAvatarUrl:res.data.data.userAvatarUrl,
-                        userGender:res.data.data.userGender,
-                    }
-                )
-            }
         });
     },
 
@@ -39,15 +21,15 @@ Page({
             url: 'http://127.0.0.1:10030/project/user/2',
             method:"GET",
             success:res=>{
-                console.log("①");
-                console.log(res.data.data);
                 this.setData(
                     {
                         userNickname:res.data.data.userNickname,
                         userAvatarUrl:res.data.data.userAvatarUrl,
                         userGender:res.data.data.userGender,
+                        userBirthday:res.data.data.userBirthday,
                     }
                 )
+                console.log(this.data.userAvatarUrl);
                 switch(this.data.userGender)
                 {
                     case 0:

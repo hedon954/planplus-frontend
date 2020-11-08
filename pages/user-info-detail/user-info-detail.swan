@@ -1,5 +1,11 @@
 <view class="info-detail-container">
     <view>
+        <view class="avatar-item">
+            <text class="title">编辑资料</text>
+            <image src={{userAvatarUrl}}
+                class="avatar">
+            </image>
+        </view>
         <view class="item">
             <text class="property">昵称</text>
             <input class="name-input" type="text" placeholder="默认值"/>
@@ -12,7 +18,7 @@
             <text class="property">性别</text>
             <picker mode="selector" class="birthday">男</picker>
         </view>
-        <button class="button">确认修改</button>
+        <button class="button">确定</button>
     </view>
     <!--to do-->
 </view>
