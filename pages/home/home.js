@@ -3,13 +3,46 @@ const app = getApp();
 Page({
     data: {
         showVerifyModal: false, //是否显示自定义模态框
-        timeConflict: false, //新建任务所在时间段是否已存在任务，用于确定是否显示自定义模态框的警告区域
+
         tasks: [], //任务列表
         activeName: 'today', //当前选中的tab-item名称
         isToday: true,
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
-        maxTimeLeft: 0 //各个任务中倒计时剩余的最大值
+        maxTimeLeft: 0, //各个任务中倒计时剩余的最大值
+
+
+        /**
+         * 单个任务属性
+         */
+        // taskId: null,
+        taskId: null,
+        taskContent: "阿里巴巴的黄河淘沙",
+        taskPlace: "壶口",
+        taskRate: 2,
+        taskStartTime: "2020-11-09T17:30:24.826000",
+        taskPredictedFinishTime: "2020-11-09T22:00:24.826000",
+        taskAdvanceRemindTime: 10,
+
+
+        /**
+         * 任务提醒模态框需要的数据
+         */
+        taskRemindStr: '',
+        taskRemarkStr: '',
+        /**
+         * 根据后台是否有数据给出预测时间
+         */
+        hasPredicedTime: false,
+        predictedConsumedTimeStr: '',
+
+        /**
+         * 新建任务所在时间段是否已存在任务，用于确定是否显示自定义模态框的警告区域
+         */
+        timeConflict: false,
+
+        conflictTaskStr: '',
+
     },
 
     onLoad: function() {
@@ -199,29 +232,74 @@ Page({
                 'Authorization': 'bearer ' + app.data.access_token
             },
             data: {
-                taskContent: "黄河淘沙",
-                taskPlace: "壶口",
-                taskRate: 2,
-                taskStartTime: "2020-11-09T17:30:24.826000",
-                taskPredictedFinishTime: "2020-11-09T22:00:24.826000",
-                taskAdvanceRemindTime: 10
+                taskContent: this.data.taskContent,
+                taskPlace: this.data.taskPlace,
+                taskRate: this.data.taskRate,
+                taskStartTime: this.data.taskStartTime,
+                taskPredictedFinishTime: this.data.taskPredictedFinishTime,
+                taskAdvanceRemindTime: this.data.taskAdvanceRemindTime
             },
             success: res => {
-                try {
-                    console.log('任务创建成功...');
-                    console.log(res);
-                    console.log(res.data.data);
+                //创建成功
+
+                if(res.data.code == '1000'){
+                    //获取剩余时间
+                    let timeLeft = this.getTimeLeft(this.data.taskStartTime);
+                    //初始化参数
                     this.setData({
-                        taskId: res.data.data
+                        taskId: res.data.data,
+                        taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}`,
+                        taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}`,
+                        predictedConsumedTimeStr: '',
+                        conflictTaskStr: ''
                     });
-                    console.log(this.data.taskId);
+                    //预测耗时
+                    if(this.data.hasPredicedTime){
+                        this.setData({
+                            predictedConsumedTimeStr: '预计耗时：' + '2h'
+                        })
+                    };
+                    //时间冲突
+                    if(this.data.timeConflict){
+                        this.setData({
+                            conflictTaskStr: '小程序检测出您在该时间段内有任务'
+                        })
+                    }
+
+
+                    swan.showModal({
+                        title: '创建成功',
+                        content:
+
+                        // '将在'+'30分钟'+'后提醒你'+'吃饭'+'\r\n'
+                        this.data.taskRemindStr
+
+                        // +'[备注]在'+'银泰'+'20:00'+'\r\n'
+                        + this.data.taskRemarkStr + '\r\n'
+
+                        // +'预计耗时：'+'30min'+'\r\n'
+
+                        + this.data.predictedConsumedTimeStr + '\r\n'
+
+                        // +'小程序检测出您在该时间段内有'+'学习'+'任务',
+                        + this.data.conflictTaskStr  + '\r\n'
+                        ,
+                        showCancel: true,
+                        cancelText: '确定',
+                        confirmText: '修改',
+                        success: res=>{
+                            if(res.confirm){
+                                swan.navigateTo({
+                                    url:'/pages/modification/modification?taskId='+this.data.taskId
+                                });
+                            }
+                        }
+                    });
                 }
-                catch (error) {
-                    console.log(error);
-                }
+
             }
         });
-        this.setData('showVerifyModal', true);
+        // this.setData('showVerifyModal', true);
     },
 
     //关闭模态框
@@ -239,6 +317,21 @@ Page({
         swan.navigateTo({
             url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
         });
+    },
+
+    //计算剩余时间
+    getTimeLeft(start){
+        let nowTime  = new Date().getTime();
+        let startTime = new Date(start).getTime();
+        let minutes = (startTime - nowTime)/1000/60;
+        let hour = parseInt(minutes / 60) ;
+        let minute = parseInt(minutes % 60);
+        if(hour > 0){
+            return hour+'小时'+ minute +'分钟';
+        }
+        if(hour == 0){
+            return minute +'分钟';
+        }
     }
 
 });
