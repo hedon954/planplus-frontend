@@ -22,6 +22,11 @@
     height: 60rpx;
     width: 60rpx;
     margin: 42rpx 5rpx;
+    background-color: whitesmoke;
+}
+
+.head-btn::after {
+    border: 0;
 }
 .form-img {
     height: 60rpx;
@@ -34,7 +39,7 @@
     background-color: whitesmoke;
     border-radius: 36rpx;
     margin: 20rpx;
-    min-height: 65vh;
+    min-height: 78vh;
 }
 
 .title {
