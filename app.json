@@ -13,5 +13,31 @@
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
+    },
+    "tabBar": {
+        "color": "#666",
+        "selectedColor": "#000",
+        "borderStyle": "#D6D6D6",
+        "backgroundColor": "#FFF",
+        "list": [
+            {
+                "pagePath": "index/index",
+                "iconPath": "/images/component_normal.png",
+                "selectedIconPath": "/images/component_selected.png",
+                "text": "组件"
+            },
+            {
+                "pagePath": "detail/detail",
+                "iconPath": "/images/API_normal.png",
+                "selectedIconPath": "/images/API_selected.png",
+                "text": "接口"
+            },
+            {
+                "pagePath": "detail2/detail2",
+                "iconPath": "/images/smtui_normal.png",
+                "selectedIconPath": "/images/smtui_selected.png",
+                "text": "扩展能力"
+            }
+        ]
     }
 }
