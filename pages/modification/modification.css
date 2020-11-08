@@ -1,0 +1,51 @@
+.head-view {
+    display: flex;
+    margin-top: 20rpx;
+}
+image {
+    height: 100rpx;
+    width: 100rpx;
+    margin-top: -20rpx;
+    margin-left: -48rpx;
+}
+.main-view {
+    margin: 60rpx 20rpx 20rpx 10rpx;
+}
+.sub-view {
+    display: flex;
+    margin: 60rpx 60rpx 60rpx 40rpx;
+    font-size: 30rpx;
+}
+label {
+    width: 180rpx;
+    text-align: right;
+}
+.pick {
+    background-color: rgb(227, 225, 231);
+    width: 420rpx;
+    height: 60rpx;
+    padding-left: 20rpx;
+    border-radius: 10rpx;
+    display: flex;
+}
+picker {
+    padding-right: 40rpx;
+    padding-top: 8rpx;
+}
+input {
+    background-color: rgb(227, 225, 231);
+    width: 420rpx;
+    height: 60rpx;
+    padding-left: 20rpx;
+    border-radius: 10rpx;
+}
+.bottom {
+    display: flex;
+    margin-bottom: 40rpx;
+}
+button {
+    height: 60rpx;
+    width: 60rpx;
+    align-content: center;
+    margin-left: 100rpx;
+}

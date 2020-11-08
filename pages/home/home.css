@@ -1,0 +1,63 @@
+.header {
+    margin: 20rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 36rpx;
+
+}
+.head-img {
+    height: 60rpx;
+    width: 60rpx;
+    margin: 42rpx 5rpx;
+}
+.header textarea {
+    margin-left: 18rpx;
+    margin-right: 18rpx;
+    height: 15vh;
+    padding-top: 30rpx;
+}
+.head-btn {
+    height: 60rpx;
+    width: 60rpx;
+    margin: 42rpx 5rpx;
+}
+.form-img {
+    height: 60rpx;
+    width: 60rpx;
+    margin-left: -30rpx;
+    margin-bottom: 10rpx;
+}
+
+.detail {
+    background-color: whitesmoke;
+    border-radius: 36rpx;
+    margin: 20rpx;
+    min-height: 65vh;
+}
+
+.title {
+    display: flex;
+    background-color: lightgrey;
+    border-top-left-radius: 36rpx;
+    border-top-right-radius: 36rpx;
+    height: 60rpx;
+    overflow: hidden;
+}
+.title label {
+    margin: 10rpx 260rpx 10rpx 20rpx;
+    font-size: small;
+    text-align: left;
+    width: 200rpx;
+}
+.title tabs {
+    margin: 10rpx 5rpx;
+    height: 40rpx;
+    width: 200rpx;
+    border-radius: 36rpx;
+}
+.title tab-item {
+    background-color: lightgrey;
+    font-size: 6.039rpx;
+}

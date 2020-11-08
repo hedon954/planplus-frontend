@@ -1,0 +1,21 @@
+<custom chineseName="登录" engName="login"></custom>
+<view class="wrap">
+
+    <view class="card-area">登录后第一个跳转到的界面是今日任务界面</view>
+
+    <view class="card-area">
+        <button bindtap="jumpToHome" type="primary" hover-stop-propagation="true">跳转到今日任务界面</button>
+    </view>
+
+    <view class="wrap">
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="10086110011"
+        bindsubmit="formSubmit"
+        bindreset="formReset">
+        <button formType="submit" type="primary">report-type为subscribe</button>
+    </form>
+</view>
+</view>

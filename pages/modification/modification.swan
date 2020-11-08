@@ -1,0 +1,127 @@
+<view class="head-view">
+    <!-- 保存草稿 -->
+    <button bindtap="draft"><image src="/images/draft_24px.png"></image></button>
+    <!-- 删除任务 -->
+    <button bindtap="delete"><image src="/images/trash_24px.png"></image></button>
+</view>
+<view class="main-view">
+    <view class="sub-view">
+        <label>任务内容：</label>
+        <input type="text" value="{{content}}" bindinput="contentInput" confirm-type="done"/>
+    </view>
+    <view class="sub-view">
+        <label>开始时间：</label>
+        <view class="pick">
+        <!-- 注：value值必须小于start值，否则默认显示（选中）的是有效范围的最后一天（nao‘can设定） -->
+            <picker mode="date"
+                    value="{{startDateDisplay}}"
+                    start="{{startDateStart}}"
+                    bind:change="dateChangeDay"
+                    fields="day"
+                    id="startD">
+                {{startDate}}
+            </picker>
+            <!-- 时间选择器默认时间范围是1:00到22:59 -->
+            <picker mode="time"
+                    value="{{startTimeDisplay}}"
+                    start="{{startTimeStart}}"
+                    end="23:59"
+                    bind:change="timeChange"
+                    disabled="false"
+                    id="startT">
+                {{startTime}}
+            </picker>
+        </view>
+    </view>
+    <view class="sub-view">
+        <label>结束时间：</label>
+        <view class="pick">
+            <picker mode="date"
+                    value="{{endDateDisplay}}"
+                    bind:change="dateChangeDay"
+                    fields="day"
+                    start="{{endDateStart}}"
+                    id="endD">
+                {{endDate}}
+            </picker>
+            <picker mode="time"
+                    value="{{endTimeDisplay}}"
+                    start="{{endTimeStart}}"
+                    end="23:59"
+                    bind:change="timeChange"
+                    disabled="false"
+                    id="endT">
+                {{endTime}}
+            </picker>
+        </view>
+    </view>
+    <view class="sub-view">
+        <label>地点：</label>
+        <input type="text" value="{{place}}" bindinput="placeInput" confirm-type="done"/>
+    </view>
+    <view class="sub-view">
+        <label>频率：</label>
+        <view class="pick">
+            <picker mode="selector"
+                    value="{{frequencyIndex}}"
+                    range="{{frequencyList}}"
+                    range-key="name"
+                    bind:change="selectorChange"
+                    id="frq">
+                {{frequencyList[frequencyIndex].name}}
+            </picker>
+        </view>
+    </view>
+    <view class="sub-view">
+        <label>提前提醒：</label>
+        <view class="pick">
+            <picker mode="selector"
+                    value="{{aheadTimeIndex}}"
+                    range="{{aheadTimeList}}"
+                    range-key="name"
+                    bind:change="selectorChange"
+                    id="ahd">
+                {{aheadTimeList[aheadTimeIndex].name}}
+            </picker>
+        </view>
+    </view>
+</view>
+<view class="bottom">
+    <!-- 开始任务 -->
+    <button bindtap="start">
+        <image src="/images/start_24px.png"></image>
+    </button>
+    <!-- 结束任务 -->
+   <button bindtap="finish">
+        <image src="/images/finish_flag_24px.png"></image>
+    </button>
+</view>
+<view class="bottom">
+    <!-- 保存修改 -->
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="10086110011"
+        bindsubmit="save"
+        bindreset="formReset">
+        <button formType="submit" type="primary">
+            <image src="/images/save_24px.png"></image>
+        </button>
+    </form>
+    <!-- 推迟任务 -->
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="10086110011"
+        bindsubmit="delay"
+        bindreset="formReset">
+        <button formType="submit" type="primary">
+            <image src="/images/schedule_mail_24px.png"></image>
+        </button>
+    </form>
+</view>
+
+<!-- 用于选择任务推迟时间的自定义模态框 -->
+<delay-modal showDelayModal="{{showModal}}" bind:handleDelay="delayConfirm" bind:handleClose="closeModal"></delay-modal>

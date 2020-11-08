@@ -1,0 +1,69 @@
+<!-- 头部任务输入区域 -->
+<view class="header">
+    <image src="/images/microphone_24px.png" class="head-img"></image>
+    <textarea placeholder="请输入任务内容"/>
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="10086110011"
+        bindsubmit="verifyTask"
+        bindreset="formReset">
+        <button formType="submit" type="primary" class="head-btn">
+            <image src="/images/checkmark_24px.png" class="form-img"></image>
+        </button>
+    </form>
+</view>
+<!-- 任务列表区域 -->
+<view class="detail">
+    <!-- 标题区域，包含日期切换按钮 -->
+    <view class="title">
+        <!-- 标题 -->
+        <label>任务列表</label>
+        <!-- 切换按钮 -->
+        <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
+            <tab-item class="tab1" name="today" label="今日" />
+            <tab-item class="tab2" name="tomorrow" label="明日" />
+        </tabs>
+    </view>
+    <!-- 任务列表 -->
+    <view class="list">
+        <task-detail
+        s-for="tasks"
+        id="{{item.taskId}}"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        isToday="{{isToday}}"
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
+        </task-detail>
+        <task-detail
+        s-for="tasks"
+        id="{{item.taskId}}"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        isToday="{{isToday}}"
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
+        </task-detail>
+        <task-detail
+        s-for="tasks"
+        id="{{item.taskId}}"
+        content="{{item.taskContent}}"
+        time="{{item.taskStartTime}}"
+        place="{{item.taskPlace}}"
+        countDownTime="{{countDownList[index]}}"
+        isToday="{{isToday}}"
+        class="{{activeName}}"
+        bindtap="jumpToDetail">
+        </task-detail>
+    </view>
+</view>
+<!-- 自定义模态框 -->
+<diy-modal showDiyModal="{{showVerifyModal}}" bind:modifyTaskInfo="jumpToDetail" bind:verifyTaskInfo="closeModal" isConflict="{{timeConflict}}"></diy-modal>
+
+<!-- 底部导航栏 -->

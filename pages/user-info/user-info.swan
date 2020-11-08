@@ -2,7 +2,7 @@
     <view class="info-card">
         <view class="username-box">
             <text class="username">{{userNickname}}</text>
-            <image src={{userAvatarUrl}}
+            <image src="{{userAvatarUrl == undefined ? '../../images/test_avatar.JPG' : userAvatarUrl}}"
                 class="avatar">
             </image>
         </view>
