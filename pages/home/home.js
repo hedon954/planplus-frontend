@@ -1,30 +1,27 @@
 const app = getApp();
 
 Page({
+    /**
+     * 数据
+     */
     data: {
         showVerifyModal: false, //是否显示自定义模态框
-
         tasks: [], //任务列表
         activeName: 'today', //当前选中的tab-item名称
         isToday: true,
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
         maxTimeLeft: 0, //各个任务中倒计时剩余的最大值
-
-
         /**
          * 单个任务属性
          */
-        // taskId: null,
         taskId: null,
         taskContent: "阿里巴巴的黄河淘沙",
         taskPlace: "壶口",
         taskRate: 2,
-        taskStartTime: "2020-11-09T17:30:24.826000",
+        taskStartTime: "2020-11-09T17:04:10.826000",
         taskPredictedFinishTime: "2020-11-09T22:00:24.826000",
         taskAdvanceRemindTime: 10,
-
-
         /**
          * 任务提醒模态框需要的数据
          */
@@ -35,25 +32,27 @@ Page({
          */
         hasPredicedTime: false,
         predictedConsumedTimeStr: '',
-
         /**
          * 新建任务所在时间段是否已存在任务，用于确定是否显示自定义模态框的警告区域
          */
         timeConflict: false,
-
         conflictTaskStr: '',
-
     },
 
+    /**
+     * 当页面加载时
+     */
     onLoad: function() {
+        //先检查是否已登录
+        this.checkLoginOrNot();
+        //已登录->查询今日任务
         this.setData({
             activeName: 'today',
             isToday: true
         });
-        console.log("onLoad...")
+        //查询今日任务
         swan.request({
             url: 'http://localhost:9527/project/task/today',
-            // url: 'http://10.133.171.1:9527/project/task/today',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -61,7 +60,6 @@ Page({
             success: res => {
                 try {
                     var response = res.data.data;
-                    console.log(res);
                     //防止引用被修改
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
@@ -82,10 +80,6 @@ Page({
                             this.interval && clearInterval(this.interval);
                         }
                     }, 1000);
-
-
-                    console.log("回来了。。。")
-                    console.log(this.data.countDownList);
                 }
                 catch (error) {
                     console.log(error);
@@ -94,6 +88,9 @@ Page({
         });
     },
 
+    /**
+     * 页面每次展示都要执行的函数
+     */
     onShow: function() {
         this.setData({
             activeName: 'today',
@@ -105,7 +102,6 @@ Page({
         }
         swan.request({
             url: 'http://localhost:9527/project/task/today',
-            // url: 'http://10.133.171.1:9527/project/task/today',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -146,6 +142,107 @@ Page({
         });
     },
 
+
+    /**
+     * 检查是否已登录
+     */
+    checkLoginOrNot: function(){
+        //先检查用户是否已经登录
+        swan.request({
+            url: 'http://localhost:9527/project/login/checkLogin',
+            header: {
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            method: 'POST',
+            responseType: 'text',
+            success: res => {
+                console.log(res);
+                //已登录
+                if(res.data.code == '1000'){
+                    console.log("hhhhh"+res.data)
+                }else{
+                    //未登录
+                    swan.showModal({
+                        // 提示的标题
+                        title: '身份过期',
+                        // 提示的内容
+                        content: '身份过期，请先登录！',
+                        // 是否显示取消按钮 。
+                        showCancel: false,
+                    });
+                    // 跳转到登录界面
+                    swan.redirectTo({
+                        url: '/pages/login/login'
+                    })
+                }
+            },
+            fail: res => {
+                 //未登录
+                 swan.showModal({
+                    // 提示的标题
+                    title: '身份过期',
+                    // 提示的内容
+                    content: '身份过期，请先登录！',
+                    // 是否显示取消按钮 。
+                    showCancel: false,
+                });
+                // 跳转到登录界面
+                swan.redirectTo({
+                    url: '/pages/login/login'
+                })
+            }
+        });
+
+        // 用户首次进入小程序，同步百度APP登录态
+        swan.login({
+            success: res => {
+                console.log('login success', res);
+
+                // 获取用户手机号或用户信息
+                // 待补
+
+                /**
+                 * 登陆成功后要发送请求到后端，
+                 * 利用这个仅有10s有效期的code去获取openId和sessionKey，
+                 * 因为发送信息需要用户的openId
+                 */
+                swan.request({
+                    url: 'http://10.133.171.1:9527/project/user/getUserOpenIdAndSessionKey?code='+res.code,
+                    method: 'POST',
+                    header:{
+                        'Content-Type': 'Application/x-www-form-urlencoded',
+                        'Authorization': 'bearer ' + app.data.access_token
+                    },
+                    responseType: 'text',
+                    success: res=>{
+                        console.log(res);
+                        swan.showModal({
+                            title: '成功',
+                            content: res
+                        });
+                        this.setData({
+                            hasLogin: 'yes'
+                        })
+                    },
+                    fail: res=>{
+                        console.log(res);
+                        swan.showModal({
+                            title: '失败',
+                            content: res
+                        });
+                    }
+                });
+            },
+            fail: err => {
+                console.log('login fail', err);
+            }
+        });
+    },
+
+
+    /**
+     * 获取所有任务
+     */
     getTasks: function(e) {
         this.setData('isToday', e.detail.name == 'today'? true: false);
         swan.request({
@@ -223,15 +320,26 @@ Page({
     },
 
     //创建任务，显示模态框，确认任务信息
-    verifyTask: function() {
+    verifyTask(e) {
+        console.log("订阅结果：" + e.detail.message);
+        if(e.detail.message != 'success'){
+            swan.showToast({
+                // 提示的内容
+                title: '任务创建失败，请授权通知功能',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+            });
+            return;
+        }
+        console.log("formId = " + e.detail.formId)
         swan.request({
             url: 'http://localhost:9527/project/task/create',
-            // url: 'http://10.133.171.1:9527/project/task/' + e.detail.name,
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
             data: {
+                taskFormId: e.detail.formId,
                 taskContent: this.data.taskContent,
                 taskPlace: this.data.taskPlace,
                 taskRate: this.data.taskRate,
@@ -241,7 +349,6 @@ Page({
             },
             success: res => {
                 //创建成功
-
                 if(res.data.code == '1000'){
                     //获取剩余时间
                     let timeLeft = this.getTimeLeft(this.data.taskStartTime);
@@ -265,25 +372,18 @@ Page({
                             conflictTaskStr: '小程序检测出您在该时间段内有任务'
                         })
                     }
-
-
+                    //显示模态框进行提示
                     swan.showModal({
                         title: '创建成功',
                         content:
-
                         // '将在'+'30分钟'+'后提醒你'+'吃饭'+'\r\n'
                         this.data.taskRemindStr
-
                         // +'[备注]在'+'银泰'+'20:00'+'\r\n'
                         + this.data.taskRemarkStr + '\r\n'
-
                         // +'预计耗时：'+'30min'+'\r\n'
-
                         + this.data.predictedConsumedTimeStr + '\r\n'
-
                         // +'小程序检测出您在该时间段内有'+'学习'+'任务',
-                        + this.data.conflictTaskStr  + '\r\n'
-                        ,
+                        + this.data.conflictTaskStr  + '\r\n',
                         showCancel: true,
                         cancelText: '确定',
                         confirmText: '修改',
@@ -299,7 +399,6 @@ Page({
 
             }
         });
-        // this.setData('showVerifyModal', true);
     },
 
     //关闭模态框

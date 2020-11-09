@@ -1,11 +1,9 @@
 {
     "pages": [
-        "pages/user-info/user-info",
         "pages/home/home",
+        "pages/user-info/user-info",
         "pages/baidu-login/baidu-login",
         "pages/modification/modification",
-
-        "pages/index/index",
         "pages/user-info-detail/user-info-detail",
         "pages/login/login",
         "pages/index/index"

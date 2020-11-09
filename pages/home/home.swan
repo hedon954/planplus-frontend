@@ -41,28 +41,6 @@
         class="{{activeName}}"
         bindtap="jumpToDetail">
         </task-detail>
-        <task-detail
-        s-for="tasks"
-        id="{{item.taskId}}"
-        content="{{item.taskContent}}"
-        time="{{item.taskStartTime}}"
-        place="{{item.taskPlace}}"
-        countDownTime="{{countDownList[index]}}"
-        isToday="{{isToday}}"
-        class="{{activeName}}"
-        bindtap="jumpToDetail">
-        </task-detail>
-        <task-detail
-        s-for="tasks"
-        id="{{item.taskId}}"
-        content="{{item.taskContent}}"
-        time="{{item.taskStartTime}}"
-        place="{{item.taskPlace}}"
-        countDownTime="{{countDownList[index]}}"
-        isToday="{{isToday}}"
-        class="{{activeName}}"
-        bindtap="jumpToDetail">
-        </task-detail>
     </view>
 </view>
 

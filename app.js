@@ -25,20 +25,7 @@ App({
     },
     onShow(options) {
         // do something when show
-        // this.showTabBar();
     },
-    // showTabBar() {
-    //     this.setData({hasHiddenTabBar: false});
-    //     swan.showTabBar({
-    //         animation: true, // animation 为 true 时，建议在真机上看效果，工具暂不支持
-    //         success: res => {
-    //             console.log('showTabBar success');
-    //         },
-    //         fail: err => {
-    //             console.log('showTabBar fail', err);
-    //         }
-    //     })
-    // },
     onHide() {
         // do something when hide
     }
