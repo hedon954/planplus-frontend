@@ -6,8 +6,6 @@ Page({
         phoneNumber: "15623205156",
         password: "hedon",
         userInfo: {},
-        hasUserInfo: false,
-        canIUse: swan.canIUse('button.open-type.getUserInfo')
     },
     onLoad() {
         // 监听页面加载的生命周期函数

@@ -5,6 +5,7 @@ Page({
      * 数据
      */
     data: {
+        subScribeId: app.data.subScribeId,
         showVerifyModal: false, //是否显示自定义模态框
         tasks: [], //任务列表
         activeName: 'today', //当前选中的tab-item名称
@@ -16,11 +17,11 @@ Page({
          * 单个任务属性
          */
         taskId: null,
-        taskContent: "阿里巴巴的黄河淘沙",
-        taskPlace: "壶口",
+        taskContent: "吃老佛爷的咸蛋",
+        taskPlace: "阿里山",
         taskRate: 2,
-        taskStartTime: "2020-11-09T17:04:10.826000",
-        taskPredictedFinishTime: "2020-11-09T22:00:24.826000",
+        taskStartTime: "2020-11-11T10:45:10.826000",
+        taskPredictedFinishTime: "2020-11-11T12:00:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -244,7 +245,7 @@ Page({
      * 获取所有任务
      */
     getTasks: function(e) {
-        this.setData('isToday', e.detail.name == 'today'? true: false);
+        this.setData('isToday', (e.detail.name == 'today' )? true: false);
         swan.request({
             url: 'http://localhost:9527/project/task/' + e.detail.name,
             // url: 'http://10.133.171.1:9527/project/task/' + e.detail.name,
@@ -350,11 +351,18 @@ Page({
             success: res => {
                 //创建成功
                 if(res.data.code == '1000'){
+                    //刷新订阅ID，防止每次的 formID 都一样
+                    app.setSubScribeId(res.data.data.subScribeId)
+                    this.setData({
+                        subScribeId: app.data.subScribeId
+                    })
+                    console.log("app's subScribeId = " + app.data.subScribeId);
+                    console.log("home's subScribeId = " + this.data.subScribeId);
                     //获取剩余时间
                     let timeLeft = this.getTimeLeft(this.data.taskStartTime);
                     //初始化参数
                     this.setData({
-                        taskId: res.data.data,
+                        taskId: res.data.data.taskId,
                         taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}`,
                         taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}`,
                         predictedConsumedTimeStr: '',
@@ -389,8 +397,46 @@ Page({
                         confirmText: '修改',
                         success: res=>{
                             if(res.confirm){
+                                //跳转到详情页
                                 swan.navigateTo({
                                     url:'/pages/modification/modification?taskId='+this.data.taskId
+                                });
+                            }else{
+                                //重新读取所有任务
+                                swan.request({
+                                    url: 'http://localhost:9527/project/task/today',
+                                    method: 'GET',
+                                    header: {
+                                        'Authorization': 'bearer ' + app.data.access_token
+                                    },
+                                    success: res => {
+                                        try {
+                                            var response = res.data.data;
+                                            //防止引用被修改
+                                            response = JSON.parse(JSON.stringify(response));
+                                            var startTimeString = '';
+                                            var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                                            for(var i = 0; i < response.length; i++) {
+                                                startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
+                                                startTimeString = response[i]['taskStartTime'].substring(11, 19);
+                                                response[i]['taskStartTime'] = startTimeString;
+                                            }
+                                            this.setData({
+                                                tasks: response,
+                                                endTimeList: startTimeList
+                                            });
+
+                                            //每隔一秒刷新倒计时，直至所有倒计时都为0
+                                            this.interval = setInterval(() => {
+                                                if(this.getTimeSpan(this.data.endTimeList) <= 0) {
+                                                    this.interval && clearInterval(this.interval);
+                                                }
+                                            }, 1000);
+                                        }
+                                        catch (error) {
+                                            console.log(error);
+                                        }
+                                    },
                                 });
                             }
                         }

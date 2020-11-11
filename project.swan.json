@@ -7,16 +7,19 @@
     },
     "host": "baiduboxapp",
     "preview": {
-        "packageId": 915570
+        "packageId": 916415
     },
     "projectname": "planplus",
+    "publish": {
+        "version": "1.0.0"
+    },
     "setting": {
         "urlCheck": false
     },
     "swan": {
         "baiduboxapp": {
-            "extensionJsVersion": "1.18.3",
-            "swanJsVersion": "3.220.16"
+            "swanJsVersion": "3.220.16",
+            "extensionJsVersion": "1.18.3"
         }
     }
 }
