@@ -71,7 +71,7 @@ Page({
         });
         app.setTaskChanged(false);
         swan.request({
-            url: 'http://localhost:9527/project/task/single/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/single/' + this.data.taskId,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -234,7 +234,7 @@ Page({
     draft() {
         console.log('将任务保存至草稿箱。。。')
         swan.request({
-            url: 'http://localhost:9527/project/task/draft/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/draft/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -254,7 +254,7 @@ Page({
     //删除任务
     delete() {
         swan.request({
-            url: 'http://localhost:9527/project/task/delete/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/delete/' + this.data.taskId,
             method: 'DELETE',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -279,7 +279,7 @@ Page({
     start() {
         console.log('开始任务。。。')
         swan.request({
-            url: 'http://localhost:9527/project/task/start/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/start/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -300,7 +300,7 @@ Page({
     finish() {
         console.log('结束任务。。。')
         swan.request({
-            url: 'http://localhost:9527/project/task/finish/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/finish/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -331,7 +331,7 @@ Page({
             return;
         }
         swan.request({
-            url: 'http://localhost:9527/project/task/modify/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/modify/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -376,7 +376,7 @@ Page({
         console.log(e.currentTarget.id);
         console.log(this.data.taskId);
         swan.request({
-            url: 'http://localhost:9527/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id,
+            url: 'http://182.61.131.18:9527/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token

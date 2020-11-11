@@ -24,7 +24,7 @@ Page({
     onLoad: function () {
         //读取当前用户数据
         swan.request({
-            url: 'http://localhost:9527/project/user/info',
+            url: 'http://182.61.131.18:9527/project/user/info',
             method: 'GET',
             header:{
                 'Authorization': 'bearer '+app.data.access_token

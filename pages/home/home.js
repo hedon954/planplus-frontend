@@ -18,10 +18,10 @@ Page({
          */
         taskId: null,
         taskContent: "吃老佛爷的咸蛋",
-        taskPlace: "阿里山",
+        taskPlace: "阿里爸爸说",
         taskRate: 2,
-        taskStartTime: "2020-11-11T11:00:10.826000",
-        taskPredictedFinishTime: "2020-11-11T12:00:24.826000",
+        taskStartTime: "2020-11-12T08:00:00.826000",
+        taskPredictedFinishTime: "2020-11-12T09:30:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -44,6 +44,7 @@ Page({
      * 当页面加载时
      */
     onLoad: function() {
+        console.log("read app access token in home: "+ app.data.access_token)
         //先检查是否已登录
         this.checkLoginOrNot();
         //已登录->查询今日任务
@@ -78,7 +79,7 @@ Page({
     checkLoginOrNot: function(){
         //先检查用户是否已经登录
         swan.request({
-            url: 'http://localhost:9527/project/login/checkLogin',
+            url: 'http://182.61.131.18:9527/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -86,6 +87,7 @@ Page({
             responseType: 'text',
             success: res => {
                 console.log(res);
+                console.log("ssssssssssss" + typeof res.data.code)
                 //已登录
                 if(res.data.code == '1000'){
                     console.log("hhhhh"+res.data)
@@ -102,24 +104,25 @@ Page({
                     // 跳转到登录界面
                     swan.redirectTo({
                         url: '/pages/login/login'
-                    })
+                    });
+                    return;
                 }
             },
-            fail: res => {
-                 //未登录
-                 swan.showModal({
-                    // 提示的标题
-                    title: '身份过期',
-                    // 提示的内容
-                    content: '身份过期，请先登录！',
-                    // 是否显示取消按钮 。
-                    showCancel: false,
-                });
-                // 跳转到登录界面
-                swan.redirectTo({
-                    url: '/pages/login/login'
-                })
-            }
+            // fail: res => {
+            //      //未登录
+            //      swan.showModal({
+            //         // 提示的标题
+            //         title: '身份过期',
+            //         // 提示的内容
+            //         content: '身份过期，请先登录！',
+            //         // 是否显示取消按钮 。
+            //         showCancel: false,
+            //     });
+            //     // 跳转到登录界面
+            //     swan.redirectTo({
+            //         url: '/pages/login/login'
+            //     })
+            // }
         });
 
         // 用户首次进入小程序，同步百度APP登录态
@@ -136,7 +139,7 @@ Page({
                  * 因为发送信息需要用户的openId
                  */
                 swan.request({
-                    url: 'http://10.133.171.1:9527/project/user/getUserOpenIdAndSessionKey?code='+res.code,
+                    url: 'http://182.61.131.18:9527/project/user/getUserOpenIdAndSessionKey?code='+res.code,
                     method: 'POST',
                     header:{
                         'Content-Type': 'Application/x-www-form-urlencoded',
@@ -175,8 +178,7 @@ Page({
     getTasks: function(e) {
         this.setData('isToday', (e.detail.name == 'today' )? true: false);
         swan.request({
-            url: 'http://localhost:9527/project/task/' + e.detail.name,
-            // url: 'http://10.133.171.1:9527/project/task/' + e.detail.name,
+            url: 'http://182.61.131.18:9527/project/task/' + e.detail.name,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -202,9 +204,9 @@ Page({
     /**
      * 读取今天所有任务
      */
-    getTodayTasks:function(){
+    getTodayTasks: function(){
         swan.request({
-            url: 'http://localhost:9527/project/task/today',
+            url: 'http://182.61.131.18:9527/project/task/today',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -291,7 +293,8 @@ Page({
     //创建任务，显示模态框，确认任务信息
     verifyTask(e) {
         console.log("订阅结果：" + e.detail.message);
-        if(e.detail.message != 'success'){
+
+        if(e.detail.message != 'success' && e.detail.message != '调用成功'){
             swan.showToast({
                 // 提示的内容
                 title: '任务创建失败，请授权通知功能',
@@ -302,7 +305,7 @@ Page({
         }
         console.log("formId = " + e.detail.formId)
         swan.request({
-            url: 'http://localhost:9527/project/task/create',
+            url: 'http://182.61.131.18:9527/project/task/create',
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -319,6 +322,7 @@ Page({
             success: res => {
                 //创建成功
                 if(res.data.code == '1000'){
+                    console.log("res = " + res.data.data.taskId)
                     //刷新订阅ID，防止每次的 formID 都一样
                     app.setSubScribeId(res.data.data.subScribeId)
                     this.setData({
@@ -364,14 +368,13 @@ Page({
                         cancelText: '确定',
                         confirmText: '修改',
                         success: res=>{
+                            //重新读取所有任务
+                            this.getTodayTasks()
                             if(res.confirm){
                                 //跳转到详情页
                                 swan.navigateTo({
                                     url:'/pages/modification/modification?taskId='+this.data.taskId
                                 });
-                            }else{
-                                //重新读取所有任务
-                                this.getTodayTasks()
                             }
                         }
                     });

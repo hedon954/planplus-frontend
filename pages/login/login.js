@@ -9,6 +9,27 @@ Page({
     },
     onLoad() {
         // 监听页面加载的生命周期函数
+        //先检查用户是否已经登录
+        swan.request({
+            url: 'http://182.61.131.18:9527/project/login/checkLogin',
+            header: {
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            method: 'POST',
+            responseType: 'text',
+            success: res => {
+                console.log(res);
+                console.log("ssssssssssss" + typeof res.data.code)
+                //已登录
+                if(res.data.code == '1000'){
+                    console.log("hhhhh"+res.data)
+                    //成功的话就跳转
+                    swan.switchTab({
+                        url: '/pages/home/home'
+                    });
+                }
+            }
+        })
     },
 
     /**
@@ -35,11 +56,9 @@ Page({
     loginSubmit(){
         console.log(this.data.phoneNumber);
         console.log(this.data.password);
-        swan.switchTab({
-            url: '/pages/home/home'
-        }),
         swan.request({
-            url: 'http://localhost:9527/project/login/login',
+            // url: 'http://182.61.131.18:9527/project/login/login',
+            url: 'http://182.61.131.18:9527/project/login/login',
             header: {
                 'content-type': 'application/json'
             },
