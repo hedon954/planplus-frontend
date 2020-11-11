@@ -16,7 +16,6 @@
         </button>
     </form>
 </view>
-<input value="{{subScribeId}}"/>
 <!-- 任务列表区域 -->
 <view class="detail">
     <!-- 标题区域，包含日期切换按钮 -->

@@ -20,7 +20,7 @@ Page({
         taskContent: "吃老佛爷的咸蛋",
         taskPlace: "阿里山",
         taskRate: 2,
-        taskStartTime: "2020-11-11T10:45:10.826000",
+        taskStartTime: "2020-11-11T11:00:10.826000",
         taskPredictedFinishTime: "2020-11-11T12:00:24.826000",
         taskAdvanceRemindTime: 10,
         /**
@@ -52,41 +52,7 @@ Page({
             isToday: true
         });
         //查询今日任务
-        swan.request({
-            url: 'http://localhost:9527/project/task/today',
-            method: 'GET',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
-            success: res => {
-                try {
-                    var response = res.data.data;
-                    //防止引用被修改
-                    response = JSON.parse(JSON.stringify(response));
-                    var startTimeString = '';
-                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
-                    for(var i = 0; i < response.length; i++) {
-                        startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
-                        startTimeString = response[i]['taskStartTime'].substring(11, 19);
-                        response[i]['taskStartTime'] = startTimeString;
-                    }
-                    this.setData({
-                        tasks: response,
-                        endTimeList: startTimeList
-                    });
-
-                    //每隔一秒刷新倒计时，直至所有倒计时都为0
-                    this.interval = setInterval(() => {
-                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
-                            this.interval && clearInterval(this.interval);
-                        }
-                    }, 1000);
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            },
-        });
+        this.getTodayTasks()
     },
 
     /**
@@ -101,46 +67,8 @@ Page({
         if(!app.data.taskChanged) {
             return;
         }
-        swan.request({
-            url: 'http://localhost:9527/project/task/today',
-            method: 'GET',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
-            success: res => {
-                try {
-                    var response = res.data.data;
-                    console.log(res);
-                    //防止引用被修改
-                    response = JSON.parse(JSON.stringify(response));
-                    var startTimeString = '';
-                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
-                    for(var i = 0; i < response.length; i++) {
-                        startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
-                        startTimeString = response[i]['taskStartTime'].substring(11, 19);
-                        response[i]['taskStartTime'] = startTimeString;
-                    }
-                    this.setData({
-                        tasks: response,
-                        endTimeList: startTimeList
-                    });
-
-                    //每隔一秒刷新倒计时，直至所有倒计时都为0
-                    this.interval = setInterval(() => {
-                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
-                            this.interval && clearInterval(this.interval);
-                        }
-                    }, 1000);
-
-
-                    console.log("回来了。。。")
-                    console.log(this.data.countDownList);
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            },
-        });
+        //读取今日任务
+        this.getTodayTasks()
     },
 
 
@@ -271,6 +199,46 @@ Page({
         });
     },
 
+    /**
+     * 读取今天所有任务
+     */
+    getTodayTasks:function(){
+        swan.request({
+            url: 'http://localhost:9527/project/task/today',
+            method: 'GET',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            success: res => {
+                try {
+                    var response = res.data.data;
+                    //防止引用被修改
+                    response = JSON.parse(JSON.stringify(response));
+                    var startTimeString = '';
+                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    for(var i = 0; i < response.length; i++) {
+                        startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
+                        startTimeString = response[i]['taskStartTime'].substring(11, 19);
+                        response[i]['taskStartTime'] = startTimeString;
+                    }
+                    this.setData({
+                        tasks: response,
+                        endTimeList: startTimeList
+                    });
+
+                    //每隔一秒刷新倒计时，直至所有倒计时都为0
+                    this.interval = setInterval(() => {
+                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
+                            this.interval && clearInterval(this.interval);
+                        }
+                    }, 1000);
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    },
 
     // 获取时间差
     getTimeSpan: function(list) {
@@ -403,41 +371,7 @@ Page({
                                 });
                             }else{
                                 //重新读取所有任务
-                                swan.request({
-                                    url: 'http://localhost:9527/project/task/today',
-                                    method: 'GET',
-                                    header: {
-                                        'Authorization': 'bearer ' + app.data.access_token
-                                    },
-                                    success: res => {
-                                        try {
-                                            var response = res.data.data;
-                                            //防止引用被修改
-                                            response = JSON.parse(JSON.stringify(response));
-                                            var startTimeString = '';
-                                            var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
-                                            for(var i = 0; i < response.length; i++) {
-                                                startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
-                                                startTimeString = response[i]['taskStartTime'].substring(11, 19);
-                                                response[i]['taskStartTime'] = startTimeString;
-                                            }
-                                            this.setData({
-                                                tasks: response,
-                                                endTimeList: startTimeList
-                                            });
-
-                                            //每隔一秒刷新倒计时，直至所有倒计时都为0
-                                            this.interval = setInterval(() => {
-                                                if(this.getTimeSpan(this.data.endTimeList) <= 0) {
-                                                    this.interval && clearInterval(this.interval);
-                                                }
-                                            }, 1000);
-                                        }
-                                        catch (error) {
-                                            console.log(error);
-                                        }
-                                    },
-                                });
+                                this.getTodayTasks()
                             }
                         }
                     });
