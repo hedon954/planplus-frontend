@@ -20,8 +20,8 @@ Page({
         taskContent: "吃老佛爷的咸蛋",
         taskPlace: "阿里爸爸说",
         taskRate: 2,
-        taskStartTime: "2020-11-12T08:00:00.826000",
-        taskPredictedFinishTime: "2020-11-12T09:30:24.826000",
+        taskStartTime: "2020-11-12T09:40:00.826000",
+        taskPredictedFinishTime: "2020-11-12T10:30:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -62,7 +62,8 @@ Page({
     onShow: function() {
         this.setData({
             activeName: 'today',
-            isToday: true
+            isToday: true,
+            subScribeId: app.data.subScribeId
         });
         console.log("onShow...")
         if(!app.data.taskChanged) {
