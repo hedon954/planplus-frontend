@@ -30,101 +30,62 @@ Page({
         });
     },
 
-    getuserInfo:function(){
+
+    /**
+     * 页面加载时
+     */
+    onLoad: function () {
+        //读取当前用户数据
         swan.request({
-            //检查是否已经登录
-            url: 'http://localhost:9527/project/login/checkLogin',
-            // url: 'http://182.61.131.18:9527/project/login/checkLogin',
-            header: {
+            url: 'http://182.61.131.18:9527/project/user/info',
+            method: 'GET',
+            header:{
                 'Authorization': 'bearer '+app.data.access_token
             },
-            method: 'POST',
             responseType: 'text',
-            success: res => {
-                console.log(res);
-                //已登录
-                if(res.data.code == '1000'){
-                    //设置当前用户ID
-                    this.setData({
-                        currentUserId: res.data.data,
-                    })
-                    console.log("hhhhh"+res.data)
-                    //读取当前用户数据
-                    swan.request({
-
-                        url: 'http://localhost:9527/project/user/info',
-                        // url: 'http://182.61.131.18:9527/project/user/info',
-                        method: 'GET',
-                        header:{
-                            'Authorization': 'bearer '+app.data.access_token
-                        },
-                        responseType: 'text',
-                        success:res=>{
-                            console.log("①");
-                            console.log(res.data.data);
-                            this.setData(
-                                {
-                                    userNickname:res.data.data.userNickname,
-                                    userAvatarUrl:res.data.data.userAvatarUrl,
-                                    userGender:res.data.data.userGender,
-                                }
-                            )
-                            switch(this.data.userGender)
+            success:res=>{
+                this.setData(
+                    {
+                        userNickname:res.data.data.userNickname,
+                        userAvatarUrl:res.data.data.userAvatarUrl,
+                        userGender:res.data.data.userGender,
+                    }
+                )
+                switch(this.data.userGender)
+                {
+                    case 0:
+                        this.setData(
                             {
-                                case 0:
-                                    this.setData(
-                                        {
-                                           userGenderText:"女",
-                                        }
-                                    );
-                                    break;
-                                case 1:
-                                    this.setData(
-                                        {
-                                            userGenderText:"男",
-                                        }
-                                    );
-                                    break;
-                                default:
-                                    this.setData(
-                                        {
-                                            userGenderText:"未知",
-                                        }
-                                    );
-                                    break;
+                               userGenderText:"女",
                             }
-                        }
-                    })
-                    console.log("当前用户ID："+this.data.currentUserId)
-                }else{
-                    //未登录
-                    swan.showModal({
-                        // 提示的标题
-                        title: '身份过期',
-                        // 提示的内容
-                        content: '身份过期，请先登录！',
-                        // 是否显示取消按钮 。
-                        showCancel: false,
-
-                    });
-                    // 跳转到登录界面
-                    swan.redirectTo({
-                        url: '/pages/login/login'
-                    })
+                        );
+                        break;
+                    default:
+                        this.setData(
+                            {
+                                userGenderText:"男",
+                            }
+                        );
+                        break;
                 }
-            },
-            fail: res => {
-                 //未登录
-                 swan.showModal({
-                    // 提示的标题
-                    title: '身份过期',
-                    // 提示的内容
-                    content: '身份过期，请先登录！',
-                    // 是否显示取消按钮 。
-                    showCancel: false,
-
-                });
             }
         })
+    },
+
+    /**
+     * 页面加载时
+     */
+    onShow: function() {
+        // 监听页面显示的生命周期函数
+            this.setData({hasHiddenTabBar: false});
+            swan.showTabBar({
+                //animation: true, // animation 为 true 时，建议在真机上看效果，工具暂不支持
+                success: res => {
+                    console.log('showTabBar success');
+                },
+                fail: err => {
+                    console.log('showTabBar fail', err);
+                }
+            })
     }
 });

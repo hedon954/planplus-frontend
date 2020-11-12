@@ -7,9 +7,12 @@
     },
     "host": "baiduboxapp",
     "preview": {
-        "packageId": 910539
+        "packageId": 920555
     },
     "projectname": "planplus",
+    "publish": {
+        "version": "1.0.0"
+    },
     "setting": {
         "urlCheck": false
     },

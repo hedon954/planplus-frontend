@@ -3,14 +3,16 @@ const myDate = new Date();
 
 Page({
     data: {
+        subScribeId: app.data.subScribeId, //订阅ID
+        formId: '',                        //表单ID，订阅通知的时候需要用到
         showModal: false,
         taskId: 0,
-        content: "", //任务内容
-        startDate: '', //任务开始日期
-        startTime: '', //任务开始时间
-        endDate: '', //任务结束日期
-        endTime: '', //任务结束时间
-        place: '', //任务地点
+        content: "",                       //任务内容
+        startDate: '',                     //任务开始日期
+        startTime: '',                     //任务开始时间
+        endDate: '',                       //任务结束日期
+        endTime: '',                       //任务结束时间
+        place: '',                         //任务地点
         frequencyList: [{ //任务频率列表，作为选择器显示内容的范围
             id: '0',
             name:'仅一次'
@@ -24,9 +26,9 @@ Page({
             id: '3',
             name: '每月'
         }],
-        frequencyIndex: 0, //表示选择器中选中值在列表中的下标
-        frequency: 0, //任务频率
-        aheadTimeList: [{ //提前提醒时间列表，作为选择器显示内容的范围
+        frequencyIndex: 0,  //表示选择器中选中值在列表中的下标
+        frequency: 0,       //任务频率
+        aheadTimeList: [{   //提前提醒时间列表，作为选择器显示内容的范围
             id: '0',
             name:'5分钟'
         }, {
@@ -71,7 +73,7 @@ Page({
         });
         app.setTaskChanged(false);
         swan.request({
-            url: 'http://localhost:9527/project/task/single/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/single/' + this.data.taskId,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -120,6 +122,12 @@ Page({
                 }
             },
         });
+    },
+
+    onShow(){
+        this.setData({
+            subScribeId: app.data.subScribeId
+        })
     },
 
     //日期加减
@@ -234,7 +242,7 @@ Page({
     draft() {
         console.log('将任务保存至草稿箱。。。')
         swan.request({
-            url: 'http://localhost:9527/project/task/draft/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/draft/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -254,7 +262,7 @@ Page({
     //删除任务
     delete() {
         swan.request({
-            url: 'http://localhost:9527/project/task/delete/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/delete/' + this.data.taskId,
             method: 'DELETE',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -279,7 +287,7 @@ Page({
     start() {
         console.log('开始任务。。。')
         swan.request({
-            url: 'http://localhost:9527/project/task/start/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/start/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -300,7 +308,7 @@ Page({
     finish() {
         console.log('结束任务。。。')
         swan.request({
-            url: 'http://localhost:9527/project/task/finish/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/finish/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -318,7 +326,8 @@ Page({
     },
 
     //保存修改
-    save() {
+    save(e) {
+        console.log("save form id = " + e.detail.formId);
         console.log(this.data.content);
         let begin = this.data.startDate + " " + this.data.startTime;
         let end = this.data.endDate + " " + this.data.endTime;
@@ -331,12 +340,13 @@ Page({
             return;
         }
         swan.request({
-            url: 'http://localhost:9527/project/task/modify/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/modify/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
             data: {
+                taskFormId: e.detail.formId,
                 taskContent: this.data.content,
                 taskStartTime: this.data.startDate + 'T' + this.data.startTime + ':00.000',
                 taskPredictedFinishTime: this.data.endDate + 'T' + this.data.endTime + ':00.000',
@@ -348,6 +358,11 @@ Page({
                 try {
                     console.log('保存成功。。。');
                     app.setTaskChanged(true);
+                    //修改订阅号
+                    app.setSubScribeId(res.data.data.subScribeId);
+                    this.setData({
+                        subScribeId: app.data.subScribeId
+                    })
                     swan.navigateBack({
 
                     });
@@ -361,7 +376,12 @@ Page({
     },
 
     //推迟任务
-    delay() {
+    delay(e) {
+        //获取formId
+        console.log("delay formId = " + e.detail.formId)
+        this.setData({
+            formId: e.detail.formId
+        });
         this.setData('showModal', true);
         console.log(this.data.showModal);
     },
@@ -372,11 +392,12 @@ Page({
     },
 
     delayConfirm(e) {
+        console.log(e)
         console.log("推迟任务。。。");
         console.log(e.currentTarget.id);
         console.log(this.data.taskId);
         swan.request({
-            url: 'http://localhost:9527/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id,
+            url: 'http://182.61.131.18:9527/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id+"&formId="+this.data.formId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -387,6 +408,11 @@ Page({
                     console.log(`任务已推迟${e.currentTarget.id}分钟。。。`);
                     app.setTaskChanged(true);
                     this.setData('showModal', false);
+                    //存储新的 subScribeId， 防止产生相同的 formId
+                    app.setSubScribeId(res.data.data.subScribeId)
+                    this.setData({
+                        subScribeId: app.data.subScribeId
+                    })
                     swan.navigateBack({
 
                     });

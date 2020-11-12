@@ -102,7 +102,7 @@
         report-submit="{{true}}"
         report-type="subscribe"
         template-id="BD0044"
-        subscribe-id="10086110011"
+        subscribe-id="{{subScribeId}}"
         bindsubmit="save"
         bindreset="formReset">
         <button formType="submit">
@@ -114,7 +114,7 @@
         report-submit="{{true}}"
         report-type="subscribe"
         template-id="BD0044"
-        subscribe-id="10086110011"
+        subscribe-id="{{subScribeId}}"
         bindsubmit="delay"
         bindreset="formReset">
         <button formType="submit">

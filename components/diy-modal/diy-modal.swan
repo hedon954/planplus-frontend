@@ -2,7 +2,7 @@
 <view class="modal-dialog" s-if="showDiyModal">
     <!-- content -->
     <view class="content-area">
-        <label>将在{{timeLeft}}后提醒你{{content}}</label><br>
+        <label>将在{{timeLeft}}后提醒你dsdfd dddddsdfsafdsafsFAFAFASFASF    ADFGDGVDFSGHFS{{content}}</label><br>
         <label>备注：在{{place}}，{{time}}</label>
     </view>
     <!-- button -->

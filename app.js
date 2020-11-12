@@ -8,6 +8,7 @@
 App({
 
     data:{
+        subScribeId: 0,
         taskChanged: false,
         access_token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDQ5ODgxNjEsInVzZXJfbmFtZSI6IjE1NjIzMjA1MTU2IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiI5NGVjODUwNy0xODMxLTQ5MWMtYjY2NS03ZTdkMjZjY2UzZDkiLCJjbGllbnRfaWQiOiJwbGFucGx1cyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.ItYzJaLyTSSXnE0MWx2VqNJXTw6v7mXe0RJmf1RG-Dc',
         infoChanged:false,
@@ -21,24 +22,16 @@ App({
         this.data.taskChanged = param;
     },
 
+    setSubScribeId:function(param){
+        this.data.subScribeId = param;
+    },
+
     onLaunch(options) {
+        this.data.subScribeId = Math.random() + Math.random() + Math.random();
     },
     onShow(options) {
         // do something when show
-        // this.showTabBar();
     },
-    // showTabBar() {
-    //     this.setData({hasHiddenTabBar: false});
-    //     swan.showTabBar({
-    //         animation: true, // animation 为 true 时，建议在真机上看效果，工具暂不支持
-    //         success: res => {
-    //             console.log('showTabBar success');
-    //         },
-    //         fail: err => {
-    //             console.log('showTabBar fail', err);
-    //         }
-    //     })
-    // },
     onHide() {
         // do something when hide
     }

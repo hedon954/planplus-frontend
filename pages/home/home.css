@@ -66,3 +66,27 @@
     background-color: lightgrey;
     font-size: 6.039rpx;
 }
+
+
+
+
+/* 新建任务，临时测试 */
+.main-view {
+    margin: 60rpx 20rpx 20rpx 10rpx;
+}
+.sub-view {
+    display: flex;
+    margin: 60rpx 60rpx 60rpx 40rpx;
+    font-size: 30rpx;
+}
+.tmp {
+    width: 180rpx;
+    text-align: right;
+}
+input {
+    background-color: rgb(227, 225, 231);
+    width: 420rpx;
+    height: 60rpx;
+    padding-left: 20rpx;
+    border-radius: 10rpx;
+}
