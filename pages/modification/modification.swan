@@ -28,7 +28,6 @@
                     start="{{startTimeStart}}"
                     end="23:59"
                     bind:change="timeChange"
-                    disabled="false"
                     id="startT"
                     disabled="{{!mutable}}">
                 {{startTime}}
@@ -52,7 +51,6 @@
                     start="{{endTimeStart}}"
                     end="23:59"
                     bind:change="timeChange"
-                    disabled="false"
                     id="endT"
                     disabled="{{!mutable}}">
                 {{endTime}}
