@@ -4,7 +4,7 @@ const app = getApp()
 Page({
     data: {
         phoneNumber: "15623205156",
-        password: "hedon",
+        password: "123456",
         userInfo: {},
     },
     onLoad() {

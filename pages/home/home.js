@@ -17,11 +17,11 @@ Page({
          * 单个任务属性
          */
         taskId: null,
-        taskContent: "吃老佛爷的咸蛋",
-        taskPlace: "阿里爸爸说",
+        taskContent: "天上公鸡叫",
+        taskPlace: "妈妈地上跑",
         taskRate: 2,
-        taskStartTime: "2020-11-12T09:40:00.826000",
-        taskPredictedFinishTime: "2020-11-12T10:30:24.826000",
+        taskStartTime: "2020-11-12T11:26:00.826000",
+        taskPredictedFinishTime: "2020-11-12T12:30:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -295,7 +295,9 @@ Page({
     verifyTask(e) {
         console.log("订阅结果：" + e.detail.message);
 
-        if(e.detail.message != 'success' && e.detail.message != '调用成功'){
+        if(e.detail.message != 'success' &&
+           e.detail.message != '调用成功' &&
+           e.detail.message != 'succ'){
             swan.showToast({
                 // 提示的内容
                 title: '任务创建失败，请授权通知功能',
@@ -304,6 +306,7 @@ Page({
             });
             return;
         }
+
         console.log("formId = " + e.detail.formId)
         swan.request({
             url: 'http://182.61.131.18:9527/project/task/create',
@@ -336,21 +339,21 @@ Page({
                     //初始化参数
                     this.setData({
                         taskId: res.data.data.taskId,
-                        taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}`,
-                        taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}`,
+                        taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}\r\n`,
+                        taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}\r\n`,
                         predictedConsumedTimeStr: '',
                         conflictTaskStr: ''
                     });
                     //预测耗时
                     if(this.data.hasPredicedTime){
                         this.setData({
-                            predictedConsumedTimeStr: '预计耗时：' + '2h'
+                            predictedConsumedTimeStr: '预计耗时：' + '2h' + '\r\n'
                         })
                     };
                     //时间冲突
                     if(this.data.timeConflict){
                         this.setData({
-                            conflictTaskStr: '小程序检测出您在该时间段内有任务'
+                            conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
                         })
                     }
                     //显示模态框进行提示
@@ -360,11 +363,11 @@ Page({
                         // '将在'+'30分钟'+'后提醒你'+'吃饭'+'\r\n'
                         this.data.taskRemindStr
                         // +'[备注]在'+'银泰'+'20:00'+'\r\n'
-                        + this.data.taskRemarkStr + '\r\n'
+                        + this.data.taskRemarkStr
                         // +'预计耗时：'+'30min'+'\r\n'
-                        + this.data.predictedConsumedTimeStr + '\r\n'
+                        + this.data.predictedConsumedTimeStr
                         // +'小程序检测出您在该时间段内有'+'学习'+'任务',
-                        + this.data.conflictTaskStr  + '\r\n',
+                        + this.data.conflictTaskStr,
                         showCancel: true,
                         cancelText: '确定',
                         confirmText: '修改',
