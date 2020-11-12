@@ -20,8 +20,8 @@ Page({
         taskContent: "天上公鸡叫",
         taskPlace: "妈妈地上跑",
         taskRate: 2,
-        taskStartTime: "2020-11-12T11:26:00.826000",
-        taskPredictedFinishTime: "2020-11-12T12:30:24.826000",
+        taskStartTime: "2020-11-12T12:56:00.826000",
+        taskPredictedFinishTime: "2020-11-12T13:30:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -418,6 +418,32 @@ Page({
         if(hour == 0){
             return minute +'分钟';
         }
+    },
+
+
+
+
+
+    /**
+     * 用于创建新任务，临时测试
+     */
+    contentChange(e) {
+        this.setData('taskContent', e.detail.value);
+    },
+    startChange(e) {
+        this.setData('taskStartTime', e.detail.value);
+    },
+    endChange(e) {
+        this.setData('taskPredictedFinishTime', e.detail.value);
+    },
+    placeChange(e) {
+        this.setData('taskPlace', e.detail.value);
+    },
+    rateChange(e) {
+        this.setData('taskRate', e.detail.v);
+    },
+    remindChange(e) {
+        this.setData('taskAdvanceRemindTime', e.detail.value);
     }
 
 });
