@@ -1,13 +1,13 @@
 <view class="head-view">
     <!-- 保存草稿 -->
-    <button bindtap="draft"><image src="/images/draft_24px.png"></image></button>
+    <button bindtap="draft" hidden="{{!visible}}"><image src="/images/draft_24px.png"></image></button>
     <!-- 删除任务 -->
-    <button bindtap="delete"><image src="/images/trash_24px.png"></image></button>
+    <button bindtap="delete" hidden="{{!visible}}"><image src="/images/trash_24px.png"></image></button>
 </view>
 <view class="main-view">
     <view class="sub-view">
         <label>任务内容：</label>
-        <input type="text" value="{{content}}" bindinput="contentInput" confirm-type="done"/>
+        <input type="text" value="{{content}}" bindinput="contentInput" disabled="{{!mutable}}" confirm-type="done"/>
     </view>
     <view class="sub-view">
         <label>开始时间：</label>
@@ -18,7 +18,8 @@
                     start="{{startDateStart}}"
                     bind:change="dateChangeDay"
                     fields="day"
-                    id="startD">
+                    id="startD"
+                    disabled="{{!mutable}}">
                 {{startDate}}
             </picker>
             <!-- 时间选择器默认时间范围是1:00到22:59 -->
@@ -28,7 +29,8 @@
                     end="23:59"
                     bind:change="timeChange"
                     disabled="false"
-                    id="startT">
+                    id="startT"
+                    disabled="{{!mutable}}">
                 {{startTime}}
             </picker>
         </view>
@@ -41,7 +43,8 @@
                     bind:change="dateChangeDay"
                     fields="day"
                     start="{{endDateStart}}"
-                    id="endD">
+                    id="endD"
+                    disabled="{{!mutable}}">
                 {{endDate}}
             </picker>
             <picker mode="time"
@@ -50,14 +53,15 @@
                     end="23:59"
                     bind:change="timeChange"
                     disabled="false"
-                    id="endT">
+                    id="endT"
+                    disabled="{{!mutable}}">
                 {{endTime}}
             </picker>
         </view>
     </view>
     <view class="sub-view">
         <label>地点：</label>
-        <input type="text" value="{{place}}" bindinput="placeInput" confirm-type="done"/>
+        <input type="text" value="{{place}}" bindinput="placeInput" disabled="{{!mutable}}" confirm-type="done"/>
     </view>
     <view class="sub-view">
         <label>频率：</label>
@@ -67,7 +71,8 @@
                     range="{{frequencyList}}"
                     range-key="name"
                     bind:change="selectorChange"
-                    id="frq">
+                    id="frq"
+                    disabled="{{!mutable}}">
                 {{frequencyList[frequencyIndex].name}}
             </picker>
         </view>
@@ -80,7 +85,8 @@
                     range="{{aheadTimeList}}"
                     range-key="name"
                     bind:change="selectorChange"
-                    id="ahd">
+                    id="ahd"
+                    disabled="{{!mutable}}">
                 {{aheadTimeList[aheadTimeIndex].name}}
             </picker>
         </view>
@@ -88,11 +94,11 @@
 </view>
 <view class="bottom">
     <!-- 开始任务 -->
-    <button bindtap="start">
+    <button bindtap="start" hidden="{{!visible}}">
         <image src="/images/start_24px.png"></image>
     </button>
     <!-- 结束任务 -->
-   <button bindtap="finish">
+   <button bindtap="finish" hidden="{{!visible}}">
         <image src="/images/finish_flag_24px.png"></image>
     </button>
 </view>
@@ -105,7 +111,7 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="save"
         bindreset="formReset">
-        <button formType="submit">
+        <button formType="submit" hidden="{{!visible}}">
             <image src="/images/save_24px.png"></image>
         </button>
     </form>
@@ -117,7 +123,7 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="delay"
         bindreset="formReset">
-        <button formType="submit">
+        <button formType="submit" hidden="{{!visible}}">
             <image src="/images/schedule_mail_24px.png"></image>
         </button>
     </form>
