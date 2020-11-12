@@ -38,7 +38,8 @@ Page({
         console.log(this.data.phoneNumber);
         console.log(this.data.password);
         swan.request({
-            url: 'http://10.133.171.1:9527/project/login/login',
+            url: 'http://localhost:9527/project/login/login',
+            //url: 'http://10.133.171.1:9527/project/login/login',
             // url: 'http://182.61.131.18:9527/project/login/login',
             header: {
                 'content-type': 'application/json'

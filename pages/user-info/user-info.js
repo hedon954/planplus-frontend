@@ -11,17 +11,28 @@ Page({
         userGenderText:"未知",
     },
 
-    goToDetail:function(id){
+
+    onLoad: function () {
+        console.log("App里的token是："+app.data.access_token)
+        this.getuserInfo();
+    },
+
+    onShow: function() {
+        // 监听页面显示的生命周期函数
+        if(app.data.infoChanged){
+            this.getuserInfo();
+        }
+    },
+
+    goToDetail:function(){
         swan.navigateTo({
             url: '../../pages/user-info-detail/user-info-detail'
         });
     },
 
-
-    onLoad: function () {
-        console.log("App里的token是："+app.data.access_token)
-        //检查是否已经登录
+    getuserInfo:function(){
         swan.request({
+            //检查是否已经登录
             url: 'http://localhost:9527/project/login/checkLogin',
             // url: 'http://182.61.131.18:9527/project/login/checkLogin',
             header: {
@@ -115,37 +126,5 @@ Page({
                 });
             }
         })
-
-    },
-    onReady: function() {
-        // 监听页面初次渲染完成的生命周期函数
-    },
-    onShow: function() {
-        // 监听页面显示的生命周期函数
-            this.setData({hasHiddenTabBar: false});
-            swan.showTabBar({
-                //animation: true, // animation 为 true 时，建议在真机上看效果，工具暂不支持
-                success: res => {
-                    console.log('showTabBar success');
-                },
-                fail: err => {
-                    console.log('showTabBar fail', err);
-                }
-            })
-    },
-    onHide: function() {
-        // 监听页面隐藏的生命周期函数
-    },
-    onUnload: function() {
-        // 监听页面卸载的生命周期函数
-    },
-    onPullDownRefresh: function() {
-        // 监听用户下拉动作
-    },
-    onReachBottom: function() {
-        // 页面上拉触底事件的处理函数
-    },
-    onShareAppMessage: function () {
-        // 用户点击右上角转发
     }
 });
