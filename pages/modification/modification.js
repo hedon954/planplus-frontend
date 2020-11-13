@@ -255,7 +255,7 @@ Page({
     },
 
     //检验开始时间和结束时间是否有效
-    timeValid(time1, time2) {
+    timeValid: function(time1, time2) {
         var oDate1 = new Date(time1);
         var oDate2 = new Date(time2);
         if(oDate1.getTime() < oDate2.getTime()) {
@@ -400,6 +400,7 @@ Page({
         console.log(this.data.content);
         let begin = this.data.startDate + " " + this.data.startTime;
         let end = this.data.endDate + " " + this.data.endTime;
+        console.log("hhhhhhhhhhh____" + this.timeValid(begin, end));
         if(!this.timeValid(begin, end)) {
             swan.showToast({
                 title: '结束时间需晚于开始时间',
