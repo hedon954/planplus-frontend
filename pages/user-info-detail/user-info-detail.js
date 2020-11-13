@@ -7,8 +7,10 @@ Page({
         userNickname:"kk",
         userGender:2,
         userBirthday:'2000-03-14',
+        userBirthdayText:'2000-03-14',
         userAvatarUrl:"",
         userGenderText:"未知",
+        filePath: '',
         selector: [{
             id: '0',
             name:'女'
@@ -25,7 +27,8 @@ Page({
     dateChange(e) {
         console.log('picker-date changed，值为', e.detail.value);
         this.setData(
-            'userBirthday', e.detail.value
+            'userBirthday', e.detail.value,
+            'userBirthdayText',e.detail.value,
         );
     },
 
@@ -192,6 +195,70 @@ Page({
                 });
             }
         })
+    },
+
+    chooseImage() {
+        swan.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],
+            sourceType: ['album'],
+            success: res => {
+                this.setData('filePath', res.tempFilePaths[0]);
+                swan.showModal({
+                    title:"上传头像",
+                    content:"是否确认上传该头像?",
+                    showCancel: true,
+                    cancelText: '取消',
+                    confirmText: '确定',
+                    success: res=>{
+                        //上传头像
+                        if(res.confirm){
+                            this.uploadAvatar();
+                        }
+                    }
+                })
+            }
+        });
+    },
+
+
+
+    uploadAvatar:function(){
+        const filePath = this.getData('filePath');
+        if (!filePath) {
+            swan.showToast({
+                title: '请先上传图片',
+                icon: 'none'
+            });
+        }
+        swan.uploadFile({
+            url: 'http://localhost:9527/project/user/avatar',
+            filePath,
+            name: 'file',
+            header: {
+                'content-type': 'multipart/form-data',
+                'Authorization': 'bearer ' + app.data.access_token,
+            },
+            formData: {
+                'user': 'test'
+            },
+            success: res => {
+                swan.showToast({
+                    title: '上传成功',
+                    icon: 'none'
+                });
+                console.log('uploadFile success', res);
+                this.setData({filePath});
+            },
+            fail: err => {
+                console.log('uploadFile fail', err);
+                swan.showToast({
+                    title: '上传失败',
+                    icon: 'none'
+                });
+            }
+        });
+
     },
 
     onReady: function() {
