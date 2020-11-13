@@ -20,8 +20,8 @@ Page({
         taskContent: "天上公鸡叫",
         taskPlace: "妈妈地上跑",
         taskRate: 2,
-        taskStartTime: "2020-11-12T12:56:00.826000",
-        taskPredictedFinishTime: "2020-11-12T13:30:24.826000",
+        taskStartTime: "2020-11-13T19:56:00.826000",
+        taskPredictedFinishTime: "2020-11-13T20:30:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -292,7 +292,7 @@ Page({
     },
 
     //创建任务，显示模态框，确认任务信息
-    verifyTask(e) {
+    verifyTask: function(e) {
         console.log("订阅结果：" + e.detail.message);
 
         if(e.detail.message != 'success' &&
@@ -369,12 +369,13 @@ Page({
                         // +'小程序检测出您在该时间段内有'+'学习'+'任务',
                         + this.data.conflictTaskStr,
                         showCancel: true,
-                        cancelText: '确定',
-                        confirmText: '修改',
+                        cancelText: '修改',
+                        cancelColor: '#ff0000',
+                        confirmText: '确定',
                         success: res=>{
                             //重新读取所有任务
                             this.getTodayTasks()
-                            if(res.confirm){
+                            if(res.cancel){
                                 //跳转到详情页
                                 swan.navigateTo({
                                     url:'/pages/modification/modification?taskId='+this.data.taskId
@@ -406,7 +407,7 @@ Page({
     },
 
     //计算剩余时间
-    getTimeLeft(start){
+    getTimeLeft: function(start){
         let nowTime  = new Date().getTime();
         let startTime = new Date(start).getTime();
         let minutes = (startTime - nowTime)/1000/60;

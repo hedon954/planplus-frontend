@@ -306,11 +306,14 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
-                    swan.navigateBack({
+                    setTimeout(function() {
+                        swan.navigateBack({
 
-                    });
+                        });
+                    }, 800);
+
 
                 }
                 catch (error) {
@@ -341,7 +344,7 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
 
                     //任务已开始，禁止编辑功能
@@ -378,7 +381,7 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
 
                     //任务已结束，禁止编辑功能
@@ -441,11 +444,13 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
-                    swan.navigateBack({
+                    setTimeout(function() {
+                        swan.navigateBack({
 
-                    });
+                        });
+                    }, 800);
 
                 }
                 catch (error) {
@@ -493,9 +498,11 @@ Page({
                     this.setData({
                         subScribeId: app.data.subScribeId
                     })
-                    swan.navigateBack({
+                    setTimeout(function() {
+                        swan.navigateBack({
 
-                    });
+                        });
+                    }, 800);
                 }
                 catch (error) {
                     console.log(error);
