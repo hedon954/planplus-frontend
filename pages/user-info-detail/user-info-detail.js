@@ -41,8 +41,8 @@ Page({
     btnComfirm(e){
         swan.request({
 
-            url: 'http://localhost:9527/project/user/info',
-                // url: 'http://182.61.131.18:9527/project/user/info',
+            // url: 'http://localhost:9527/project/user/info',
+            url: 'http://182.61.131.18:9527/project/user/info',
             method: 'PUT',
             header:{
                 'Authorization': 'bearer '+app.data.access_token
@@ -101,8 +101,8 @@ Page({
         console.log("App里的token是："+app.data.access_token)
         //检查是否已经登录
         swan.request({
-            url: 'http://localhost:9527/project/login/checkLogin',
-            // url: 'http://182.61.131.18:9527/project/login/checkLogin',
+            // url: 'http://localhost:9527/project/login/checkLogin',
+            url: 'http://182.61.131.18:9527/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -120,8 +120,8 @@ Page({
                     //读取当前用户数据
                     swan.request({
 
-                        url: 'http://localhost:9527/project/user/info',
-                        // url: 'http://182.61.131.18:9527/project/user/info',
+                        // url: 'http://localhost:9527/project/user/info',
+                        url: 'http://182.61.131.18:9527/project/user/info',
                         method: 'GET',
                         header:{
                             'Authorization': 'bearer '+app.data.access_token
