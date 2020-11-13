@@ -3,7 +3,8 @@
         <view class="avatar-item">
             <text class="title">编辑资料</text>
             <image src={{userAvatarUrl}}
-                class="avatar">
+                class="avatar"
+                bindtap="chooseImage">
             </image>
         </view>
         <view class="item">
@@ -17,7 +18,7 @@
             <text class="property">生日</text>
             <picker mode="date"
                     class="birthday"
-                    value={{userBirthday}}
+                    value={{userBirthdayText}}
                     bind:change="dateChange">
                 <view>
                    {{userBirthday}}
