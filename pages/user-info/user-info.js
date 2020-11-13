@@ -11,7 +11,20 @@ Page({
         userGenderText:"未知",
     },
 
-    goToDetail:function(id){
+
+    onLoad: function () {
+        console.log("App里的token是："+app.data.access_token)
+        this.getuserInfo();
+    },
+
+    onShow: function() {
+        // 监听页面显示的生命周期函数
+        if(app.data.infoChanged){
+            this.getuserInfo();
+        }
+    },
+
+    goToDetail:function(){
         swan.navigateTo({
             url: '../../pages/user-info-detail/user-info-detail'
         });

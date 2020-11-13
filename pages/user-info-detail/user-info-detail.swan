@@ -8,17 +8,34 @@
         </view>
         <view class="item">
             <text class="property">昵称</text>
-            <input class="name-input" type="text" placeholder="默认值"/>
+            <input class="name-input"
+                type="text"
+                value={{userNickname}}
+                bind:change="nicknameChange"/>
         </view>
         <view class="item">
             <text class="property">生日</text>
-            <picker mode="date" class="birthday" >2000-03-14</picker>
+            <picker mode="date"
+                    class="birthday"
+                    value={{userBirthday}}
+                    bind:change="dateChange">
+                <view>
+                   {{userBirthday}}
+                </view>
+            </picker>
         </view>
         <view class="item">
             <text class="property">性别</text>
-            <picker-view mode="selector" class="birthday">男</picker-view>
+            <picker mode="selector"
+                class="birthday"
+                range="{{selector}}"
+                range-key="name"
+                value={{userGender}}
+                bind:change="genderChange">
+                {{userGenderText}}
+            </picker>
         </view>
-        <button class="button">确定</button>
+        <button class="button" bind:tap="btnComfirm">确定</button>
     </view>
     <!--to do-->
 </view>
