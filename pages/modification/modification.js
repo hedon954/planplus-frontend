@@ -61,6 +61,9 @@ Page({
         endDateDisplay: '', //打开日期选择器时默认选中（显示）的日期/结束日期
         endTimeStart: '', //结束时间的时间起点
         endTimeDisplay: '', //打开时间选择器时默认选中（显示）的时间/结束时间
+
+        mutable: true, //当前页面所有控件是否可编辑
+        visible: true, //当前页面的按钮是否可见
     },
     onLoad(options) {
         console.log(options);
@@ -102,6 +105,30 @@ Page({
                         frequencyIndex: response['taskRate'],
                         aheadTime: response['taskAdvanceRemindTIme']
                     });
+
+
+                    /**
+                    * 判断当前任务状态，
+                    * 若为进行中1或已结束2，则禁止当前页面所有编辑操作并隐藏所有按钮，
+                    * 后续步骤“限定时间日期选择器起始值”也不再执行
+                    */
+                   console.log('返回的taskStatus的类型' + typeof response['taskStatus']);
+                   console.log(response['taskStatus']);
+                   if (response['taskStatus'] == 1 || response['taskStatus'] == 2) {
+                       this.setData({
+                           mutable: false,
+                           visible: false
+                       });
+                       return;
+                   } else {
+                       this.setData({
+                           mutable: true,
+                           visible: true
+                       })
+                   }
+
+
+                    //限定时间日期选择器起始值
                     var now = myDate.getHours() + ":" + myDate.getMinutes();
                     var today = myDate.toLocaleDateString().replace(/\//g, '-');
                     console.log('现在是：'+now);
@@ -271,6 +298,16 @@ Page({
                 try {
                     console.log('删除成功。。。');
                     app.setTaskChanged(true);
+                    swan.showToast({
+                        // 提示的内容
+                        title: '任务已删除',
+                        // 图标，有效值"success"、"loading"、"none"。
+                        icon: 'none',
+                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        image: '',
+                        // 提示的延迟时间，单位毫秒。
+                        duration: 2,
+                    });
                     swan.navigateBack({
 
                     });
@@ -296,6 +333,22 @@ Page({
                 try {
                     console.log('任务已开始。。。');
                     app.setTaskChanged(true);
+                    swan.showToast({
+                        // 提示的内容
+                        title: '任务已开始',
+                        // 图标，有效值"success"、"loading"、"none"。
+                        icon: 'none',
+                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        image: '',
+                        // 提示的延迟时间，单位毫秒。
+                        duration: 2,
+                    });
+
+                    //任务已开始，禁止编辑功能
+                    this.setData({
+                        mutable: false,
+                        visible: false
+                    });
                 }
                 catch (error) {
                     console.log(error);
@@ -317,6 +370,22 @@ Page({
                 try {
                     console.log('任务已结束。。。');
                     app.setTaskChanged(true);
+                    swan.showToast({
+                        // 提示的内容
+                        title: '任务已结束',
+                        // 图标，有效值"success"、"loading"、"none"。
+                        icon: 'none',
+                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        image: '',
+                        // 提示的延迟时间，单位毫秒。
+                        duration: 2,
+                    });
+
+                    //任务已结束，禁止编辑功能
+                    this.setData({
+                        mutable: false,
+                        visible: false
+                    });
                 }
                 catch (error) {
                     console.log(error);
@@ -363,6 +432,16 @@ Page({
                     this.setData({
                         subScribeId: app.data.subScribeId
                     })
+                    swan.showToast({
+                        // 提示的内容
+                        title: '已保存修改',
+                        // 图标，有效值"success"、"loading"、"none"。
+                        icon: 'none',
+                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        image: '',
+                        // 提示的延迟时间，单位毫秒。
+                        duration: 2,
+                    });
                     swan.navigateBack({
 
                     });
