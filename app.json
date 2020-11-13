@@ -9,7 +9,7 @@
         "pages/index/index"
     ],
     "window": {
-        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarBackgroundColor": "#8785a2",
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
@@ -18,7 +18,7 @@
         "color": "#666",
         "selectedColor": "#000",
         "borderStyle": "#D6D6D6",
-        "backgroundColor": "#FFF",
+        "backgroundColor": "#8785a2",
         "list": [
             {
                 "pagePath": "pages/home/home",
