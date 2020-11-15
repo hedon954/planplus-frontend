@@ -293,6 +293,23 @@ Page({
 
     //创建任务，显示模态框，确认任务信息
     verifyTask: function(e) {
+
+        //判断任务开始时间和结束时间是否有效
+        if(!this.timeValid(this.data.taskStartTime, this.data.taskPredictedFinishTime)) {
+            swan.showToast({
+                // 提示的内容
+                title: '任务开始时间需早于结束时间',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+                // 自定义图标的本地路径，image 的优先级高于 icon
+                image: '',
+                // 提示的延迟时间，单位毫秒。
+                duration: 2400,
+            });
+            return;
+        }
+
+
         console.log("订阅结果：" + e.detail.message);
 
         if(e.detail.message != 'success' &&
@@ -387,6 +404,17 @@ Page({
 
             }
         });
+    },
+
+    //检验开始时间和结束时间是否有效
+    timeValid: function(time1, time2) {
+        var oDate1 = new Date(time1);
+        var oDate2 = new Date(time2);
+        if(oDate1.getTime() < oDate2.getTime()) {
+            return true;
+        } else{
+            return false;
+        }
     },
 
     //关闭模态框
