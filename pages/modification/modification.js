@@ -106,6 +106,14 @@ Page({
                         aheadTime: response['taskAdvanceRemindTIme']
                     });
 
+                    console.log("结束时间：++++++++++++++");
+                    console.log(response['taskPredictedFinishTime'].substring(0, 10));
+                    console.log(response['taskPredictedFinishTime'].substring(11, 16));
+                    console.log("分界线===================");
+                    console.log(this.data.endDate);
+                    console.log(this.data.endTime);
+                    console.log("结束时间：+++++++++++++++");
+
 
                     /**
                     * 判断当前任务状态，
