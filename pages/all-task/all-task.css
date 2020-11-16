@@ -1,0 +1,36 @@
+.container{
+    padding-top: 10rpx;
+}
+
+.detail {
+    background-color: whitesmoke;
+    border-radius: 36rpx;
+    width: 90%;
+    margin: 20rpx;
+    min-height: 96vh;
+}
+
+.title {
+    display: flex;
+    background-color: lightgrey;
+    border-top-left-radius: 36rpx;
+    border-top-right-radius: 36rpx;
+    height: 60rpx;
+    overflow: hidden;
+}
+.title label {
+    margin: 10rpx 260rpx 10rpx 20rpx;
+    font-size: small;
+    text-align: left;
+    width: 200rpx;
+}
+.title tabs {
+    margin: 10rpx 5rpx;
+    height: 40rpx;
+    width: 300rpx;
+    border-radius: 36rpx;
+}
+.title tab-item {
+    background-color: lightgrey;
+    font-size: 6.039rpx;
+}

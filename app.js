@@ -26,6 +26,10 @@ App({
         this.data.subScribeId = param;
     },
 
+    setInfoChanged: function(param){
+        this.data.infoChanged = param;
+    },
+
     onLaunch(options) {
         this.data.subScribeId = Math.random() + Math.random() + Math.random();
     },
