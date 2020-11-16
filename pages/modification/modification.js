@@ -106,6 +106,14 @@ Page({
                         aheadTime: response['taskAdvanceRemindTIme']
                     });
 
+                    console.log("结束时间：++++++++++++++");
+                    console.log(response['taskPredictedFinishTime'].substring(0, 10));
+                    console.log(response['taskPredictedFinishTime'].substring(11, 16));
+                    console.log("分界线===================");
+                    console.log(this.data.endDate);
+                    console.log(this.data.endTime);
+                    console.log("结束时间：+++++++++++++++");
+
 
                     /**
                     * 判断当前任务状态，
@@ -255,7 +263,7 @@ Page({
     },
 
     //检验开始时间和结束时间是否有效
-    timeValid(time1, time2) {
+    timeValid: function(time1, time2) {
         var oDate1 = new Date(time1);
         var oDate2 = new Date(time2);
         if(oDate1.getTime() < oDate2.getTime()) {
@@ -306,11 +314,14 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
-                    swan.navigateBack({
+                    setTimeout(function() {
+                        swan.navigateBack({
 
-                    });
+                        });
+                    }, 800);
+
 
                 }
                 catch (error) {
@@ -341,7 +352,7 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
 
                     //任务已开始，禁止编辑功能
@@ -378,7 +389,7 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
 
                     //任务已结束，禁止编辑功能
@@ -400,6 +411,7 @@ Page({
         console.log(this.data.content);
         let begin = this.data.startDate + " " + this.data.startTime;
         let end = this.data.endDate + " " + this.data.endTime;
+        console.log("hhhhhhhhhhh____" + this.timeValid(begin, end));
         if(!this.timeValid(begin, end)) {
             swan.showToast({
                 title: '结束时间需晚于开始时间',
@@ -440,11 +452,13 @@ Page({
                         // 自定义图标的本地路径，image 的优先级高于 icon
                         image: '',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 2,
+                        duration: 1000,
                     });
-                    swan.navigateBack({
+                    setTimeout(function() {
+                        swan.navigateBack({
 
-                    });
+                        });
+                    }, 800);
 
                 }
                 catch (error) {
@@ -492,9 +506,11 @@ Page({
                     this.setData({
                         subScribeId: app.data.subScribeId
                     })
-                    swan.navigateBack({
+                    setTimeout(function() {
+                        swan.navigateBack({
 
-                    });
+                        });
+                    }, 800);
                 }
                 catch (error) {
                     console.log(error);

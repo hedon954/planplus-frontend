@@ -30,7 +30,7 @@
     </view>
     <view class="sub-view">
         <label class="tmp">结束时间：</label>
-        <input type="text" value="{{taskPredictedFinishTime}}" input="endChange"/>
+        <input type="text" value="{{taskPredictedFinishTime}}" bindinput="endChange"/>
     </view>
     <view class="sub-view">
         <label class="tmp">地点：</label>
