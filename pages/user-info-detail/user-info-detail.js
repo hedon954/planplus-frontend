@@ -41,8 +41,8 @@ Page({
     btnComfirm(e){
         swan.request({
 
-            url: 'http://localhost:9527/project/user/info',
-                // url: 'http://182.61.131.18:9527/project/user/info',
+            // url: 'http://localhost:9527/project/user/info',
+            url: 'http://182.61.131.18:9527/project/user/info',
             method: 'PUT',
             header:{
                 'Authorization': 'bearer '+app.data.access_token
@@ -50,7 +50,7 @@ Page({
             data:{
                 userNickname:this.data.userNickname,
                 userGender:this.data.userGender,
-                userBirthday:this.data.userBirthday+'T00:00:00',
+                userBirthday:this.data.userBirthday,
             },
             responseType: 'text',
             success:res=>{
@@ -59,6 +59,7 @@ Page({
                     swan.showToast({
                     title: '修改成功'
                     })
+                    app.setInfoChanged(true);
                 }
             }
         })
@@ -101,8 +102,8 @@ Page({
         console.log("App里的token是："+app.data.access_token)
         //检查是否已经登录
         swan.request({
-            url: 'http://localhost:9527/project/login/checkLogin',
-            // url: 'http://182.61.131.18:9527/project/login/checkLogin',
+            // url: 'http://localhost:9527/project/login/checkLogin',
+            url: 'http://182.61.131.18:9527/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -114,14 +115,14 @@ Page({
                 if(res.data.code == '1000'){
                     //设置当前用户ID
                     this.setData({
-                        currentUserId: res.data.data,
+                        currentUserId: res.data.data.userId,
                     })
                     console.log("hhhhh"+res.data)
                     //读取当前用户数据
                     swan.request({
 
-                        url: 'http://localhost:9527/project/user/info',
-                        // url: 'http://182.61.131.18:9527/project/user/info',
+                        // url: 'http://localhost:9527/project/user/info',
+                        url: 'http://182.61.131.18:9527/project/user/info',
                         method: 'GET',
                         header:{
                             'Authorization': 'bearer '+app.data.access_token
@@ -130,6 +131,7 @@ Page({
                         success:res=>{
                             console.log("成功获取数据");
                             console.log(res.data.data);
+
                             this.setData(
                                 {
                                     userNickname:res.data.data.userNickname,
@@ -220,8 +222,6 @@ Page({
             }
         });
     },
-
-
 
     uploadAvatar:function(){
         const filePath = this.getData('filePath');
