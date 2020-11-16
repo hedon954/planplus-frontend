@@ -6,21 +6,19 @@
         "pages/baidu-login/baidu-login",
         "pages/modification/modification",
         "pages/user-info-detail/user-info-detail",
-        "pages/index/index",
-        "pages/all-task/all-task",
-        "pages/feedback/feedback"
+        "pages/index/index"
     ],
     "window": {
-        "navigationBarBackgroundColor": "#8785a2",
+        "navigationBarBackgroundColor": "#ffffff",
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
     },
     "tabBar": {
-        "color": "#FFF;",
+        "color": "#666",
         "selectedColor": "#000",
         "borderStyle": "#D6D6D6",
-        "backgroundColor": "#8785a2",
+        "backgroundColor": "#FFF",
         "list": [
             {
                 "pagePath": "pages/home/home",

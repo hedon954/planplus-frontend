@@ -9,7 +9,6 @@ Page({
         userBirthday:"",
         userAvatarUrl:"",
         userGenderText:"未知",
-        userAge:"18岁",
     },
 
 
@@ -25,41 +24,17 @@ Page({
         }
     },
 
-    /**
-     * 跳转到详情页面
-     */
     goToDetail:function(){
         swan.navigateTo({
             url: '../../pages/user-info-detail/user-info-detail'
         });
     },
 
-    /**
-     * 跳转到反馈页面
-     */
-    goToFeedback:function(){
-        swan.navigateTo({
-            url:'../../pages/feedback/feedback'
-        });
-    },
-
-    /**
-     * 跳转到所有任务页面
-     */
-    goToAllTask:function(){
-        swan.navigateTo({
-            url:'../../pages/all-task/all-task'
-        });
-    },
 
     /**
      * 页面加载时
      */
     onLoad: function () {
-        this.getInfo();
-    },
-
-    getInfo:function(){
         //读取当前用户数据
         swan.request({
             url: 'http://182.61.131.18:9527/project/user/info',
@@ -97,10 +72,6 @@ Page({
         })
     },
 
-    setConstellation:function(){
-        var birthday = new Date()
-    },
-
     /**
      * 页面加载时
      */
@@ -116,9 +87,5 @@ Page({
                     console.log('showTabBar fail', err);
                 }
             })
-            if(app.data.infoChanged){
-                this.getInfo();
-                app.setInfoChanged(fasle);
-            }
     }
 });
