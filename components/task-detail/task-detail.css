@@ -6,7 +6,7 @@
     display: flex;
 }
 .task-content {
-    width: 48vw;
+    width: 60vw;
 }
 label {
     font-size: 36rpx;
