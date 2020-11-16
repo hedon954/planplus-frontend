@@ -246,12 +246,14 @@ Page({
     // 获取时间差
     getTimeSpan: function(list) {
         // console.log("进来了。。。")
-        let nowTime = new Date().getTime();//现在时间（时间戳）
+        let offset = new Date().getTimezoneOffset();
+        console.log(offset)
+        let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
         let maxTime = 0;
         for(var i = 0; i < list.length; i++) {
             // console.log("进入循环。。。")
-            let endTime = new Date(list[i]).getTime();//结束时间（时间戳）
+            let endTime = new Date(list[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
             let formatTime = this.timeFormat(time);
             tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);

@@ -3,8 +3,8 @@ const app = getApp()
 
 Page({
     data: {
-        phoneNumber: "15623205156",
-        password: "123456",
+        phoneNumber: "",
+        password: "",
         userInfo: {},
     },
     onLoad() {
