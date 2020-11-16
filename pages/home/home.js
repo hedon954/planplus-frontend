@@ -294,6 +294,22 @@ Page({
     //创建任务，显示模态框，确认任务信息
     verifyTask: function(e) {
 
+        //判断任务内容和任务开始时间是否为空
+        if(this.data.taskContent == null || this.data.taskContent == ''
+        || this.data.taskStartTime == null || this.data.taskStartTime == '') {
+            swan.showToast({
+                // 提示的内容
+                title: '缺少任务内容或开始时间',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+                // 自定义图标的本地路径，image 的优先级高于 icon
+                image: '',
+                // 提示的延迟时间，单位毫秒。
+                duration: 2400,
+            });
+            return;
+        }
+
         //判断任务开始时间和结束时间是否有效
         if(!this.timeValid(this.data.taskStartTime, this.data.taskPredictedFinishTime)) {
             swan.showToast({

@@ -407,6 +407,24 @@ Page({
 
     //保存修改
     save(e) {
+
+        //判断任务内容和任务开始时间是否为空
+        if(this.data.content == null || this.data.content == ''
+        || this.data.startDate == null || this.data.startDate == ''
+        || this.data.startTime == null || this.data.startTime == '') {
+            swan.showToast({
+                // 提示的内容
+                title: '缺少任务内容或开始时间',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+                // 自定义图标的本地路径，image 的优先级高于 icon
+                image: '',
+                // 提示的延迟时间，单位毫秒。
+                duration: 2400,
+            });
+            return;
+        }
+
         console.log("save form id = " + e.detail.formId);
         console.log(this.data.content);
         let begin = this.data.startDate + " " + this.data.startTime;
