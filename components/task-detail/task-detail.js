@@ -19,6 +19,10 @@ Component({
         isToday: {
             type: Boolean,
             value: true
+        },
+        delStyle: {
+            type: String,
+            value: ''
         }
     },
 

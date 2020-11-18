@@ -141,7 +141,7 @@ Page({
                        this.setData({
                            mutable: true,
                            visible: true,
-                           endBtnVisible: true
+                           endBtnVisible: false
                        });
                    }
 

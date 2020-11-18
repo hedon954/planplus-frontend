@@ -13,6 +13,7 @@ Page({
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
         maxTimeLeft: 0, //各个任务中倒计时剩余的最大值
+        deleteStyleList: [], //删除线样式
         /**
          * 单个任务属性
          */
@@ -219,14 +220,23 @@ Page({
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var delStyleList = []; //临时存放删除线样式
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 19);
                         response[i]['taskStartTime'] = startTimeString;
+
+                        //为已结束任务添加删除线
+                        if(response[i]['taskStatus'] == 2) {
+                            delStyleList.push("text-decoration:line-through");
+                        } else {
+                            delStyleList.push('');
+                        }
                     }
                     this.setData({
                         tasks: response,
-                        endTimeList: startTimeList
+                        endTimeList: startTimeList,
+                        deleteStyleList: delStyleList
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
