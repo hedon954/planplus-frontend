@@ -2,7 +2,7 @@
     <!-- 保存草稿 -->
     <button bindtap="draft" hidden="{{!visible}}"><image src="/images/draft_24px.png"></image></button>
     <!-- 删除任务 -->
-    <button bindtap="delete" hidden="{{!visible}}"><image src="/images/trash_24px.png"></image></button>
+    <button bindtap="delete"><image src="/images/trash_24px.png"></image></button>
 </view>
 <view class="main-view">
     <view class="sub-view">
@@ -96,7 +96,7 @@
         <image src="/images/start_24px.png"></image>
     </button>
     <!-- 结束任务 -->
-   <button bindtap="finish" hidden="{{!visible}}">
+   <button bindtap="finish" hidden="{{!endBtnVisible}}">
         <image src="/images/finish_flag_24px.png"></image>
     </button>
 </view>

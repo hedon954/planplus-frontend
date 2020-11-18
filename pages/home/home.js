@@ -17,11 +17,11 @@ Page({
          * 单个任务属性
          */
         taskId: null,
-        taskContent: "天上公鸡叫",
-        taskPlace: "妈妈地上跑",
+        taskContent: "放飞自我",
+        taskPlace: "穹顶之下",
         taskRate: 2,
-        taskStartTime: "2020-11-15T23:00:00.826000",
-        taskPredictedFinishTime: "2020-11-15T23:10:24.826000",
+        taskStartTime: "2020-11-18T23:00:00.826000",
+        taskPredictedFinishTime: "2020-11-18T23:10:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据

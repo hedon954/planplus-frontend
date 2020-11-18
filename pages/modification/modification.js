@@ -63,7 +63,8 @@ Page({
         endTimeDisplay: '', //打开时间选择器时默认选中（显示）的时间/结束时间
 
         mutable: true, //当前页面所有控件是否可编辑
-        visible: true, //当前页面的按钮是否可见
+        visible: true, //当前页面的按钮是否可见（除结束按钮和删除按钮）
+        endBtnVisible: true, //结束按钮是否可见
     },
     onLoad(options) {
         console.log(options);
@@ -117,22 +118,31 @@ Page({
 
                     /**
                     * 判断当前任务状态，
-                    * 若为进行中1或已结束2，则禁止当前页面所有编辑操作并隐藏所有按钮，
+                    * 若为进行中1或已结束2，则禁止当前页面所有编辑操作并隐藏相应按钮，
                     * 后续步骤“限定时间日期选择器起始值”也不再执行
                     */
                    console.log('返回的taskStatus的类型' + typeof response['taskStatus']);
                    console.log(response['taskStatus']);
-                   if (response['taskStatus'] == 1 || response['taskStatus'] == 2) {
+                   if (response['taskStatus'] == 1) {
                        this.setData({
                            mutable: false,
-                           visible: false
+                           visible: false,
+                           endBtnVisible: true
+                       });
+                       return;
+                   } else if(response['taskStatus'] == 2) {
+                       this.setData({
+                           mutable: false,
+                           visible: false,
+                           endBtnVisible: false
                        });
                        return;
                    } else {
                        this.setData({
                            mutable: true,
-                           visible: true
-                       })
+                           visible: true,
+                           endBtnVisible: true
+                       });
                    }
 
 
@@ -358,7 +368,8 @@ Page({
                     //任务已开始，禁止编辑功能
                     this.setData({
                         mutable: false,
-                        visible: false
+                        visible: false,
+                        endBtnVisible: true
                     });
                 }
                 catch (error) {
@@ -395,7 +406,8 @@ Page({
                     //任务已结束，禁止编辑功能
                     this.setData({
                         mutable: false,
-                        visible: false
+                        visible: false,
+                        endBtnVisible: false
                     });
                 }
                 catch (error) {
