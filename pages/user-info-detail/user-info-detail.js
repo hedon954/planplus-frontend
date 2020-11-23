@@ -50,7 +50,7 @@ Page({
             data:{
                 userNickname:this.data.userNickname,
                 userGender:this.data.userGender,
-                userBirthday:this.data.userBirthday+'T00:00:00',
+                userBirthday:this.data.userBirthday,
             },
             responseType: 'text',
             success:res=>{
@@ -59,6 +59,7 @@ Page({
                     swan.showToast({
                     title: '修改成功'
                     })
+                    app.setInfoChanged(true);
                 }
             }
         })
@@ -114,7 +115,7 @@ Page({
                 if(res.data.code == '1000'){
                     //设置当前用户ID
                     this.setData({
-                        currentUserId: res.data.data,
+                        currentUserId: res.data.data.userId,
                     })
                     console.log("hhhhh"+res.data)
                     //读取当前用户数据
@@ -130,6 +131,7 @@ Page({
                         success:res=>{
                             console.log("成功获取数据");
                             console.log(res.data.data);
+
                             this.setData(
                                 {
                                     userNickname:res.data.data.userNickname,
@@ -220,8 +222,6 @@ Page({
             }
         });
     },
-
-
 
     uploadAvatar:function(){
         const filePath = this.getData('filePath');

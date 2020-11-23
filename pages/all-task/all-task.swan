@@ -1,0 +1,29 @@
+<view class="container">
+    <!--to do-->
+        <!-- 任务列表区域 -->
+    <view class="detail">
+        <!-- 标题区域，包含日期切换按钮 -->
+        <view class="title">
+            <!-- 切换按钮 -->
+            <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
+                <tab-item class="tab1" name="all" label="所有" />
+                <tab-item class="tab2" name="done" label="已办" />
+                <tab-item class="tab3" name="todo" label="待办" />
+            </tabs>
+        </view>
+        <!-- 任务列表 -->
+        <view class="list">
+            <task-detail
+            s-for="tasks"
+            id="{{item.taskId}}"
+            content="{{item.taskContent}}"
+            time="{{item.taskStartTime}}"
+            place="{{item.taskPlace}}"
+            countDownTime="{{countDownList[index]}}"
+            isToday="{{isToday}}"
+            class="{{activeName}}"
+            bindtap="jumpToDetail">
+            </task-detail>
+        </view>
+    </view>
+</view>

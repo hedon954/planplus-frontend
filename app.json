@@ -6,7 +6,9 @@
         "pages/baidu-login/baidu-login",
         "pages/modification/modification",
         "pages/user-info-detail/user-info-detail",
-        "pages/index/index"
+        "pages/index/index",
+        "pages/all-task/all-task",
+        "pages/feedback/feedback"
     ],
     "window": {
         "navigationBarBackgroundColor": "#8785a2",
@@ -15,7 +17,7 @@
         "backgroundTextStyle": "light"
     },
     "tabBar": {
-        "color": "#666",
+        "color": "#FFF;",
         "selectedColor": "#000",
         "borderStyle": "#D6D6D6",
         "backgroundColor": "#8785a2",

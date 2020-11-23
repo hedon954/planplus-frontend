@@ -69,7 +69,8 @@
         countDownTime="{{countDownList[index]}}"
         isToday="{{isToday}}"
         class="{{activeName}}"
-        bindtap="jumpToDetail">
+        bindtap="jumpToDetail"
+        delStyle="{{deleteStyleList[index]}}">
         </task-detail>
     </view>
 </view>

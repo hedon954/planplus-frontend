@@ -13,15 +13,16 @@ Page({
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
         maxTimeLeft: 0, //各个任务中倒计时剩余的最大值
+        deleteStyleList: [], //删除线样式
         /**
          * 单个任务属性
          */
         taskId: null,
-        taskContent: "天上公鸡叫",
-        taskPlace: "妈妈地上跑",
+        taskContent: "放飞自我",
+        taskPlace: "穹顶之下",
         taskRate: 2,
-        taskStartTime: "2020-11-15T23:00:00.826000",
-        taskPredictedFinishTime: "2020-11-15T23:10:24.826000",
+        taskStartTime: "2020-11-18T23:00:00.826000",
+        taskPredictedFinishTime: "2020-11-18T23:10:24.826000",
         taskAdvanceRemindTime: 10,
         /**
          * 任务提醒模态框需要的数据
@@ -219,14 +220,23 @@ Page({
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var delStyleList = []; //临时存放删除线样式
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 19);
                         response[i]['taskStartTime'] = startTimeString;
+
+                        //为已结束任务添加删除线
+                        if(response[i]['taskStatus'] == 2) {
+                            delStyleList.push("text-decoration:line-through");
+                        } else {
+                            delStyleList.push('');
+                        }
                     }
                     this.setData({
                         tasks: response,
-                        endTimeList: startTimeList
+                        endTimeList: startTimeList,
+                        deleteStyleList: delStyleList
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
@@ -295,6 +305,22 @@ Page({
 
     //创建任务，显示模态框，确认任务信息
     verifyTask: function(e) {
+
+        //判断任务内容和任务开始时间是否为空
+        if(this.data.taskContent == null || this.data.taskContent == ''
+        || this.data.taskStartTime == null || this.data.taskStartTime == '') {
+            swan.showToast({
+                // 提示的内容
+                title: '缺少任务内容或开始时间',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+                // 自定义图标的本地路径，image 的优先级高于 icon
+                image: '',
+                // 提示的延迟时间，单位毫秒。
+                duration: 2400,
+            });
+            return;
+        }
 
         //判断任务开始时间和结束时间是否有效
         if(!this.timeValid(this.data.taskStartTime, this.data.taskPredictedFinishTime)) {
