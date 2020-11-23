@@ -1,5 +1,5 @@
 <view class="info-detail-container">
-    <view>
+    <view class="card-area">
         <view class="avatar-item">
             <text class="title">编辑资料</text>
             <image src={{userAvatarUrl}}
@@ -7,14 +7,14 @@
                 bindtap="chooseImage">
             </image>
         </view>
-        <view class="item">
+        <view class="item border-bottom">
             <text class="property">昵称</text>
             <input class="name-input"
                 type="text"
                 value={{userNickname}}
                 bind:change="nicknameChange"/>
         </view>
-        <view class="item">
+        <view class="item border-bottom">
             <text class="property">生日</text>
             <picker mode="date"
                     class="birthday"
@@ -25,7 +25,7 @@
                 </view>
             </picker>
         </view>
-        <view class="item">
+        <view class="item border-bottom">
             <text class="property">性别</text>
             <picker mode="selector"
                 class="birthday"
@@ -36,7 +36,10 @@
                 {{userGenderText}}
             </picker>
         </view>
-        <button class="button" bind:tap="btnComfirm">确定</button>
+        <view class="button-box">
+            <button class="button" bind:tap="btnPswChanged">修改密码</button>
+            <button class="button" bind:tap="btnComfirm">确定</button>
+        </view>
     </view>
     <!--to do-->
 </view>

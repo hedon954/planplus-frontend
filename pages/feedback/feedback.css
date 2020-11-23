@@ -1,0 +1,9 @@
+.feedback-text{
+    width: 80%;
+    height: 60%;
+    border: steelblue 1.208rpx solid;
+}
+
+.textarea{
+    background-color: whitesmoke;
+}

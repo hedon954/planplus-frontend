@@ -50,7 +50,7 @@ Page({
             data:{
                 userNickname:this.data.userNickname,
                 userGender:this.data.userGender,
-                userBirthday:this.data.userBirthday,
+                userBirthday:this.data.userBirthday.substring(0,10)+"T00:00:00",
             },
             responseType: 'text',
             success:res=>{
@@ -137,7 +137,7 @@ Page({
                                     userNickname:res.data.data.userNickname,
                                     userAvatarUrl:res.data.data.userAvatarUrl,
                                     userGender:res.data.data.userGender,
-                                    userBirthday:res.data.data.userBirthday,
+                                    userBirthday:res.data.data.userBirthday.substring(0,10),
                                 }
                             )
                             switch(this.data.userGender)
@@ -259,6 +259,12 @@ Page({
             }
         });
 
+    },
+
+    btnPswChanged:function(){
+        swan.navigateTo({
+            url:'../../pages/pwd-changed/pwd-changed'
+        });
     },
 
     onReady: function() {

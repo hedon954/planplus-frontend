@@ -7,7 +7,7 @@ Page({
         userNickname:"kk",
         userGender:-1,
         userBirthday:"",
-        userAvatarUrl:"",
+        userAvatarUrl:"http://localhost:9527/img/1/1.png",
         userGenderText:"未知",
         userAge:"18岁",
     },
@@ -48,7 +48,7 @@ Page({
      */
     goToAllTask:function(){
         swan.navigateTo({
-            url:'../../pages/all-task/all-task'
+            url:'../../pages/all-tasks/all-tasks'
         });
     },
 
@@ -62,6 +62,7 @@ Page({
     getInfo:function(){
         //读取当前用户数据
         swan.request({
+            // url: 'http://localhost:9527/project/user/info',
             url: 'http://182.61.131.18:9527/project/user/info',
             method: 'GET',
             header:{
@@ -72,7 +73,7 @@ Page({
                 this.setData(
                     {
                         userNickname:res.data.data.userNickname,
-                        userAvatarUrl:res.data.data.userAvatarUrl,
+                        //userAvatarUrl:res.data.data.userAvatarUrl,
                         userGender:res.data.data.userGender,
                     }
                 )

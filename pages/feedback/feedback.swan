@@ -1,4 +1,7 @@
 <view class="container">
     <!--to do-->
-    是反馈页面
+    <view>反馈意见</view>
+    <view class="feedback-text">
+        <textarea class="textarea"/>
+    </view>
 </view>
