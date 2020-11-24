@@ -39,6 +39,12 @@ Page({
          */
         timeConflict: false,
         conflictTaskStr: '',
+
+        /**
+         * 语音识别部分
+         */
+        showVoiceRecognizePanel: false, //是否显示语音识别面板
+        voiceRecognizeContent: "", //语音识别到的内容
     },
 
     /**
@@ -357,14 +363,17 @@ Page({
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
+            // data: {
+            //     taskFormId: e.detail.formId,
+            //     taskContent: this.data.taskContent,
+            //     taskPlace: this.data.taskPlace,
+            //     taskRate: this.data.taskRate,
+            //     taskStartTime: this.data.taskStartTime,
+            //     taskPredictedFinishTime: this.data.taskPredictedFinishTime,
+            //     taskAdvanceRemindTime: this.data.taskAdvanceRemindTime
+            // },
             data: {
-                taskFormId: e.detail.formId,
-                taskContent: this.data.taskContent,
-                taskPlace: this.data.taskPlace,
-                taskRate: this.data.taskRate,
-                taskStartTime: this.data.taskStartTime,
-                taskPredictedFinishTime: this.data.taskPredictedFinishTime,
-                taskAdvanceRemindTime: this.data.taskAdvanceRemindTime
+                taskSentence: voiceRecognizeContent
             },
             success: res => {
                 //创建成功
@@ -473,6 +482,22 @@ Page({
         if(hour == 0){
             return minute +'分钟';
         }
+    },
+
+    //语音识别输入
+    voiceRecognize: function() {
+        console.log("开始语音识别。。。");
+        this.setData("showVoiceRecognizePanel", true);
+        // this.getVoiceRecognizeContent("hh");
+    },
+    //获取语音识别内容
+    getVoiceRecognizeContent: function(e) {
+        console.log("识别到的内容。。。")
+        this.setData("voiceRecognizeContent", e.content);
+    },
+    //关闭语音识别面板
+    cancelendVoiceRecognize: function() {
+        console.log("关闭语音识别面板。。。");
     },
 
 
