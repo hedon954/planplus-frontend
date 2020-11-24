@@ -68,8 +68,22 @@
     background-color: rgba(218, 218, 218, 0.986);
     padding:0;
     display: inline;
-    margin-right: 80.464rpx;
-    padding-left: 138.889rpx;
+    margin-right: 0;
+    margin-left: 220rpx;
+    padding-left: 20rpx;
+}
+
+.help-botton{
+    border:none;
+    background-color: rgba(218, 218, 218, 0.986);
+    padding:0;
+    display: inline;
+    margin-left: 20rpx;
+    margin-right: 0;
+}
+
+.help-botton::after{
+    border:0;
 }
 
 .update-botton::after{

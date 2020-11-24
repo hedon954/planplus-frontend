@@ -7,8 +7,10 @@
         "pages/modification/modification",
         "pages/user-info-detail/user-info-detail",
         "pages/index/index",
-        "pages/all-task/all-task",
-        "pages/feedback/feedback"
+        "pages/all-tasks/all-tasks",
+        "pages/feedback/feedback",
+        "pages/pwd-changed/pwd-changed",
+        "pages/help/help"
     ],
     "window": {
         "navigationBarBackgroundColor": "#8785a2",
