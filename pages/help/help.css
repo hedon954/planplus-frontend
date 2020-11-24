@@ -1,14 +1,12 @@
-.feedback-text{
-    width: 100%;
+.text-box{
+    width: 90%;
     height: 80%;
     border: none;
+    margin: 5%;
 }
 
-.textarea{
-    border: 0;
-    margin: 5%;
+.help-text{
     width: 90%;
-    height: 100%;
 }
 
 .card-area {
@@ -24,7 +22,7 @@
     padding-bottom: .5rem;
     font-size: 35rpx;
     width:100%;
-    height: 750rpx;
+    height: 1100rpx;
 }
 
 .top-description {
@@ -50,17 +48,4 @@
     background: #E6E6E6;
     -webkit-transform-origin: 0 100%;
             transform-origin: 0 100%;
-}
-
-.button{
-    font-size: 30rpx;
-    border-radius: 9rpx;
-    margin:60.386rpx auto;
-    width:80%;
-    background-color: #8785a2;
-    color: whitesmoke;
-}
-
-.button::after{
-    border: none;
 }

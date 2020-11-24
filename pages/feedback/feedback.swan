@@ -1,7 +1,9 @@
-<view class="container">
-    <!--to do-->
-    <view>反馈意见</view>
-    <view class="feedback-text">
-        <textarea class="textarea"/>
+<view class="wrap">
+    <view class="card-area">
+        <view class="top-description border-bottom">反馈意见</view>
+        <view class="feedback-text">
+            <textarea class="textarea" placeholder="请在此处输入" maxlength="-1" auto-focus="{{true}}"/>
+        </view>
     </view>
+    <button class="button">确认</button>
 </view>

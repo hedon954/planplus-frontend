@@ -26,6 +26,15 @@ Page({
     },
 
     /**
+     * 跳转到帮助页面
+     */
+    goToHelpPage:function(){
+        swan.navigateTo({
+            url: '../../pages/help/help'
+        });
+    },
+
+    /**
      * 跳转到详情页面
      */
     goToDetail:function(){

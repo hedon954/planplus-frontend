@@ -12,6 +12,9 @@
             <button class="update-botton" bind:tap="goToDetail">
                 <smt-icon name="comment-editor" color="#6D6E74"></smt-icon>
             </button>
+            <button class="help-botton" bind:tap="goToHelpPage">
+                <smt-icon name="help" color="#6D6E74"></smt-icon>
+            </button>
         </view>
     </view>
     <view>
