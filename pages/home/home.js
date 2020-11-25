@@ -303,6 +303,102 @@ Page({
         return { ss, mm, hh };
     },
 
+    /**
+     * 通过一句话创建任务
+     */
+    createTask: function(e){
+
+        console.log("订阅结果：" + e.detail.message);
+
+        if(e.detail.message != 'success' &&
+           e.detail.message != '调用成功' &&
+           e.detail.message != 'succ'){
+            swan.showToast({
+                // 提示的内容
+                title: '任务创建失败，请授权通知功能',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+            });
+            return;
+        }
+
+        console.log("formId = " + e.detail.formId)
+        swan.request({
+            url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            method: 'POST',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            data: {
+                taskFormId: e.detail.formId,
+                taskInfo:"今天12点到下午1点去银泰创意城吃饭"
+            },
+            success: res => {
+                //创建成功
+                if(res.data.code == '1000'){
+                    console.log("res = " + res.data.data.taskId)
+                    //刷新订阅ID，防止每次的 formID 都一样
+                    app.setSubScribeId(res.data.data.subScribeId)
+                    this.setData({
+                        subScribeId: app.data.subScribeId
+                    })
+                    console.log("app's subScribeId = " + app.data.subScribeId);
+                    console.log("home's subScribeId = " + this.data.subScribeId);
+                    //获取剩余时间
+                    let timeLeft = this.getTimeLeft(this.data.taskStartTime);
+                    //初始化参数
+                    this.setData({
+                        taskId: res.data.data.taskId,
+                        taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}\r\n`,
+                        taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}\r\n`,
+                        predictedConsumedTimeStr: '',
+                        conflictTaskStr: ''
+                    });
+                    //预测耗时
+                    if(this.data.hasPredicedTime){
+                        this.setData({
+                            predictedConsumedTimeStr: '预计耗时：' + '2h' + '\r\n'
+                        })
+                    };
+                    //时间冲突
+                    if(this.data.timeConflict){
+                        this.setData({
+                            conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
+                        })
+                    }
+                    //显示模态框进行提示
+                    swan.showModal({
+                        title: '创建成功',
+                        content:
+                        // '将在'+'30分钟'+'后提醒你'+'吃饭'+'\r\n'
+                        this.data.taskRemindStr
+                        // +'[备注]在'+'银泰'+'20:00'+'\r\n'
+                        + this.data.taskRemarkStr
+                        // +'预计耗时：'+'30min'+'\r\n'
+                        + this.data.predictedConsumedTimeStr
+                        // +'小程序检测出您在该时间段内有'+'学习'+'任务',
+                        + this.data.conflictTaskStr,
+                        showCancel: true,
+                        cancelText: '修改',
+                        cancelColor: '#ff0000',
+                        confirmText: '确定',
+                        success: res=>{
+                            //重新读取所有任务
+                            this.getTodayTasks()
+                            if(res.cancel){
+                                //跳转到详情页
+                                swan.navigateTo({
+                                    url:'/pages/modification/modification?taskId='+this.data.taskId
+                                });
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+    },
+
     //创建任务，显示模态框，确认任务信息
     verifyTask: function(e) {
 
