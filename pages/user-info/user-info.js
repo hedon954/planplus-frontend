@@ -82,7 +82,7 @@ Page({
                 this.setData(
                     {
                         userNickname:res.data.data.userNickname,
-                        //userAvatarUrl:res.data.data.userAvatarUrl,
+                        userAvatarUrl:res.data.data.userAvatarUrl,
                         userGender:res.data.data.userGender,
                     }
                 )

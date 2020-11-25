@@ -337,7 +337,7 @@ Page({
             },
             data: {
                 taskFormId: e.detail.formId,
-                taskInfo:"今天下午1点去银泰创意城吃饭"
+                taskInfo:this.data.voiceRecognizeContent
             },
             success: res => {
                 //创建成功
