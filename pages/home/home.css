@@ -10,7 +10,8 @@
 .head-img {
     height: 60rpx;
     width: 60rpx;
-    margin: 42rpx 5rpx;
+    margin-left: -30rpx;
+    margin-bottom: 10px;
 }
 .header textarea {
     margin-left: 18rpx;

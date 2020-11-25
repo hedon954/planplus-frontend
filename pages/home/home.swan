@@ -2,8 +2,18 @@
 <diy-modal showDiyModal="{{showVerifyModal}}" bind:modifyTaskInfo="jumpToDetail" bind:verifyTaskInfo="closeModal" isConflict="{{timeConflict}}"></diy-modal>
 <!-- 头部任务输入区域 -->
 <view class="header">
-    <image src="/images/microphone_24px.png" class="head-img"></image>
-    <textarea placeholder="请输入任务内容"/>
+    <!-- 语音输入 -->
+    <button class="head-btn" bind:tap="voiceRecognize">
+        <image src="/images/microphone_24px.png" class="head-img"></image>
+    </button>
+    <smt-voice-recognizer
+        show-panel="{= showVoiceRecognizePanel =}"
+        bind:stop="getVoiceRecognizeContent"
+        bindcancelend="cancelendVoiceRecognize">
+    </smt-voice-recognizer>
+
+    <!-- 多行文本框，创建任务按钮 -->
+    <textarea placeholder="请输入任务内容" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
     <form
         report-submit="{{true}}"
         report-type="subscribe"
