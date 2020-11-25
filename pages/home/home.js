@@ -499,6 +499,10 @@ Page({
     cancelendVoiceRecognize: function() {
         console.log("关闭语音识别面板。。。");
     },
+    //多行文本框输入内容改变时
+    taskSentenceChange: function(e) {
+        this.setData("voiceRecognizeContent", e.detail.value);
+    },
 
 
 

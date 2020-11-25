@@ -13,7 +13,7 @@
     </smt-voice-recognizer>
 
     <!-- 多行文本框，创建任务按钮 -->
-    <textarea placeholder="请输入任务内容" value="{{voiceRecognizeContent}}"/>
+    <textarea placeholder="请输入任务内容" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
     <form
         report-submit="{{true}}"
         report-type="subscribe"
