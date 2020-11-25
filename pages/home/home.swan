@@ -13,7 +13,7 @@
     </smt-voice-recognizer>
 
     <!-- 多行文本框，创建任务按钮 -->
-    <textarea placeholder="请输入任务内容" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
+    <textarea placeholder="明天下午3点去健身房健身(时间-地点-事件)" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
     <form
         report-submit="{{true}}"
         report-type="subscribe"
@@ -28,7 +28,7 @@
 </view>
 
 
-<!-- 创建任务，用于临时测试 -->
+<!-- 创建任务，用于临时测试
 <view class="main-view">
     <view class="sub-view">
         <label class="tmp">任务内容：</label>
@@ -53,7 +53,7 @@
     <view class="sub-view">
         <label class="tmp">提前提醒：</label>
         <input type="text" value="{{taskAdvanceRemindTime}}" bindinput="remindChange"/>
-</view>
+</view>-->
 
 
 <!-- 任务列表区域 -->

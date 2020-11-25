@@ -329,15 +329,15 @@ Page({
 
         console.log("formId = " + e.detail.formId)
         swan.request({
-            // url: 'http://182.61.131.18:9527/project/task/createBySentence',
-            url: 'http://localhost:9527/project/task/createBySentence',
+            url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            // url: 'http://localhost:9527/project/task/createBySentence',
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
             data: {
                 taskFormId: e.detail.formId,
-                taskInfo:"今天12点到下午1点去银泰创意城吃饭"
+                taskInfo:this.data.voiceRecognizeContent
             },
             success: res => {
                 //创建成功
@@ -357,7 +357,7 @@ Page({
                     //初始化参数
                     this.setData({
                         taskId: didaTask.taskId,
-                        taskRemindStr: `将在${timeLeft-didaTask.taskAdvanceRemindTime}后提醒你${didaTask.taskContent}\r\n`,
+                        taskRemindStr: `将在${timeLeft}后提醒你${didaTask.taskContent}\r\n`,
                         taskRemarkStr: `[备注]在${didaTask.taskPlace},${didaTask.taskStartTime.substring(0,10) +' ' +didaTask.taskStartTime.substring(11,16)}\r\n`,
                         predictedConsumedTimeStr: '',
                         conflictTaskStr: ''
