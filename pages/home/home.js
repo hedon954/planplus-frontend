@@ -39,12 +39,6 @@ Page({
          */
         timeConflict: false,
         conflictTaskStr: '',
-
-        /**
-         * 语音识别部分
-         */
-        showVoiceRecognizePanel: false, //是否显示语音识别面板
-        voiceRecognizeContent: "", //语音识别到的内容
     },
 
     /**
@@ -263,7 +257,6 @@ Page({
     getTimeSpan: function(list) {
         // console.log("进来了。。。")
         let offset = new Date().getTimezoneOffset();
-        console.log(offset)
         let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
         let maxTime = 0;
@@ -330,7 +323,8 @@ Page({
 
         console.log("formId = " + e.detail.formId)
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            // url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            url: 'http://localhost:9527/project/task/createBySentence',
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -342,7 +336,9 @@ Page({
             success: res => {
                 //创建成功
                 if(res.data.code == '1000'){
-                    console.log("res = " + res.data.data.taskId)
+                    //任务信息体
+                    let didaTask = res.data.data.didaTask
+                    console.log("res = " + res.data.data.didaTask)
                     //刷新订阅ID，防止每次的 formID 都一样
                     app.setSubScribeId(res.data.data.subScribeId)
                     this.setData({
@@ -351,12 +347,12 @@ Page({
                     console.log("app's subScribeId = " + app.data.subScribeId);
                     console.log("home's subScribeId = " + this.data.subScribeId);
                     //获取剩余时间
-                    let timeLeft = this.getTimeLeft(this.data.taskStartTime);
+                    let timeLeft = this.getTimeLeft(didaTask.taskStartTime);
                     //初始化参数
                     this.setData({
-                        taskId: res.data.data.taskId,
-                        taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}\r\n`,
-                        taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}\r\n`,
+                        taskId: didaTask.taskId,
+                        taskRemindStr: `将在${timeLeft-didaTask.taskAdvanceRemindTime}后提醒你${didaTask.taskContent}\r\n`,
+                        taskRemarkStr: `[备注]在${didaTask.taskPlace},${didaTask.taskStartTime.substring(0,10) +' ' +didaTask.taskStartTime.substring(11,16)}\r\n`,
                         predictedConsumedTimeStr: '',
                         conflictTaskStr: ''
                     });
@@ -398,6 +394,18 @@ Page({
                                 });
                             }
                         }
+                    });
+                }else{
+                    swan.showModal({
+                        // 提示的标题
+                        title: '创建失败',
+                        // 提示的内容
+                        content: res.data.message,
+                        // 是否显示取消按钮 。
+                        showCancel: false,
+                        confirmText: '确定',
+                        // 确定按钮的文字颜色。
+                        confirmColor: '#',
                     });
                 }
 
@@ -461,17 +469,14 @@ Page({
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
-            // data: {
-            //     taskFormId: e.detail.formId,
-            //     taskContent: this.data.taskContent,
-            //     taskPlace: this.data.taskPlace,
-            //     taskRate: this.data.taskRate,
-            //     taskStartTime: this.data.taskStartTime,
-            //     taskPredictedFinishTime: this.data.taskPredictedFinishTime,
-            //     taskAdvanceRemindTime: this.data.taskAdvanceRemindTime
-            // },
             data: {
-                taskSentence: voiceRecognizeContent
+                taskFormId: e.detail.formId,
+                taskContent: this.data.taskContent,
+                taskPlace: this.data.taskPlace,
+                taskRate: this.data.taskRate,
+                taskStartTime: this.data.taskStartTime,
+                taskPredictedFinishTime: this.data.taskPredictedFinishTime,
+                taskAdvanceRemindTime: this.data.taskAdvanceRemindTime
             },
             success: res => {
                 //创建成功
@@ -580,26 +585,6 @@ Page({
         if(hour == 0){
             return minute +'分钟';
         }
-    },
-
-    //语音识别输入
-    voiceRecognize: function() {
-        console.log("开始语音识别。。。");
-        this.setData("showVoiceRecognizePanel", true);
-        // this.getVoiceRecognizeContent("hh");
-    },
-    //获取语音识别内容
-    getVoiceRecognizeContent: function(e) {
-        console.log("识别到的内容。。。")
-        this.setData("voiceRecognizeContent", e.content);
-    },
-    //关闭语音识别面板
-    cancelendVoiceRecognize: function() {
-        console.log("关闭语音识别面板。。。");
-    },
-    //多行文本框输入内容改变时
-    taskSentenceChange: function(e) {
-        this.setData("voiceRecognizeContent", e.detail.value);
     },
 
 
