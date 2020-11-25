@@ -554,7 +554,7 @@ Page({
     timeValid: function(time1, time2) {
         var oDate1 = new Date(time1);
         var oDate2 = new Date(time2);
-        if(oDate1.getTime() < oDate2.getTime()) {
+        if(oDate1.getTime() <= oDate2.getTime()) {
             return true;
         } else{
             return false;
