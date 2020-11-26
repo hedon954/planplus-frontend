@@ -3,6 +3,11 @@
     height: 80%;
     border: none;
 }
+.feedback-email{
+    width: 100%;
+    height: 10vw;
+    border: none;
+}
 
 .textarea{
     border: 0;
@@ -11,13 +16,21 @@
     height: 100%;
 }
 
-.card-area {
+.content-area {
     overflow: hidden;
     margin:5%;
     border-radius: 8px 8px;
     background: #FFF;
-    width: 90%;
+    width: 90vw;
     height: 100%;
+}
+
+.email-area {
+    overflow: hidden;
+    margin:5%;
+    border-radius: 8px 8px;
+    background: #FFF;
+    width: 90vw;
 }
 
 .wrap {

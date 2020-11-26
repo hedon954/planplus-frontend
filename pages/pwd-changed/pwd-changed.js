@@ -37,8 +37,8 @@ Page({
             else{
                 console.log("kkkkkkkkkkkk");
                 swan.request({
-                    // url: 'http://182.61.131.18:9527/project/user/pwd',
-                    url: 'http://localhost:9527/project/user/pwd',
+                    url: 'http://182.61.131.18:9527/project/user/pwd',
+                    // url: 'http://localhost:9527/project/user/pwd',
                         method: 'PUT',
                         header:{
                             'Authorization': 'bearer '+app.data.access_token
