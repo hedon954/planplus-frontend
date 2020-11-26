@@ -353,7 +353,7 @@ Page({
                     console.log("app's subScribeId = " + app.data.subScribeId);
                     console.log("home's subScribeId = " + this.data.subScribeId);
                     //获取剩余时间
-                    let timeLeft = this.getTimeLeft(didaTask.taskStartTime);
+                    let timeLeft = this.getTimeLeft(didaTask.taskRemindTime);
                     //初始化参数
                     this.setData({
                         taskId: didaTask.taskId,
@@ -496,7 +496,7 @@ Page({
                     console.log("app's subScribeId = " + app.data.subScribeId);
                     console.log("home's subScribeId = " + this.data.subScribeId);
                     //获取剩余时间
-                    let timeLeft = this.getTimeLeft(this.data.taskStartTime);
+                    let timeLeft = this.getTimeLeft(res.data.data.taskRemindTime);
                     //初始化参数
                     this.setData({
                         taskId: res.data.data.taskId,
