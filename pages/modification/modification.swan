@@ -1,8 +1,12 @@
 <view class="head-view">
     <!-- 保存草稿 -->
-    <button bindtap="draft" hidden="{{!visible}}"><image src="/images/draft_24px.png"></image></button>
+    <button class="my-button draft-button" bindtap="draft" hidden="{{!visible}}">
+        保存草稿
+    </button>
     <!-- 删除任务 -->
-    <button bindtap="delete"><image src="/images/trash_24px.png"></image></button>
+    <button bindtap="delete" class="delete-button">
+        <smt-icon name="trash" color="#6D6E74"></smt-icon>
+    </button>
 </view>
 <view class="main-view">
     <view class="sub-view">
@@ -92,12 +96,12 @@
 </view>
 <view class="bottom">
     <!-- 开始任务 -->
-    <button bindtap="start" hidden="{{!visible}}">
-        <image src="/images/start_24px.png"></image>
+    <button class="start-end-button" bindtap="start" hidden="{{!visible}}">
+        <smt-icon name="play" color="#8785a2"></smt-icon>
     </button>
     <!-- 结束任务 -->
-   <button bindtap="finish" hidden="{{!endBtnVisible}}">
-        <image src="/images/finish_flag_24px.png"></image>
+   <button class="start-end-button" bindtap="finish" hidden="{{!endBtnVisible}}">
+        <smt-icon name="stop" color="#8785a2"></smt-icon>
     </button>
 </view>
 <view class="bottom">
@@ -109,8 +113,8 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="save"
         bindreset="formReset">
-        <button formType="submit" hidden="{{!visible}}">
-            <image src="/images/save_24px.png"></image>
+        <button class="my-button bottom-button" formType="submit" hidden="{{!visible}}">
+            保存修改
         </button>
     </form>
     <!-- 推迟任务 -->
@@ -121,8 +125,8 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="delay"
         bindreset="formReset">
-        <button formType="submit" hidden="{{!visible}}">
-            <image src="/images/schedule_mail_24px.png"></image>
+        <button class="my-button bottom-button" formType="submit" hidden="{{!visible}}">
+            推迟任务
         </button>
     </form>
 </view>

@@ -39,30 +39,37 @@ Page({
     },
 
     btnComfirm(e){
-        swan.request({
+        if(this.data.userNickname!=""){
+            swan.request({
 
-            // url: 'http://localhost:9527/project/user/info',
-            url: 'http://182.61.131.18:9527/project/user/info',
-            method: 'PUT',
-            header:{
-                'Authorization': 'bearer '+app.data.access_token
-            },
-            data:{
-                userNickname:this.data.userNickname,
-                userGender:this.data.userGender,
-                userBirthday:this.data.userBirthday.substring(0,10)+"T00:00:00",
-            },
-            responseType: 'text',
-            success:res=>{
-                console.log("dsfsfsdf"+res.data.code)
-                if(res.data.code == 1000){
-                    swan.showToast({
-                    title: '修改成功'
-                    })
-                    app.setInfoChanged(true);
+                // url: 'http://localhost:9527/project/user/info',
+                url: 'http://182.61.131.18:9527/project/user/info',
+                method: 'PUT',
+                header:{
+                    'Authorization': 'bearer '+app.data.access_token
+                },
+                data:{
+                    userNickname:this.data.userNickname,
+                    userGender:this.data.userGender,
+                    userBirthday:this.data.userBirthday.substring(0,10)+"T00:00:00",
+                },
+                responseType: 'text',
+                success:res=>{
+                    console.log("dsfsfsdf"+res.data.code)
+                    if(res.data.code == 1000){
+                        swan.showToast({
+                        title: '修改成功'
+                        })
+                        app.setInfoChanged(true);
+                    }
                 }
-            }
-        })
+            })
+        }else{
+            swan.showToast({
+                icon:'none',
+                title: '信息不能为空'
+                })
+        }
         console.log("当前用户ID："+this.data.currentUserId)
 
     },
