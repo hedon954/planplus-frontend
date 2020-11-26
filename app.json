@@ -10,7 +10,8 @@
         "pages/all-tasks/all-tasks",
         "pages/feedback/feedback",
         "pages/pwd-changed/pwd-changed",
-        "pages/help/help"
+        "pages/help/help",
+        "pages/test/test"
     ],
     "window": {
         "navigationBarBackgroundColor": "#8785a2",

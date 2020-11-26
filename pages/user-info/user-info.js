@@ -13,18 +13,6 @@ Page({
     },
 
 
-    onLoad: function () {
-        console.log("App里的token是："+app.data.access_token)
-        this.getuserInfo();
-    },
-
-    onShow: function() {
-        // 监听页面显示的生命周期函数
-        if(app.data.infoChanged){
-            this.getuserInfo();
-        }
-    },
-
     /**
      * 跳转到帮助页面
      */
@@ -161,28 +149,18 @@ Page({
      */
     onShow: function() {
         // 监听页面显示的生命周期函数
-            this.setData({hasHiddenTabBar: false});
-            swan.showTabBar({
-                //animation: true, // animation 为 true 时，建议在真机上看效果，工具暂不支持
-                success: res => {
-                    console.log('showTabBar success');
-                },
-                fail: err => {
-                    console.log('showTabBar fail', err);
-                }
-            })
-            if(app.data.infoChanged){
-                this.getInfo();
-                app.setInfoChanged(fasle);
-            }
+        console.log("user-info onshow")
+        if(app.data.infoChanged){
+            this.getInfo();
+            app.setInfoChanged(false);
+        }
     },
 
-    logout:function(){
-        this.setData({
-            access_token:"",
-        })
+    logout: function(){
+        app.setAccessToken("");
+        app.setInfoChanged(true);
         //跳转到登录界面
-        swan.redirectTo({
+        swan.reLaunch({
             url: '/pages/login/login'
         })
     },
