@@ -39,6 +39,12 @@ Page({
          */
         timeConflict: false,
         conflictTaskStr: '',
+
+        /**
+         * 语音识别部分
+         */
+        showVoiceRecognizePanel: false, //是否显示语音识别面板
+        voiceRecognizeContent: "", //语音识别到的内容
     },
 
     /**
@@ -256,12 +262,13 @@ Page({
     // 获取时间差
     getTimeSpan: function(list) {
         // console.log("进来了。。。")
-        let nowTime = new Date().getTime();//现在时间（时间戳）
+        let offset = new Date().getTimezoneOffset();
+        let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
         let maxTime = 0;
         for(var i = 0; i < list.length; i++) {
             // console.log("进入循环。。。")
-            let endTime = new Date(list[i]).getTime();//结束时间（时间戳）
+            let endTime = new Date(list[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
             let formatTime = this.timeFormat(time);
             tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
@@ -299,6 +306,117 @@ Page({
         mm = mm > 9 ? mm : `0${mm}`;
         hh = hh > 9 ? hh : `0${hh}`;
         return { ss, mm, hh };
+    },
+
+    /**
+     * 通过一句话创建任务
+     */
+    createTask: function(e){
+
+        console.log("订阅结果：" + e.detail.message);
+
+        if(e.detail.message != 'success' &&
+           e.detail.message != '调用成功' &&
+           e.detail.message != 'succ'){
+            swan.showToast({
+                // 提示的内容
+                title: '任务创建失败，请授权通知功能',
+                // 图标，有效值"success"、"loading"、"none"。
+                icon: 'none',
+            });
+            return;
+        }
+
+        console.log("formId = " + e.detail.formId)
+        swan.request({
+            url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            // url: 'http://localhost:9527/project/task/createBySentence',
+            method: 'POST',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            data: {
+                taskFormId: e.detail.formId,
+                taskInfo:this.data.voiceRecognizeContent
+            },
+            success: res => {
+                //创建成功
+                if(res.data.code == '1000'){
+                    //任务信息体
+                    let didaTask = res.data.data.didaTask
+                    console.log("res = " + res.data.data.didaTask)
+                    //刷新订阅ID，防止每次的 formID 都一样
+                    app.setSubScribeId(res.data.data.subScribeId)
+                    this.setData({
+                        subScribeId: app.data.subScribeId
+                    })
+                    console.log("app's subScribeId = " + app.data.subScribeId);
+                    console.log("home's subScribeId = " + this.data.subScribeId);
+                    //获取剩余时间
+                    let timeLeft = this.getTimeLeft(didaTask.taskRemindTime);
+                    //初始化参数
+                    this.setData({
+                        taskId: didaTask.taskId,
+                        taskRemindStr: `将在${timeLeft}后提醒你${didaTask.taskContent}\r\n`,
+                        taskRemarkStr: `[备注]在${didaTask.taskPlace},${didaTask.taskStartTime.substring(0,10) +' ' +didaTask.taskStartTime.substring(11,16)}\r\n`,
+                        predictedConsumedTimeStr: '',
+                        conflictTaskStr: ''
+                    });
+                    //预测耗时
+                    if(this.data.hasPredicedTime){
+                        this.setData({
+                            predictedConsumedTimeStr: '预计耗时：' + '2h' + '\r\n'
+                        })
+                    };
+                    //时间冲突
+                    if(this.data.timeConflict){
+                        this.setData({
+                            conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
+                        })
+                    }
+                    //显示模态框进行提示
+                    swan.showModal({
+                        title: '创建成功',
+                        content:
+                        // '将在'+'30分钟'+'后提醒你'+'吃饭'+'\r\n'
+                        this.data.taskRemindStr
+                        // +'[备注]在'+'银泰'+'20:00'+'\r\n'
+                        + this.data.taskRemarkStr
+                        // +'预计耗时：'+'30min'+'\r\n'
+                        + this.data.predictedConsumedTimeStr
+                        // +'小程序检测出您在该时间段内有'+'学习'+'任务',
+                        + this.data.conflictTaskStr,
+                        showCancel: true,
+                        cancelText: '修改',
+                        cancelColor: '#ff0000',
+                        confirmText: '确定',
+                        success: res=>{
+                            //重新读取所有任务
+                            this.getTodayTasks()
+                            if(res.cancel){
+                                //跳转到详情页
+                                swan.navigateTo({
+                                    url:'/pages/modification/modification?taskId='+this.data.taskId
+                                });
+                            }
+                        }
+                    });
+                }else{
+                    swan.showModal({
+                        // 提示的标题
+                        title: '创建失败',
+                        // 提示的内容
+                        content: res.data.message,
+                        // 是否显示取消按钮 。
+                        showCancel: false,
+                        confirmText: '确定',
+                        // 确定按钮的文字颜色。
+                        confirmColor: '#',
+                    });
+                }
+
+            }
+        });
     },
 
     //创建任务，显示模态框，确认任务信息
@@ -378,7 +496,7 @@ Page({
                     console.log("app's subScribeId = " + app.data.subScribeId);
                     console.log("home's subScribeId = " + this.data.subScribeId);
                     //获取剩余时间
-                    let timeLeft = this.getTimeLeft(this.data.taskStartTime);
+                    let timeLeft = this.getTimeLeft(res.data.data.taskRemindTime);
                     //初始化参数
                     this.setData({
                         taskId: res.data.data.taskId,
@@ -436,7 +554,7 @@ Page({
     timeValid: function(time1, time2) {
         var oDate1 = new Date(time1);
         var oDate2 = new Date(time2);
-        if(oDate1.getTime() < oDate2.getTime()) {
+        if(oDate1.getTime() <= oDate2.getTime()) {
             return true;
         } else{
             return false;
@@ -475,7 +593,25 @@ Page({
         }
     },
 
-
+    //语音识别输入
+    voiceRecognize: function() {
+        console.log("开始语音识别。。。");
+        this.setData("showVoiceRecognizePanel", true);
+        // this.getVoiceRecognizeContent("hh");
+    },
+    //获取语音识别内容
+    getVoiceRecognizeContent: function(e) {
+        console.log("识别到的内容。。。")
+        this.setData("voiceRecognizeContent", e.content);
+    },
+    //关闭语音识别面板
+    cancelendVoiceRecognize: function() {
+        console.log("关闭语音识别面板。。。");
+    },
+    //多行文本框输入内容改变时
+    taskSentenceChange: function(e) {
+        this.setData("voiceRecognizeContent", e.detail.value);
+    },
 
 
 
