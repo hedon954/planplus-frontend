@@ -9,7 +9,7 @@ Page({
         userBirthday:"",
         userAvatarUrl:"http://localhost:9527/img/1/1.png",
         userGenderText:"未知",
-        userAge:"18岁",
+        userAge:"",
     },
 
 
@@ -84,6 +84,7 @@ Page({
                         userNickname:res.data.data.userNickname,
                         userAvatarUrl:res.data.data.userAvatarUrl,
                         userGender:res.data.data.userGender,
+                        userAge:this.getAge(res.data.data.userBirthday.substring(0,10))+"岁",
                     }
                 )
                 switch(this.data.userGender)
@@ -107,8 +108,52 @@ Page({
         })
     },
 
-    setConstellation:function(){
-        var birthday = new Date()
+    //计算年龄
+    getAge:function(strAge) {
+        var birArr = strAge.split("-");
+        var birYear = birArr[0];
+        var birMonth = birArr[1];
+        var birDay = birArr[2];
+
+        d = new Date();
+        var nowYear = d.getFullYear();
+        var nowMonth = d.getMonth() + 1; //记得加1
+        var nowDay = d.getDate();
+        var returnAge;
+
+        if (birArr == null) {
+            return false
+        };
+        var d = new Date(birYear, birMonth - 1, birDay);
+        if (d.getFullYear() == birYear && (d.getMonth() + 1) == birMonth && d.getDate() == birDay) {
+            if (nowYear == birYear) {
+                returnAge = 0;
+            } else {
+                var ageDiff = nowYear - birYear;
+                if (ageDiff > 0) {
+                    if (nowMonth == birMonth) {
+                        var dayDiff = nowDay - birDay;
+                        if (dayDiff < 0) {
+                            returnAge = ageDiff - 1;
+                        } else {
+                            returnAge = ageDiff;
+                        }
+                    } else {
+                        var monthDiff = nowMonth - birMonth;
+                        if (monthDiff < 0) {
+                            returnAge = ageDiff - 1;
+                        } else {
+                            returnAge = ageDiff;
+                        }
+                    }
+                } else {
+                    return  "出生日期晚于今天，数据有误"; //返回-1 表示出生日期输入错误 晚于今天
+                }
+            }
+            return returnAge;
+        } else {
+            return ("输入的日期格式错误！");
+        }
     },
 
     /**
@@ -130,5 +175,15 @@ Page({
                 this.getInfo();
                 app.setInfoChanged(fasle);
             }
-    }
+    },
+
+    logout:function(){
+        this.setData({
+            access_token:"",
+        })
+        //跳转到登录界面
+        swan.redirectTo({
+            url: '/pages/login/login'
+        })
+    },
 });
