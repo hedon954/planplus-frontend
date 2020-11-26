@@ -1,9 +1,15 @@
 <view class="wrap">
-    <view class="card-area">
+    <view class="content-area">
         <view class="top-description border-bottom">反馈意见</view>
         <view class="feedback-text">
-            <textarea class="textarea" placeholder="请在此处输入" maxlength="-1" auto-focus="{{true}}"/>
+            <textarea class="textarea" placeholder="反馈意见" maxlength="-1" bind:input="feedbackContentInput"/>
         </view>
     </view>
-    <button class="button">确认</button>
+    <view class="email-area">
+        <view class="top-description border-bottom">您的邮箱</view>
+        <view class="feedback-email">
+            <textarea class="textarea" placeholder="邮箱" maxlength="-1" bind:input="feedbackEmailInput"/>
+        </view>
+    </view>
+    <button class="button" bind:tap="feedback">发送</button>
 </view>
