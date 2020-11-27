@@ -50,7 +50,7 @@ Page({
      */
     getTasks: function(e) {
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/' + e.detail.name,
+            url: 'https://www.hedon.wang/project/task/' + e.detail.name,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -78,7 +78,7 @@ Page({
      */
     getAllTasks: function() {
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/all',
+            url: 'https://www.hedon.wang/project/task/all',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token

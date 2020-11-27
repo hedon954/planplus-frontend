@@ -24,8 +24,8 @@ Page({
             return;
         }
         swan.request({
-            // url: 'http://localhost:9527/project/mail/feedback',
-            url: 'http://182.61.131.18:9527/project/mail/feedback',
+            // url: 'http://localhost/project/mail/feedback',
+            url: 'https://www.hedon.wang/project/mail/feedback',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },

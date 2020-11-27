@@ -92,7 +92,7 @@ Page({
     checkLoginOrNot: function(){
         //先检查用户是否已经登录
         swan.request({
-            url: 'http://182.61.131.18:9527/project/login/checkLogin',
+            url: 'https://www.hedon.wang/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -152,7 +152,7 @@ Page({
                  * 因为发送信息需要用户的openId
                  */
                 swan.request({
-                    url: 'http://182.61.131.18:9527/project/user/getUserOpenIdAndSessionKey?code='+res.code,
+                    url: 'https://www.hedon.wang/project/user/getUserOpenIdAndSessionKey?code='+res.code,
                     method: 'POST',
                     header:{
                         'Content-Type': 'Application/x-www-form-urlencoded',
@@ -191,7 +191,7 @@ Page({
     getTasks: function(e) {
         this.setData('isToday', (e.detail.name == 'today' )? true: false);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/' + e.detail.name,
+            url: 'https://www.hedon.wang/project/task/' + e.detail.name,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -219,7 +219,7 @@ Page({
      */
     getTodayTasks: function(){
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/today',
+            url: 'https://www.hedon.wang/project/task/today',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -350,7 +350,7 @@ Page({
 
         console.log("formId = " + e.detail.formId)
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            url: 'https://www.hedon.wang/project/task/createBySentence',
             // url: 'http://localhost:9527/project/task/createBySentence',
             method: 'POST',
             header: {
@@ -491,7 +491,7 @@ Page({
 
         console.log("formId = " + e.detail.formId)
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/create',
+            url: 'https://www.hedon.wang/project/task/create',
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
