@@ -11,7 +11,8 @@
         "pages/feedback/feedback",
         "pages/pwd-changed/pwd-changed",
         "pages/help/help",
-        "pages/test/test"
+        "pages/test/test",
+        "pages/identification-code/identification-code"
     ],
     "window": {
         "navigationBarBackgroundColor": "#8785a2",

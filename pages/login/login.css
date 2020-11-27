@@ -1,9 +1,12 @@
 .cover {
-    width: 100%;
+    width: 500rpx;
     /* todo:待视觉确认，height: 1182px */
-    height: 713.768rpx;
+    height: 500rpx;
     display: block;
-    margin: 0 auto;
+    margin: 70rpx auto 0 auto;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0,0, 0.2);
 }
 
 .login-container {
@@ -13,7 +16,7 @@
     box-sizing: border-box;
     left: 50%;
     margin: 23.551rpx 0 60.99rpx -356.884rpx;
-    background: #E0E0E0;
+    background:white;
     border-radius: 21.739rpx;
     overflow: hidden;
 }
@@ -68,7 +71,7 @@
     color: #fff;
     background: linear-gradient(90deg, rgb(241, 177, 81) 0%, rgb(245, 131, 66) 100%);
     border-radius: 39.855rpx;
-    margin: 32.609rpx 0;
+    margin:50rpx 0;
 }
 .login-submit.default {
     background: #fff;

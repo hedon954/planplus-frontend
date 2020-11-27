@@ -380,10 +380,12 @@ Page({
     },
 
     //结束任务
-    finish() {
-        console.log('结束任务。。。')
+    finish(e) {
+        console.log('结束任务。。。');
+        console.log(e.detail.formId);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/finish/' + this.data.taskId,
+            url: 'http://182.61.131.18:9527/project/task/finish/' + this.data.taskId +
+            "?fromId="+e.detail.formId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -391,6 +393,7 @@ Page({
             success: res => {
                 try {
                     console.log('任务已结束。。。');
+                    console.log(res);
                     app.setTaskChanged(true);
                     swan.showToast({
                         // 提示的内容

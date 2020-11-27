@@ -97,12 +97,20 @@
 <view class="bottom">
     <!-- 开始任务 -->
     <button class="start-end-button" bindtap="start" hidden="{{!visible}}">
-        <smt-icon name="play" color="#8785a2"></smt-icon>
+        <smt-icon class="start-end-icon" name="play" color="#8785a2"></smt-icon>
     </button>
     <!-- 结束任务 -->
-   <button class="start-end-button" bindtap="finish" hidden="{{!endBtnVisible}}">
-        <smt-icon name="stop" color="#8785a2"></smt-icon>
-    </button>
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="{{subScribeId}}"
+        bindsubmit="finish"
+        bindreset="formReset">
+        <button class="start-end-button" formType="submit" hidden="{{!endBtnVisible}}">
+            <smt-icon class="start-end-icon" name="stop" color="#8785a2"></smt-icon>
+        </button>
+    </form>
 </view>
 <view class="bottom">
     <!-- 保存修改 -->
