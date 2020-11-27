@@ -7,7 +7,7 @@ Page({
         userNickname:"kk",
         userGender:-1,
         userBirthday:"",
-        userAvatarUrl:"http://localhost:9527/img/1/1.png",
+        userAvatarUrl:"",
         userGenderText:"未知",
         userAge:"",
     },
