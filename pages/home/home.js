@@ -45,6 +45,11 @@ Page({
          */
         showVoiceRecognizePanel: false, //是否显示语音识别面板
         voiceRecognizeContent: "", //语音识别到的内容
+
+        /**
+         * 标记各任务是否已经结束
+         */
+        hasStarted: [],
     },
 
     /**
@@ -227,10 +232,18 @@ Page({
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
                     var delStyleList = []; //临时存放删除线样式
+                    var hasStartedList = []; //临时存放是否结束标志
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 19);
                         response[i]['taskStartTime'] = startTimeString;
+
+                        //判断任务是否已开始
+                        if(response[i]['taskStatus'] != 0) {
+                            hasStartedList.push(true);
+                        } else {
+                            hasStartedList.push(false);
+                        }
 
                         //为已结束任务添加删除线
                         if(response[i]['taskStatus'] == 2) {
@@ -242,12 +255,13 @@ Page({
                     this.setData({
                         tasks: response,
                         endTimeList: startTimeList,
-                        deleteStyleList: delStyleList
+                        deleteStyleList: delStyleList,
+                        hasStarted: hasStartedList
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
                     this.interval = setInterval(() => {
-                        if(this.getTimeSpan(this.data.endTimeList) <= 0) {
+                        if(this.getTimeSpan(this.data.endTimeList, this.data.hasStarted) <= 0) {
                             this.interval && clearInterval(this.interval);
                         }
                     }, 1000);
@@ -260,13 +274,20 @@ Page({
     },
 
     // 获取时间差
-    getTimeSpan: function(list) {
+    getTimeSpan: function(list, started) {
         // console.log("进来了。。。")
         let offset = new Date().getTimezoneOffset();
         let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
         let maxTime = 0;
         for(var i = 0; i < list.length; i++) {
+
+            //如果任务已经开始，就不进行倒计时
+            if(started[i] == true) {
+                tmpList.push("00:00:00");
+                continue;
+            }
+
             // console.log("进入循环。。。")
             let endTime = new Date(list[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
