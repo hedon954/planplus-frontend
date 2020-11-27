@@ -97,11 +97,11 @@
 <view class="bottom">
     <!-- 开始任务 -->
     <button class="start-end-button" bindtap="start" hidden="{{!visible}}">
-        <smt-icon name="play" color="#8785a2"></smt-icon>
+        <smt-icon class="icon" name="play" color="#8785a2"></smt-icon>
     </button>
     <!-- 结束任务 -->
    <button class="start-end-button" bindtap="finish" hidden="{{!endBtnVisible}}">
-        <smt-icon name="stop" color="#8785a2"></smt-icon>
+        <smt-icon class="icon" name="stop" color="#8785a2"></smt-icon>
     </button>
 </view>
 <view class="bottom">
