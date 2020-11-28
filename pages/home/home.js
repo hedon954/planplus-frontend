@@ -395,6 +395,12 @@ Page({
                             conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
                         })
                     }
+
+                    //将voiceRecognizeContent置空
+                    this.setData({
+                        voiceRecognizeContent: ''
+                    });
+
                     //显示模态框进行提示
                     swan.showModal({
                         title: '创建成功',
@@ -623,7 +629,9 @@ Page({
     //获取语音识别内容
     getVoiceRecognizeContent: function(e) {
         console.log("识别到的内容。。。")
-        this.setData("voiceRecognizeContent", e.content);
+        //去除结尾的句号
+        var content = e.content.substring(0, e.content.length - 1);
+        this.setData("voiceRecognizeContent", this.data.voiceRecognizeContent + content);
     },
     //关闭语音识别面板
     cancelendVoiceRecognize: function() {
