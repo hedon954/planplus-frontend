@@ -90,14 +90,16 @@ button::after {
     height: 90rpx;
     line-height: 90rpx;
     position:absolute;
-    padding-top: 10rpx;
-}
-
-.start-end-icon {
-    margin-left: -16rpx;
+    padding: 12rpx 0 0 4rpx;
 }
 
 .bottom-button{
     margin-top: 90rpx;
     margin-left: 112.5rpx;
+}
+
+.icon{
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }

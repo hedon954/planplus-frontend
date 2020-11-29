@@ -395,6 +395,12 @@ Page({
                             conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
                         })
                     }
+
+                    //将voiceRecognizeContent置空
+                    this.setData({
+                        voiceRecognizeContent: ''
+                    });
+
                     //显示模态框进行提示
                     swan.showModal({
                         title: '创建成功',
@@ -599,10 +605,18 @@ Page({
         });
     },
 
+
+    //字符串('yyyy-MM-dd hh:mm')转日期对象
+    strToDate: function(str) {
+        //月份需减1
+        return new Date(str.substring(0, 4), str.substring(5, 7) - 1, str.substring(8, 10), str.substring(11, 13), str.substring(14, 16));
+    },
+
+
     //计算剩余时间
     getTimeLeft: function(start){
         let nowTime  = new Date().getTime();
-        let startTime = new Date(start).getTime();
+        let startTime = this.strToDate(start).getTime();
         let minutes = (startTime - nowTime)/1000/60;
         let hour = parseInt(minutes / 60) ;
         let minute = parseInt(minutes % 60);
@@ -623,7 +637,9 @@ Page({
     //获取语音识别内容
     getVoiceRecognizeContent: function(e) {
         console.log("识别到的内容。。。")
-        this.setData("voiceRecognizeContent", e.content);
+        //去除结尾的句号
+        var content = e.content.substring(0, e.content.length - 1);
+        this.setData("voiceRecognizeContent", this.data.voiceRecognizeContent + content);
     },
     //关闭语音识别面板
     cancelendVoiceRecognize: function() {

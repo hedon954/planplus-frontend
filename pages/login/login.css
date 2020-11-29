@@ -1,12 +1,12 @@
 .cover {
-    width: 500rpx;
+    width: 600rpx;
     /* todo:待视觉确认，height: 1182px */
-    height: 500rpx;
+    height: 600rpx;
     display: block;
-    margin: 70rpx auto 0 auto;
+    margin: 10rpx auto 0 auto;
     border-radius: 50%;
     background-color: white;
-    box-shadow: 10px 10px 10px rgba(0, 0,0, 0.2);
+    /* box-shadow: 10px 10px 10px rgba(0, 0,0, 0.2); */
 }
 
 .login-container {
@@ -69,9 +69,9 @@
     height: 79.71rpx;
     font-size: 32.609rpx;
     color: #fff;
-    background: linear-gradient(90deg, rgb(241, 177, 81) 0%, rgb(245, 131, 66) 100%);
+    background: linear-gradient(90deg, rgb(153, 146, 170) 0%, rgb(126, 120, 150) 100%);
     border-radius: 39.855rpx;
-    margin:50rpx 0;
+    margin:40rpx 0;
 }
 .login-submit.default {
     background: #fff;
@@ -92,4 +92,26 @@
 }
 .our-docs smt-icon {
     display: flex;
+}
+
+.short-button{
+    height: 79.71rpx;
+    font-size: 32.609rpx;
+    color: #fff;
+    background: linear-gradient(90deg, rgb(153, 146, 170) 0%, rgb(126, 120, 150) 100%);
+    border-radius: 39.855rpx;
+    margin:0;
+    width: 45%;
+    display: inline-block;
+
+}
+
+.short-button::after{
+    border: none;
+}
+
+.button-box{
+    margin: 40rpx 0;
+    display: flex;
+    justify-content: space-between;
 }

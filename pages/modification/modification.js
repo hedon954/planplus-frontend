@@ -28,30 +28,33 @@ Page({
         }],
         frequencyIndex: 0,  //表示选择器中选中值在列表中的下标
         frequency: 0,       //任务频率
-        aheadTimeList: [{   //提前提醒时间列表，作为选择器显示内容的范围
+        aheadTimeList: [{  //提前提醒时间列表，作为选择器显示内容的范围
             id: '0',
-            name:'5分钟'
+            name: '准时提醒'
         }, {
             id: '1',
-            name: '10分钟'
+            name:'5分钟'
         }, {
             id: '2',
-            name:'20分钟'
+            name: '10分钟'
         }, {
             id: '3',
-            name: '30分钟'
+            name:'20分钟'
         }, {
             id: '4',
-            name:'1小时'
+            name: '30分钟'
         }, {
             id: '5',
-            name: '2小时'
+            name:'1小时'
         }, {
             id: '6',
+            name: '2小时'
+        }, {
+            id: '7',
             name:'5小时'
         }],
         aheadTimeIndex: 0, //表示选择器中选中值在列表中的下标
-        aheadIndexMap: [5, 10, 20, 30, 60, 120, 300], //下标与频率值（以分钟为单位）的映射
+        aheadIndexMap: [0, 5, 10, 20, 30, 60, 120, 300], //下标与频率值（以分钟为单位）的映射
         aheadTime: 5, //提前提醒时间
         startDateStart: '', //开始时间的日期起点
         startDateDisplay: '', //打开日期选择器时默认选中（显示）的日期/开始日期
@@ -272,10 +275,17 @@ Page({
         this.setData('place', e.detail.value);
     },
 
+    //字符串('yyyy-MM-dd hh:mm')转日期对象
+    strToDate: function(str) {
+        //月份需减1
+        // console.log(new Date(str.substring(0, 4), str.substring(5, 7) - 1, str.substring(8, 10), str.substring(11, 13), str.substring(14, 16)));
+        return new Date(str.substring(0, 4), str.substring(5, 7) - 1, str.substring(8, 10), str.substring(11, 13), str.substring(14, 16));
+    },
+
     //检验开始时间和结束时间是否有效
     timeValid: function(time1, time2) {
-        var oDate1 = new Date(time1);
-        var oDate2 = new Date(time2);
+        var oDate1 = this.strToDate(time1);
+        var oDate2 = this.strToDate(time2);
         if(oDate1.getTime() <= oDate2.getTime()) {
             return true;
         } else{
@@ -296,6 +306,21 @@ Page({
                 try {
                     console.log('成功保存至草稿箱。。。');
                     app.setTaskChanged(true);
+                    swan.showToast({
+                        // 提示的内容
+                        title: '已保存至草稿箱',
+                        // 图标，有效值"success"、"loading"、"none"。
+                        icon: 'none',
+                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        image: '',
+                        // 提示的延迟时间，单位毫秒。
+                        duration: 1000,
+                    });
+                    setTimeout(function() {
+                        swan.navigateBack({
+
+                        });
+                    }, 800);
                 }
                 catch (error) {
                     console.log(error);
@@ -444,7 +469,6 @@ Page({
         console.log(this.data.content);
         let begin = this.data.startDate + " " + this.data.startTime;
         let end = this.data.endDate + " " + this.data.endTime;
-        console.log("hhhhhhhhhhh____" + this.timeValid(begin, end));
         if(!this.timeValid(begin, end)) {
             swan.showToast({
                 title: '结束时间需晚于开始时间',
@@ -495,6 +519,12 @@ Page({
 
                 }
                 catch (error) {
+                    swan.showModal({
+                        // 提示的标题
+                        title: '保存失败',
+                        // 提示的内容
+                        content: error,
+                    });
                     console.log(error);
                 }
             },
@@ -539,6 +569,11 @@ Page({
                     this.setData({
                         subScribeId: app.data.subScribeId
                     })
+                    swan.showToast({
+                        title: '任务已推迟',
+                        icon: 'success',
+                        duration: 1000,
+                    });
                     setTimeout(function() {
                         swan.navigateBack({
 

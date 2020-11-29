@@ -95,4 +95,11 @@ Page({
             },
         });
     },
+
+    /**跳转到注册页面 */
+    jumpToRegister:function(){
+        swan.navigateTo({
+            url:'../../pages/register/register'
+        });
+    },
 });
