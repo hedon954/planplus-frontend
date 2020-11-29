@@ -28,30 +28,33 @@ Page({
         }],
         frequencyIndex: 0,  //表示选择器中选中值在列表中的下标
         frequency: 0,       //任务频率
-        aheadTimeList: [{   //提前提醒时间列表，作为选择器显示内容的范围
+        aheadTimeList: [{  //提前提醒时间列表，作为选择器显示内容的范围
             id: '0',
-            name:'5分钟'
+            name: '准时提醒'
         }, {
             id: '1',
-            name: '10分钟'
+            name:'5分钟'
         }, {
             id: '2',
-            name:'20分钟'
+            name: '10分钟'
         }, {
             id: '3',
-            name: '30分钟'
+            name:'20分钟'
         }, {
             id: '4',
-            name:'1小时'
+            name: '30分钟'
         }, {
             id: '5',
-            name: '2小时'
+            name:'1小时'
         }, {
             id: '6',
+            name: '2小时'
+        }, {
+            id: '7',
             name:'5小时'
         }],
         aheadTimeIndex: 0, //表示选择器中选中值在列表中的下标
-        aheadIndexMap: [5, 10, 20, 30, 60, 120, 300], //下标与频率值（以分钟为单位）的映射
+        aheadIndexMap: [0, 5, 10, 20, 30, 60, 120, 300], //下标与频率值（以分钟为单位）的映射
         aheadTime: 5, //提前提醒时间
         startDateStart: '', //开始时间的日期起点
         startDateDisplay: '', //打开日期选择器时默认选中（显示）的日期/开始日期
@@ -77,7 +80,7 @@ Page({
         });
         app.setTaskChanged(false);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/single/' + this.data.taskId,
+            url: 'https://www.hedon.wang/project/task/single/' + this.data.taskId,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -276,6 +279,8 @@ Page({
     timeValid: function(time1, time2) {
         var oDate1 = new Date(time1);
         var oDate2 = new Date(time2);
+        console.log(oDate1);
+        console.log(oDate2);
         if(oDate1.getTime() <= oDate2.getTime()) {
             return true;
         } else{
@@ -287,7 +292,7 @@ Page({
     draft() {
         console.log('将任务保存至草稿箱。。。')
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/draft/' + this.data.taskId,
+            url: 'https://www.hedon.wang/project/task/draft/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -307,7 +312,7 @@ Page({
     //删除任务
     delete() {
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/delete/' + this.data.taskId,
+            url: 'https://www.hedon.wang/project/task/delete/' + this.data.taskId,
             method: 'DELETE',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -345,7 +350,7 @@ Page({
     start() {
         console.log('开始任务。。。')
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/start/' + this.data.taskId,
+            url: 'https://www.hedon.wang/project/task/start/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -384,7 +389,7 @@ Page({
         console.log('结束任务。。。');
         console.log(e.detail.formId);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/finish/' + this.data.taskId +
+            url: 'https://www.hedon.wang/project/task/finish/' + this.data.taskId +
             "?fromId="+e.detail.formId,
             method: 'PUT',
             header: {
@@ -454,7 +459,7 @@ Page({
             return;
         }
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/modify/' + this.data.taskId,
+            url: 'https://www.hedon.wang/project/task/modify/' + this.data.taskId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -495,6 +500,12 @@ Page({
 
                 }
                 catch (error) {
+                    swan.showModal({
+                        // 提示的标题
+                        title: '保存失败',
+                        // 提示的内容
+                        content: error,
+                    });
                     console.log(error);
                 }
             },
@@ -523,7 +534,7 @@ Page({
         console.log(e.currentTarget.id);
         console.log(this.data.taskId);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id+"&formId="+this.data.formId,
+            url: 'https://www.hedon.wang/project/task/delay/' + this.data.taskId + "?delayTime="+e.currentTarget.id+"&formId="+this.data.formId,
             method: 'PUT',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token

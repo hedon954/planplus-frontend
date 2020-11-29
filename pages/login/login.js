@@ -11,8 +11,8 @@ Page({
         // 监听页面加载的生命周期函数
         //先检查用户是否已经登录
         swan.request({
-            // url: 'http://182.61.131.18:9527/project/login/checkLogin',
-            url: 'http://localhost:9527/project/login/checkLogin',
+            url: 'https://www.hedon.wang/project/login/checkLogin',
+            // url: 'http://localhost:9527/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -58,7 +58,7 @@ Page({
         console.log(this.data.phoneNumber);
         console.log(this.data.password);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/login/login',
+            url: 'https://www.hedon.wang/project/login/login',
             // url: 'http://localhost:9527/project/login/login',
             header: {
                 'content-type': 'application/json'

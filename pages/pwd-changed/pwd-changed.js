@@ -37,7 +37,7 @@ Page({
             else{
                 console.log("kkkkkkkkkkkk");
                 swan.request({
-                    url: 'http://182.61.131.18:9527/project/user/pwd',
+                    url: 'https://www.hedon.wang/project/user/pwd',
                     // url: 'http://localhost:9527/project/user/pwd',
                         method: 'PUT',
                         header:{

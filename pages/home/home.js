@@ -92,7 +92,7 @@ Page({
     checkLoginOrNot: function(){
         //先检查用户是否已经登录
         swan.request({
-            url: 'http://182.61.131.18:9527/project/login/checkLogin',
+            url: 'https://www.hedon.wang/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -152,7 +152,7 @@ Page({
                  * 因为发送信息需要用户的openId
                  */
                 swan.request({
-                    url: 'http://182.61.131.18:9527/project/user/getUserOpenIdAndSessionKey?code='+res.code,
+                    url: 'https://www.hedon.wang/project/user/getUserOpenIdAndSessionKey?code='+res.code,
                     method: 'POST',
                     header:{
                         'Content-Type': 'Application/x-www-form-urlencoded',
@@ -191,7 +191,7 @@ Page({
     getTasks: function(e) {
         this.setData('isToday', (e.detail.name == 'today' )? true: false);
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/' + e.detail.name,
+            url: 'https://www.hedon.wang/project/task/' + e.detail.name,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -219,7 +219,7 @@ Page({
      */
     getTodayTasks: function(){
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/today',
+            url: 'https://www.hedon.wang/project/task/today',
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -350,7 +350,7 @@ Page({
 
         console.log("formId = " + e.detail.formId)
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/createBySentence',
+            url: 'https://www.hedon.wang/project/task/createBySentence',
             // url: 'http://localhost:9527/project/task/createBySentence',
             method: 'POST',
             header: {
@@ -395,6 +395,12 @@ Page({
                             conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
                         })
                     }
+
+                    //将voiceRecognizeContent置空
+                    this.setData({
+                        voiceRecognizeContent: ''
+                    });
+
                     //显示模态框进行提示
                     swan.showModal({
                         title: '创建成功',
@@ -491,7 +497,7 @@ Page({
 
         console.log("formId = " + e.detail.formId)
         swan.request({
-            url: 'http://182.61.131.18:9527/project/task/create',
+            url: 'https://www.hedon.wang/project/task/create',
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -623,7 +629,9 @@ Page({
     //获取语音识别内容
     getVoiceRecognizeContent: function(e) {
         console.log("识别到的内容。。。")
-        this.setData("voiceRecognizeContent", e.content);
+        //去除结尾的句号
+        var content = e.content.substring(0, e.content.length - 1);
+        this.setData("voiceRecognizeContent", this.data.voiceRecognizeContent + content);
     },
     //关闭语音识别面板
     cancelendVoiceRecognize: function() {
