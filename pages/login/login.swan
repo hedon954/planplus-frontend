@@ -7,7 +7,7 @@
         class="cover">
     </image>
     <!-- 登录表单 -->
-    <image src="../../images/login_form.png" class="login-form"></image>
+    <!-- <image src="../../images/login_form.png" class="login-form"></image> -->
     <form bindsubmit="loginSubmit">
         <!-- 手机号 -->
         <view class="form-item"
@@ -39,30 +39,26 @@
             placeholder-class="form-item-placeholder"
             bindinput="bindPasswordInput"/>
         </view>
-        <view class="button-box">
-            <!--注册按钮-->
-            <button type="default"
-                class="short-button"
-                bind:tap="jumpToRegister">
-                注册
-            </button>
-            <!--找回密码-->
-            <button type="default"
-                class="short-button">
-                找回密码
-            </button>
-        </view>
         <!-- 登录按钮 -->
         <button form-type="submit"
             type="default"
             class="login-submit">
             登录
         </button>
-
-        <!-- 关于我们 -->
-        <view class="our-docs" bindtap="redirectToOurDocs">
-            关于我们
-            <smt-icon size="14px" name="arrow"></smt-icon>
-        </view>
     </form>
+</view>
+<view class="button-box">
+    <!--注册按钮-->
+    <button type="default"
+        class="short-button left-button"
+        bind:tap="jumpToRegister">
+        快速注册
+    </button>
+    <!-- 分割线 -->
+    <label class="separator-label">|</label>
+    <!--找回密码-->
+    <button type="default"
+        class="short-button right-button">
+        找回密码
+    </button>
 </view>
