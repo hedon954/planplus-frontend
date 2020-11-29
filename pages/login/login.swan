@@ -3,7 +3,7 @@
     <image
         preview="true",
         mode="aspectFill",
-        src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk9h1kl93oj3040040glk.jpg"
+        src="../../images/planplus.png"
         class="cover">
     </image>
     <!-- 登录表单 -->
@@ -38,12 +38,26 @@
             placeholder-class="form-item-placeholder"
             bindinput="bindPasswordInput"/>
         </view>
+        <view class="button-box">
+            <!--注册按钮-->
+            <button type="default"
+                class="short-button"
+                bind:tap="jumpToRegister">
+                注册
+            </button>
+            <!--找回密码-->
+            <button type="default"
+                class="short-button">
+                找回密码
+            </button>
+        </view>
         <!-- 登录按钮 -->
         <button form-type="submit"
             type="default"
             class="login-submit">
             登录
         </button>
+
         <!-- 关于我们 -->
         <view class="our-docs" bindtap="redirectToOurDocs">
             关于我们

@@ -1,0 +1,34 @@
+<view class="wrap">
+    <view class="card-area">
+        <view class="top-description border-bottom">注册新账号</view>
+        <view class="list-area border-bottom">
+             <view class="list-item-key-4">手机号码</view>
+            <view class="list-item-value">
+                <input
+                    placeholder='请输入手机号'
+                    bindinput="bindPhoneNumberInput"
+                    />
+            </view>
+        </view>
+
+        <view class="list-area border-bottom">
+            <view class="list-item-key-4">密码</view>
+            <view class="list-item-value">
+                <input
+                    placeholder='请输入密码'
+                    bindinput="bindPasswordInput"
+                    password="true" />
+            </view>
+        </view>
+        <view class="list-area border-bottom">
+            <view class="list-item-key-4">验证码</view>
+            <view class="list-item-value">
+                <input
+                    placeholder='请输入验证码'
+                    bindinput="bindIdentificationCodeInput"/>
+            </view>
+        </view>
+        <button class="button" bindtap="getVerificationCode">{{promptText}}</button>
+        <button class="button" bind:tap="registerComfirm" >注册</button>
+    </view>
+</view>

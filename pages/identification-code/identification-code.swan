@@ -1,4 +1,0 @@
-<view class="container">
-    <!--to do-->
-    <button bindtap="getVerificationCode">{{promptText}}</button>
-</view>
