@@ -275,12 +275,17 @@ Page({
         this.setData('place', e.detail.value);
     },
 
+    //字符串('yyyy-MM-dd hh:mm')转日期对象
+    strToDate: function(str) {
+        //月份需减1
+        // console.log(new Date(str.substring(0, 4), str.substring(5, 7) - 1, str.substring(8, 10), str.substring(11, 13), str.substring(14, 16)));
+        return new Date(str.substring(0, 4), str.substring(5, 7) - 1, str.substring(8, 10), str.substring(11, 13), str.substring(14, 16));
+    },
+
     //检验开始时间和结束时间是否有效
     timeValid: function(time1, time2) {
-        var oDate1 = new Date(time1);
-        var oDate2 = new Date(time2);
-        console.log(oDate1);
-        console.log(oDate2);
+        var oDate1 = this.strToDate(time1);
+        var oDate2 = this.strToDate(time2);
         if(oDate1.getTime() <= oDate2.getTime()) {
             return true;
         } else{
@@ -301,6 +306,21 @@ Page({
                 try {
                     console.log('成功保存至草稿箱。。。');
                     app.setTaskChanged(true);
+                    swan.showToast({
+                        // 提示的内容
+                        title: '已保存至草稿箱',
+                        // 图标，有效值"success"、"loading"、"none"。
+                        icon: 'none',
+                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        image: '',
+                        // 提示的延迟时间，单位毫秒。
+                        duration: 1000,
+                    });
+                    setTimeout(function() {
+                        swan.navigateBack({
+
+                        });
+                    }, 800);
                 }
                 catch (error) {
                     console.log(error);
@@ -449,7 +469,6 @@ Page({
         console.log(this.data.content);
         let begin = this.data.startDate + " " + this.data.startTime;
         let end = this.data.endDate + " " + this.data.endTime;
-        console.log("hhhhhhhhhhh____" + this.timeValid(begin, end));
         if(!this.timeValid(begin, end)) {
             swan.showToast({
                 title: '结束时间需晚于开始时间',
@@ -550,6 +569,11 @@ Page({
                     this.setData({
                         subScribeId: app.data.subScribeId
                     })
+                    swan.showToast({
+                        title: '任务已推迟',
+                        icon: 'success',
+                        duration: 1000,
+                    });
                     setTimeout(function() {
                         swan.navigateBack({
 

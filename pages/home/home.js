@@ -605,10 +605,18 @@ Page({
         });
     },
 
+
+    //字符串('yyyy-MM-dd hh:mm')转日期对象
+    strToDate: function(str) {
+        //月份需减1
+        return new Date(str.substring(0, 4), str.substring(5, 7) - 1, str.substring(8, 10), str.substring(11, 13), str.substring(14, 16));
+    },
+
+
     //计算剩余时间
     getTimeLeft: function(start){
         let nowTime  = new Date().getTime();
-        let startTime = new Date(start).getTime();
+        let startTime = this.strToDate(start).getTime();
         let minutes = (startTime - nowTime)/1000/60;
         let hour = parseInt(minutes / 60) ;
         let minute = parseInt(minutes % 60);
