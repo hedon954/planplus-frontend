@@ -33,27 +33,35 @@ page {
 .login-form {
     position: fixed;
     width: 90vw;
+    /* height: 36vh; */
     margin-left: 5vw;
     /* margin-top: 42.5vh; */
     margin-top: 560rpx;
 }
 
 .login-container form {
-    position: absolute;
-    bottom: 0;
-    display: block;
-    width: 100%;
-    padding: 10.87rpx 23.551rpx 0 23.551rpx;
+    position: fixed;
+    /* bottom: 0; */
+    /* display: block; */
+    width: 80vw;
+    height: 28vh;
+    /* padding: 10.87rpx 23.551rpx 0 23.551rpx; */
     box-sizing: border-box;
-    background: #fff;
+    /* background: #fff; */
+    margin-top: 660rpx;
+    margin-left: 75rpx;
+    border: 1rpx solid gray;
 }
 
 .form-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 21.739rpx;
-    width: 666.667rpx;
+    /* margin-top: 21.739rpx; */
+    margin-top: 50rpx;
+    /* width: 666.667rpx; */
+    margin-left: 7.5vw;
+    width: 64vw;
     height: 79.71rpx;
     border: 1.208rpx solid #C2C5CC;
     border-radius: 10.87rpx;
@@ -90,7 +98,10 @@ page {
     /* background: linear-gradient(90deg, rgb(153, 146, 170) 0%, rgb(126, 120, 150) 100%); */
     background-color: #678ff9;
     border-radius: 39.855rpx;
-    margin:40rpx 0;
+    /* margin:40rpx 0; */
+    width: 250rpx;
+    margin-top: 25rpx;
+    /* margin-left: 250rpx; */
 }
 .login-submit.default {
     background: #fff;
@@ -115,15 +126,30 @@ page {
 
 .short-button{
     height: 79.71rpx;
-    font-size: 32.609rpx;
-    color: #fff;
+    /* font-size: 32.609rpx; */
+    font-size: 28rpx;
+    color: black;
     /* background: linear-gradient(90deg, rgb(153, 146, 170) 0%, rgb(126, 120, 150) 100%); */
-    background-color: #678ff9;
+    background-color: white;
     border-radius: 39.855rpx;
-    margin:0;
-    width: 45%;
+    /* margin:0;
+    width: 45%; */
     display: inline-block;
+    padding: 0rpx;
+}
 
+.left-button {
+    margin-left: 252rpx;
+    margin-right: 10rpx;
+}
+
+.separator-label {
+    padding-top: 8rpx;
+}
+
+.right-button {
+    margin-left: 10rpx;
+    margin-right: 252rpx;
 }
 
 .short-button::after{
@@ -131,7 +157,10 @@ page {
 }
 
 .button-box{
-    margin: 40rpx 0;
+    /* margin: 40rpx 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; */
+    /* margin-top: 730rpx; */
+    margin-top: 240rpx;
+    width: 800rpx;
 }
