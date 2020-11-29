@@ -2,12 +2,12 @@ page {
     background-color: white;
 }
 .cover {
-    width: 400rpx;
+    width: 600rpx;
     /* todo:待视觉确认，height: 1182px */
-    height: 400rpx;
+    height: 600rpx;
     position: fixed;
-    margin-top: 100rpx;
-    margin-left: 180rpx;
+    margin-top: -30rpx;
+    margin-left: 80rpx;
     /* border-radius: 50%; */
     /* background-color: white; */
     /* box-shadow: 10px 10px 10px rgba(0, 0,0, 0.2); */
