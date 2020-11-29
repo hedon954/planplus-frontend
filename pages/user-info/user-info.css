@@ -78,7 +78,8 @@
 }
 
 .my-button{
-    background-color: #8785a2;
+    /* background-color: #8785a2; */
+    background-color: #678ff9;
     margin-top: 60rpx;
     width: 573.671rpx;
     font-size:32rpx;

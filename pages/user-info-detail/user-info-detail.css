@@ -35,7 +35,8 @@
     line-height: 70rpx;
     border-radius: 9rpx;
     margin: 60rpx;
-    background-color: #8785a2;
+    /* background-color: #8785a2; */
+    background-color: #678ff9;
     color: whitesmoke;
     width: 80%;
 }
