@@ -7,11 +7,12 @@
         class="cover">
     </image>
     <!-- 登录表单 -->
+    <image src="../../images/login_form.png" class="login-form"></image>
     <form bindsubmit="loginSubmit">
         <!-- 手机号 -->
         <view class="form-item"
             bindtap="handleUpload">
-            <image src="../../images/id-card.png"
+            <image src="../../images/user_icon.png"
                 class="login-icon">
             </image>
             <label>手机号</label>
@@ -26,7 +27,7 @@
         <!-- 密码 -->
         <view class="form-item"
             bindtap="handleUpload">
-            <image src="../../images/password.png"
+            <image src="../../images/password_icon.png"
                 class="login-icon">
             </image>
             <label>密<span style="color:white">密</span>码</label>

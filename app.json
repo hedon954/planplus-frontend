@@ -15,7 +15,7 @@
         "pages/register/register"
     ],
     "window": {
-        "navigationBarBackgroundColor": "#8785a2",
+        "navigationBarBackgroundColor": "#8385f6",
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
@@ -24,7 +24,7 @@
         "color": "#FFF;",
         "selectedColor": "#000",
         "borderStyle": "#D6D6D6",
-        "backgroundColor": "#8785a2",
+        "backgroundColor": "#8385f6",
         "list": [
             {
                 "pagePath": "pages/home/home",

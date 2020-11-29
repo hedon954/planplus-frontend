@@ -56,7 +56,8 @@ button::after {
 }
 
 .my-button{
-    background-color: #8785a2;
+    /* background-color: #8785a2; */
+    background-color: #678ff9;
     width: 200rpx;
     font-size:32rpx;
     border-radius: 51.329rpx;
@@ -86,7 +87,8 @@ button::after {
     width: 90rpx;
     margin-left: 320rpx;
     border-radius: 45rpx;
-    color: #8785a2;
+    /* color: #8785a2; */
+    color: #678ff9;
     height: 90rpx;
     line-height: 90rpx;
     position:absolute;
