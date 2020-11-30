@@ -167,7 +167,8 @@ Page({
 
     registerComfirm:function(){
         swan.request({
-            url: 'http://localhost:443/project/login/register',
+            // url: 'http://localhost:443/project/login/register',
+            url: 'https://www.hedon.wang/project/login/register',
             method: 'POST',
             data:{
                 username:this.data.username,

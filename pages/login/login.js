@@ -11,8 +11,8 @@ Page({
         // 监听页面加载的生命周期函数
         //先检查用户是否已经登录
         swan.request({
-            // url: 'https://www.hedon.wang/project/login/checkLogin',
-            url: 'http://localhost:443/project/login/checkLogin',
+            url: 'https://www.hedon.wang/project/login/checkLogin',
+            // url: 'http://localhost:443/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -22,7 +22,7 @@ Page({
                 console.log(res);
                 console.log("ssssssssssss" + typeof res.data.code)
                 //已登录
-                if(res.data.code == '1000'){
+                if(res.data.code == 1000){
                     console.log("hhhhh"+res.data)
                     //成功的话就跳转
                     swan.switchTab({
@@ -58,8 +58,8 @@ Page({
         console.log(this.data.username);
         console.log(this.data.password);
         swan.request({
-            // url: 'https://www.hedon.wang/project/login/login',
-            url: 'http://localhost:443/project/login/login',
+            url: 'https://www.hedon.wang/project/login/login',
+            // url: 'http://localhost:443/project/login/login',
             header: {
                 'content-type': 'application/json'
             },

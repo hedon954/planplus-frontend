@@ -93,6 +93,7 @@ Page({
         //先检查用户是否已经登录
         swan.request({
             url: 'https://www.hedon.wang/project/login/checkLogin',
+            // url: 'http://localhost:443/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
