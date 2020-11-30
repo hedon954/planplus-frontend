@@ -3,8 +3,8 @@ const app = getApp()
 
 Page({
     data: {
-        username: "",
-        password: "",
+        username: app.data.username,
+        password: app.data.password,
         userInfo: {},
     },
     onLoad() {
@@ -75,6 +75,9 @@ Page({
                 console.log(res.data)
                 if(res.data.code == 1000){
                     app.setAccessToken(res.data.data.access_token)
+                    app.setUsername(this.data.username)
+                    app.setPassword(this.data.password)
+                    swan.setStorageSync("access_token",res.data.data.access_token);
                     //成功的话就跳转
                     swan.switchTab({
                         url: '/pages/home/home'
