@@ -4,7 +4,7 @@ Page({
     data: {
         currentUserId: null,
         userId:1,
-        userNickname:"kk",
+        userNickname:"",
         userGender:2,
         userBirthday:'2000-03-14',
         userBirthdayText:'2000-03-14',

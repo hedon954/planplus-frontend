@@ -101,4 +101,16 @@ Page({
         });
     },
 
+    //跳转至详情页
+    jumpToDetail: function(e) {
+        console.log("跳转至详情页");
+        let taskId = e.currentTarget.id;
+        console.log(taskId);
+        // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
+        // console.log(cpn);
+        swan.navigateTo({
+            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
+        });
+    },
+
 });
