@@ -97,6 +97,9 @@ Page({
                     }
                     console.log('开始赋值');
 
+                    console.log("提前提醒时间taskAdvanceRemindTime：" + response['taskAdvanceRemindTime'])
+                    console.log("提前提醒时间aheadTimeIndex" + this.data.aheadTimeIndex)
+
                     this.setData({
                         //给任务信息赋值
                         content: response['taskContent'],
@@ -107,8 +110,10 @@ Page({
                         endTime: response['taskPredictedFinishTime'].substring(11, 16),
                         frequency: response['taskRate'],
                         frequencyIndex: response['taskRate'],
-                        aheadTime: response['taskAdvanceRemindTIme']
+                        aheadTime: response['taskAdvanceRemindTime']
                     });
+
+                    console.log("提前提醒时间aheadTime" + this.data.aheadTime)
 
                     console.log("结束时间：++++++++++++++");
                     console.log(response['taskPredictedFinishTime'].substring(0, 10));
@@ -309,11 +314,8 @@ Page({
                     swan.showToast({
                         // 提示的内容
                         title: '已保存至草稿箱',
-                        // 图标，有效值"success"、"loading"、"none"。
-                        icon: 'none',
-                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        icon: 'success',
                         image: '',
-                        // 提示的延迟时间，单位毫秒。
                         duration: 1000,
                     });
                     setTimeout(function() {
@@ -344,11 +346,8 @@ Page({
                     swan.showToast({
                         // 提示的内容
                         title: '任务已删除',
-                        // 图标，有效值"success"、"loading"、"none"。
-                        icon: 'none',
-                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        icon: 'success',
                         image: '',
-                        // 提示的延迟时间，单位毫秒。
                         duration: 1000,
                     });
                     setTimeout(function() {
@@ -382,11 +381,8 @@ Page({
                     swan.showToast({
                         // 提示的内容
                         title: '任务已开始',
-                        // 图标，有效值"success"、"loading"、"none"。
-                        icon: 'none',
-                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        icon: 'success',
                         image: '',
-                        // 提示的延迟时间，单位毫秒。
                         duration: 1000,
                     });
 
@@ -423,11 +419,8 @@ Page({
                     swan.showToast({
                         // 提示的内容
                         title: '任务已结束',
-                        // 图标，有效值"success"、"loading"、"none"。
-                        icon: 'none',
-                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        icon: 'success',
                         image: '',
-                        // 提示的延迟时间，单位毫秒。
                         duration: 1000,
                     });
 
@@ -490,7 +483,8 @@ Page({
                 taskPredictedFinishTime: this.data.endDate + 'T' + this.data.endTime + ':00.000',
                 taskPlace: this.data.place,
                 taskRate: this.data.frequency,
-                taskAdvanceRemindTime: this.data.aheadTime
+                taskAdvanceRemindTime: this.data.aheadTime,
+                taskStatus: 0
             },
             success: res => {
                 console.log(res.data)
@@ -505,12 +499,9 @@ Page({
                     swan.showToast({
                         // 提示的内容
                         title: '已保存修改',
-                        // 图标，有效值"success"、"loading"、"none"。
-                        icon: 'none',
-                        // 自定义图标的本地路径，image 的优先级高于 icon
+                        icon: 'success',
                         image: '',
-                        // 提示的延迟时间，单位毫秒。
-                        duration: 1000,
+                        duration: 2000,
                     });
                     setTimeout(function() {
                         swan.navigateBack({

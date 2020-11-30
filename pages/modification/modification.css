@@ -1,7 +1,7 @@
-.head-view {
+/* .head-view {
     display: flex;
     margin-top: 20rpx;
-}
+} */
 image {
     height: 100rpx;
     width: 100rpx;
@@ -41,7 +41,7 @@ input {
 }
 .bottom {
     display: flex;
-    margin-bottom: 40rpx;
+    /* margin-bottom: 40rpx; */
 }
 button {
     height: 60rpx;
@@ -66,20 +66,19 @@ button::after {
     line-height: 70rpx;
 }
 
+
 .my-button::after {
     border: none;
 }
 
 .delete-button{
-    position: absolute;
-    margin-left:600rpx;
-    margin-bottom: 100rpx;
+    transform: translate(-62rpx,-60rpx);
+    background-color: rgb(240, 100, 100);
 }
 
 .draft-button{
     margin-left: 50rpx;
-    position: absolute;
-
+    transform: translateY(-60rpx);
 }
 
 .start-end-button{

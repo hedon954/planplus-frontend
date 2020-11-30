@@ -49,7 +49,7 @@ Page({
                         },
                         responseType: 'text',
                         success:res=>{
-                            console.log("成功获取数据");
+                            console.log(res.data);
                             if(res.data.code == 1000){
                                 swan.showToast({
                                 title: '修改成功'
@@ -57,14 +57,9 @@ Page({
                             }
                             else{
                                 swan.showToast({
-                                    title: '修改失败'
+                                    title: res.data.message
                                 })
                             }
-                            this.setData({
-                                oldPassword:"",
-                                newPassword:"",
-                                newPasswordConfirm:"",
-                            })
                         }
                 });
             }

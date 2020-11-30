@@ -88,7 +88,7 @@ Page({
                 if(res.data.code == 1000){
                     swan.showToast({
                         title: '请查收验证码',
-                        icon: 'none',
+                        icon: 'success',
                         image: '',
                         duration: 2000,
                     })
