@@ -5,7 +5,7 @@
              <view class="list-item-key-4">用户名</view>
             <view class="list-item-value">
                 <input
-                    placeholder='请输入手机号或邮箱'
+                    placeholder='请输入邮箱'
                     bindinput="bindUsernameInput"
                     />
             </view>
