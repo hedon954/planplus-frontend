@@ -1,5 +1,5 @@
 .info-container{
-    height: 1600.242rpx;
+    height: 88vh;
     justify-items: center;
     padding: 18.116rpx;
     background-color: whitesmoke;
@@ -80,7 +80,7 @@
 .my-button{
     /* background-color: #8785a2; */
     background-color: #678ff9;
-    margin-top: 60rpx;
+    margin-top: 20rpx;
     width: 573.671rpx;
     font-size:32rpx;
     border-radius: 51.329rpx;
@@ -91,14 +91,16 @@
     border: none;
 }
 
+
 .logout-button{
     background-color: #ee673e;
-    margin-top:100rpx;
+    /* margin-bottom:10rpx; */
     width: 573.671rpx;
     font-size:32rpx;
     border-radius: 51.329rpx;
     color: whitesmoke;
     border: none;
+
 }
 
 .logout-button::after{

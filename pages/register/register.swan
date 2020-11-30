@@ -1,12 +1,12 @@
 <view class="wrap">
     <view class="card-area">
-        <view class="top-description border-bottom">注册新账号</view>
+        <view class="top-description border-bottom">欢迎注册 PlanPlus</view>
         <view class="list-area border-bottom">
-             <view class="list-item-key-4">手机号码</view>
+             <view class="list-item-key-4">用户名</view>
             <view class="list-item-value">
                 <input
-                    placeholder='请输入手机号'
-                    bindinput="bindPhoneNumberInput"
+                    placeholder='请输入手机号或邮箱'
+                    bindinput="bindUsernameInput"
                     />
             </view>
         </view>
@@ -17,6 +17,15 @@
                 <input
                     placeholder='请输入密码'
                     bindinput="bindPasswordInput"
+                    password="true" />
+            </view>
+        </view>
+         <view class="list-area border-bottom">
+            <view class="list-item-key-4">确认密码</view>
+            <view class="list-item-value">
+                <input
+                    placeholder='请再次输入密码'
+                    bindinput="bindConfirmPasswordInput"
                     password="true" />
             </view>
         </view>

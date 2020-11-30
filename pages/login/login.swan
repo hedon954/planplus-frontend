@@ -15,7 +15,6 @@
             <image src="../../images/user_icon.png"
                 class="login-icon">
             </image>
-            <label>手机号</label>
             <input cursor-spacing="{{30}}"
             id="phone-number-input"
             type="text"
@@ -30,7 +29,6 @@
             <image src="../../images/password_icon.png"
                 class="login-icon">
             </image>
-            <label>密<span style="color:white">密</span>码</label>
             <input cursor-spacing="{{30}}"
             id="password-input"
             password="true"

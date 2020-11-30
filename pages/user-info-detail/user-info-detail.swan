@@ -37,7 +37,7 @@
             </picker>
         </view>
         <view class="button-box">
-            <button class="button" bind:tap="btnPswChanged">修改密码</button>
+            <button class="button changePwd" bind:tap="btnPswChanged">修改密码</button>
             <button class="button" bind:tap="btnComfirm">确定</button>
         </view>
     </view>

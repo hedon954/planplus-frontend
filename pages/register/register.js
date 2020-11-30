@@ -4,9 +4,10 @@ Page({
     data: {
         promptText: '获取验证码',
         countDown: 60,
-        phoneNumber:"",
+        username:"",
         identificationCode:"",
         password:"",
+        confirmPwd:"",
     },
 
     getVerificationCode: function() {
@@ -35,21 +36,39 @@ Page({
         return n;
     },
 
-    bindPhoneNumberInput(e) {
+    /**
+     * 用户名：手机或邮箱
+     */
+    bindUsernameInput(e) {
         this.setData({
-            phoneNumber: e.detail.value
+            username: e.detail.value
         });
     },
 
+    /**
+     * 验证码
+     */
     bindIdentificationCodeInput(e) {
         this.setData({
             identificationCode: e.detail.value
         });
     },
 
+    /**
+     * 密码
+     */
     bindPasswordInput(e) {
         this.setData({
             password: e.detail.value
+        });
+    },
+
+    /**
+     * 确认密码
+     */
+    bindConfirmPasswordInput(e){
+        this.setData({
+            confirmPwd: e.detail.value
         });
     },
 

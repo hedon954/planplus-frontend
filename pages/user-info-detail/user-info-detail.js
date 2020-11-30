@@ -207,6 +207,13 @@ Page({
     },
 
     chooseImage() {
+        swan.showModal({
+            title: '等待更新',
+            content:"暂不可更换头像，敬请等待更新！",
+            showCancel: false,
+            confirmText: '确定',
+        })
+        return;
         swan.chooseImage({
             count: 1,
             sizeType: ['compressed'],

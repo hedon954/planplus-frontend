@@ -6,7 +6,7 @@ page{
 .wrap {
     width: 100%;
     min-height: 100%;
-    background-image: url(https://tva1.sinaimg.cn/large/0081Kckwgy1gl31ek2ivyj30bi0ligmx.jpg);
+    background-image: url("../../images/data-analysis.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }

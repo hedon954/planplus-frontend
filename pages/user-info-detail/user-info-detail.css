@@ -87,3 +87,7 @@
     -webkit-transform-origin: 0 100%;
             transform-origin: 0 100%;
 }
+
+.changePwd {
+    background-color: #ee673e;
+}
