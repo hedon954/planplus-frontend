@@ -18,8 +18,8 @@
             <input cursor-spacing="{{30}}"
             id="phone-number-input"
             type="text"
-            placeholder="请输入手机号"
-            value="{= phoneNumber =}"
+            placeholder="请输入邮箱"
+            value="{= username =}"
             placeholder-class="form-item-placeholder"
             bindinput="bindPhoneNumberInput"/>
         </view>

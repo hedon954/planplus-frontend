@@ -3,7 +3,7 @@ const app = getApp()
 
 Page({
     data: {
-        phoneNumber: "15623205156",
+        username: "15623205156",
         password: "123456",
         userInfo: {},
     },
@@ -11,8 +11,8 @@ Page({
         // 监听页面加载的生命周期函数
         //先检查用户是否已经登录
         swan.request({
-            url: 'https://www.hedon.wang/project/login/checkLogin',
-            // url: 'http://localhost:9527/project/login/checkLogin',
+            // url: 'https://www.hedon.wang/project/login/checkLogin',
+            url: 'http://localhost:443/project/login/checkLogin',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },
@@ -38,7 +38,7 @@ Page({
      */
     bindPhoneNumberInput(e){
         this.setData({
-            phoneNumber: e.detail.value
+            username: e.detail.value
         })
     },
 
@@ -55,11 +55,11 @@ Page({
      * 登录操作
      */
     loginSubmit(){
-        console.log(this.data.phoneNumber);
+        console.log(this.data.username);
         console.log(this.data.password);
         swan.request({
-            url: 'https://www.hedon.wang/project/login/login',
-            // url: 'http://localhost:9527/project/login/login',
+            // url: 'https://www.hedon.wang/project/login/login',
+            url: 'http://localhost:443/project/login/login',
             header: {
                 'content-type': 'application/json'
             },
@@ -67,7 +67,7 @@ Page({
             dataType: 'json',
             responseType: 'text',
             data: {
-                phoneNumber: this.data.phoneNumber,
+                username: this.data.username,
                 password: this.data.password
             },
 

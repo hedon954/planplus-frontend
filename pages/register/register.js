@@ -11,18 +11,106 @@ Page({
         confirmPwd:"",
     },
 
-    getVerificationCode: function() {
+    /**
+     * 检查两次密码是否相同
+     */
+    checkPwd: function(){
+        if(this.data.password == this.data.confirmPwd){
+            console.log("两次密码一致");
+            return true;
+        }else{
+            console.log("两次密码不一致");
+            return false;
+        }
+    },
 
-        this.setData({
-            promptText: this.data.countDown + '秒后重新获取',
-            ban: "disabled"
+    /**
+     * 获取验证码
+     */
+    getVerificationCode() {
+        //检查邮箱是否为空
+        if(this.data.username.trim() == ""){
+            swan.showToast({
+                title: '用户名不能为空',
+                icon: 'none',
+                image: '',
+                duration: 2000,
+            });
+            return;
+        }
+
+        //检查密码是否为空
+        if(this.data.password.trim() == ""){
+            swan.showToast({
+                title: '密码不能为空',
+                icon: 'none',
+                image: '',
+                duration: 2000,
+            });
+            return;
+        }
+        //判断两次密码是否一致
+        if(!this.checkPwd()){
+            swan.showToast({
+                title: '两次密码不一致',
+                icon: 'none',
+                image: '',
+                duration: 2000,
+            });
+            return;
+        }
+
+
+
+        //发送请求，获取验证码
+        swan.request({
+            url: 'http://localhost:443/project/code/register',
+            method: 'POST',
+            data:{
+                username:this.data.username,
+                password:this.data.password,
+            },
+            responseType: 'text',
+            success:res=>{
+                if(res.data.code == 1000){
+                    swan.showToast({
+                        title: '请查收验证码',
+                        icon: 'none',
+                        image: '',
+                        duration: 2000,
+                    })
+
+
+                    //60秒不能重新发送
+                    this.setData({
+                        promptText:this.data.countDown + '秒后重新获取',
+                        ban: "disabled"
+                    });
+
+                    this.interval = setInterval(() => {
+                        if(this.count(this.data.countDown) <= 0) {
+                            this.interval && clearInterval(this.interval);
+                        }
+                    }, 1000);
+
+                }
+                else{
+                    swan.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        image: '',
+                        duration: 2000,
+                    })
+                }
+
+            },
+            fail: err => {
+                swan.showToast({
+                    title: JSON.stringify(err)
+                });
+                console.log('request fail', err);
+            },
         });
-
-        this.interval = setInterval(() => {
-            if(this.count(this.data.countDown) <= 0) {
-                this.interval && clearInterval(this.interval);
-            }
-        }, 1000);
 
     },
 
@@ -79,33 +167,33 @@ Page({
 
     registerComfirm:function(){
         swan.request({
-            url: 'http://localhost:9527/project/login/registerByPhoneAndPwd',
+            url: 'http://localhost:443/project/login/register',
             method: 'POST',
-            header:{
-                'Authorization': 'bearer '+app.data.access_token
-            },
             data:{
-                phoneNumber:this.data.phoneNumber,
+                username:this.data.username,
                 password:this.data.password,
+                code: this.data.identificationCode
             },
             responseType: 'text',
             success:res=>{
                 console.log("注册成功");
                 if(res.data.code == 1000){
+
                     swan.showToast({
-                    title: '注册成功'
+                        title: '注册成功',
+                        icon: 'success',
+                        image: '',
+                        duration: 2000,
                     })
                 }
                 else{
                     swan.showToast({
-                        title: '注册失败'
+                        title: res.data.message,
+                        icon: 'none',
+                        image: '',
+                        duration: 2000,
                     })
                 }
-                this.setData({
-                    phoneNumber:"",
-                    password:"",
-                    identificationCode:"",
-                })
             }
         });
     }
