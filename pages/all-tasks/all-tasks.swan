@@ -9,6 +9,7 @@
                 <tab-item class="tab1" name="all" label="所有" />
                 <tab-item class="tab2" name="done" label="已办" />
                 <tab-item class="tab3" name="todo" label="待办" />
+                <tab-item class="tab4" name="draft" label="草稿" />
             </tabs>
         </view>
         <!-- 任务列表 -->
