@@ -5,7 +5,7 @@
     border-radius: 10rpx;
     display: flex;
     /* box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(0, 0, 0, 0.349); */
-    box-shadow: 3px 2px 2px rgba(0, 0,0, 0.2);
+    box-shadow: 3px 2px 2px rgba(0, 0, 0, 0.2);
 }
 .task-content {
     width: 60vw;
