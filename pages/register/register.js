@@ -5,6 +5,7 @@ Page({
         promptText: '获取验证码',
         countDown: 60,
         username:"",
+        ban: "",
         identificationCode:"",
         password:"",
         confirmPwd:"",
@@ -12,7 +13,10 @@ Page({
 
     getVerificationCode: function() {
 
-        this.setData('promptText', this.data.countDown + '秒后重新获取');
+        this.setData({
+            promptText: this.data.countDown + '秒后重新获取',
+            ban: "disabled"
+        });
 
         this.interval = setInterval(() => {
             if(this.count(this.data.countDown) <= 0) {
@@ -28,7 +32,8 @@ Page({
         if(n <= 0) {
             this.setData({
                 promptText: '获取验证码',
-                countDown: 60
+                countDown: 60,
+                ban: ""
             });
             return 0;
         }
