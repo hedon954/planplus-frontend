@@ -56,7 +56,8 @@
     <label class="separator-label">|</label>
     <!--找回密码-->
     <button type="default"
-        class="short-button right-button">
+        class="short-button right-button"
+        bind:tap="jumpToForgotPassword">
         找回密码
     </button>
 </view>
