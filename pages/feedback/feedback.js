@@ -47,6 +47,10 @@ Page({
                         duration: 1000,
                         mask: false
                     });
+                    this.setData({
+                        content: "",
+                        email: ""
+                    })
                 }else{
                     swan.showToast({
                         // 提示的内容
