@@ -71,13 +71,13 @@
 
 .list-item-key-4 {
     display: inline-block;
-    width: 5rem;
+    width: 25%;
     word-wrap: break-word;
 }
 
 .list-item-value {
     display: inline-block;
-    width: 10rem;
+    width: 70%;
     vertical-align: middle;
     word-break: break-all;
 }

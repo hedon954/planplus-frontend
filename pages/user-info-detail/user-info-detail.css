@@ -19,9 +19,10 @@
 }
 
 .property{
+    width: 160.386rpx;
     font-size: 33.213rpx;
     margin-left: 38rpx;
-    margin-right: 120.773rpx;
+    /* margin-right: 20.773rpx; */
 }
 
 .birthday{
