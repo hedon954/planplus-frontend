@@ -64,7 +64,8 @@ Page({
 
         //发送请求，获取验证码
         swan.request({
-            url: 'http://localhost:443/project/code/register',
+            // url: 'http://localhost:443/project/code/register',
+            url: 'https://www.hedon.wang/project/code/register',
             method: 'POST',
             data:{
                 username:this.data.username,
@@ -186,6 +187,13 @@ Page({
                         image: '',
                         duration: 2000,
                     })
+
+                    //跳回到登录界面
+                    swan.navigateBack({
+                        // 返回的页面数，如果 delta 大于现有页面数，则返回到首页1。
+                        delta: 0,
+                    });
+
                 }
                 else{
                     swan.showToast({
@@ -194,6 +202,8 @@ Page({
                         image: '',
                         duration: 2000,
                     })
+
+
                 }
             }
         });

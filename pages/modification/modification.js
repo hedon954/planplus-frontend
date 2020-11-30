@@ -493,6 +493,7 @@ Page({
                 taskAdvanceRemindTime: this.data.aheadTime
             },
             success: res => {
+                console.log(res.data)
                 try {
                     console.log('保存成功。。。');
                     app.setTaskChanged(true);

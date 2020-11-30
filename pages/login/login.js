@@ -3,7 +3,7 @@ const app = getApp()
 
 Page({
     data: {
-        username: "15623205156",
+        username: "1015982558@qq.com",
         password: "123456",
         userInfo: {},
     },
