@@ -102,4 +102,11 @@ Page({
             url:'../../pages/register/register'
         });
     },
+
+    /**跳转到找回密码界面 */
+    jumpToForgotPassword:function(){
+        swan.navigateTo({
+            url:'../../pages/forgot-password/forgot-password'
+        });
+    },
 });

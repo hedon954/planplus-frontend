@@ -2,7 +2,7 @@ const app = getApp();
 
 Page({
     data: {
-        promptText: '获取验证码',
+        promptText: '获取',
         countDown: 60,
         username:"",
         ban: "",
@@ -83,7 +83,7 @@ Page({
 
                     //60秒不能重新发送
                     this.setData({
-                        promptText:this.data.countDown + '秒后重新获取',
+                        promptText:this.data.countDown + 's',
                         ban: "disabled"
                     });
 
@@ -119,13 +119,13 @@ Page({
         this.setData('countDown', n);
         if(n <= 0) {
             this.setData({
-                promptText: '获取验证码',
+                promptText: '获取',
                 countDown: 60,
                 ban: ""
             });
             return 0;
         }
-        this.setData('promptText', this.data.countDown + '秒后重新获取');
+        this.setData('promptText', this.data.countDown + 's');
         return n;
     },
 

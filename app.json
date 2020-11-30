@@ -12,7 +12,8 @@
         "pages/pwd-changed/pwd-changed",
         "pages/help/help",
         "pages/test/test",
-        "pages/register/register"
+        "pages/register/register",
+        "pages/forgot-password/forgot-password"
     ],
     "window": {
         "navigationBarBackgroundColor": "#919ffa",
