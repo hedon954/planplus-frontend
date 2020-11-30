@@ -78,7 +78,7 @@
 
 .list-item-value {
     display: inline-block;
-    width: 10rem;
+    width: 15rem;
     vertical-align: middle;
     word-break: break-all;
 }
@@ -115,13 +115,16 @@
 .get-code-button{
     display: inline-block;
     font-size: 33rpx;
+    width: 2.4em;
     height: 1.4em;
     line-height: 1.4em;
     padding: 0;
     vertical-align: top;
     border-radius: 0;
     margin-left: 10rpx;
-    color: #999;
+    background-color: #678ff9;
+    border-radius: 5rpx;
+    color: white;
 }
 
 .get-code-button::after{
