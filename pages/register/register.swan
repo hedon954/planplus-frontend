@@ -28,7 +28,7 @@
                     bindinput="bindIdentificationCodeInput"/>
             </view>
         </view>
-        <button class="button" bindtap="getVerificationCode">{{promptText}}</button>
+        <button class="button" bindtap="getVerificationCode" disabled="{{ban}}">{{promptText}}</button>
         <button class="button" bind:tap="registerComfirm" >注册</button>
     </view>
 </view>
