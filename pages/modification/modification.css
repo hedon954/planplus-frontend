@@ -104,3 +104,8 @@ button::after {
     display: flex;
     justify-content: center;
 }
+
+
+.operation-btn {
+    transform: translate(540rpx, 180rpx);
+}
