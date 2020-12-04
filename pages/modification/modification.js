@@ -193,8 +193,10 @@ Page({
     },
     //时间（时：分）加减
     timeCal(paramTime, n) {
-        let mm = parseInt(paramTime.substring(3));
-        let hh = parseInt(paramTime.substring(0, 2));
+        // let mm = parseInt(paramTime.substring(3));
+        // let hh = parseInt(paramTime.substring(0, 2));
+        let hh = parseInt(paramTime.split(':')[0]);
+        let mm = parseInt(paramTime.split(':')[1])
         if(mm + n < 60) {
             mm += n;
         } else {
