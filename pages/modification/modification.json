@@ -1,6 +1,7 @@
 {
     "usingComponents": {
         "delay-modal": "/components/delay-modal/delay-modal",
+        "operation-modal": "/components/operation-modal/operation-modal",
         "smt-icon": "@smt-ui/component/src/icon"
     }
 }
