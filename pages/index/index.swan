@@ -1,19 +1,13 @@
-<!-- index.swan -->
-<view class="container">
-    <view class="logo">
+<view class="wrap">
+    <view class="card-area">
+        <button open-type="getUserInfo" type="primary" bindgetuserinfo="getuserinfo">
+            获取用户信息
+        </button>
     </view>
-    <view class="userinfo">
-        <button class="userinfo-login-btn" s-if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-        <view s-else class="userinfo-message">
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </view>
 
-        <label>用户ID：</label><text>{{userInfo.userId}}</text>
-        <label>用户名：</label><text>{{userInfo.userNickname}}</text>
-        <label>用户手机：</label><text>{{userInfo.userPhone}}</text>
-        <label>用户头像：</label><text>{{userInfo.userAvatarUrl}}</text>
-        <label>用户生日：</label><text>{{userInfo.userBirthday}}</text>
-        <label>用户性别：</label><text>{{userInfo.userGender == 0 ? '女':'男'}}</text>
+    <view class="card-area">
+        <button type="primary" bind:tap="loginSubmit">
+           登录
+        </button>
     </view>
 </view>

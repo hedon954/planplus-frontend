@@ -122,21 +122,6 @@ Page({
                     return;
                 }
             },
-            // fail: res => {
-            //      //未登录
-            //      swan.showModal({
-            //         // 提示的标题
-            //         title: '身份过期',
-            //         // 提示的内容
-            //         content: '身份过期，请先登录！',
-            //         // 是否显示取消按钮 。
-            //         showCancel: false,
-            //     });
-            //     // 跳转到登录界面
-            //     swan.redirectTo({
-            //         url: '/pages/login/login'
-            //     })
-            // }
         });
 
         // 用户首次进入小程序，同步百度APP登录态

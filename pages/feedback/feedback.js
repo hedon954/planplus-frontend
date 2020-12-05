@@ -25,7 +25,7 @@ Page({
         }
         swan.request({
             // url: 'http://localhost/project/mail/feedback',
-            url: 'https://www.hedon.wang/project/mail/feedback',
+            url: 'https://www.hedon.wang/mail/feedback',
             header: {
                 'Authorization': 'bearer '+app.data.access_token
             },

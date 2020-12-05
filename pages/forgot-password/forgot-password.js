@@ -77,7 +77,7 @@ Page({
         //发送请求，获取验证码
         swan.request({
             // url: 'http://localhost:443/project/code/getPasswordBack',
-            url: 'https://www.hedon.wang/project/code/getPasswordBack',
+            url: 'https://www.hedon.wang/mail/code/getPasswordBack',
             method: 'POST',
             data:{
                 username:this.data.username,

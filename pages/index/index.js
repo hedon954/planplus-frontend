@@ -1,83 +1,154 @@
-/**
- * @file index.js
- * @author swan
- */
 const app = getApp()
 
 Page({
+
     data: {
+        username: app.data.username,
+        password: app.data.password,
         userInfo: {},
-        hasUserInfo: false,
-        canIUse: swan.canIUse('button.open-type.getUserInfo')
     },
 
     /**
-     * 页面加载
+     * 监听页面加载的生命周期函数
      */
-    // onLoad() {
-    //     //检查是否已经登录
-    //     swan.request({
-    //         url: 'http://182.61.131.18:9527/project/login/checkLogin',
-    //         header: {
-    //             'Authorization': 'bearer '+app.data.access_token
-    //         },
-    //         method: 'POST',
-    //         responseType: 'text',
-    //         success: res => {
-    //             console.log(res);
-    //             //已登录
-    //             if(res.data.code == '1000'){
-    //                 console.log("hhhhh"+res.data)
-    //                 //读取当前用户数据
-    //                 swan.request({
-    //                     url: 'http://182.61.131.18:9527/project/user/info',
-    //                     method: 'GET',
-    //                     header:{
-    //                         'Authorization': 'bearer '+this.data.access_token
-    //                     },
-    //                     responseType: 'text',
-    //                     success: res => {
-    //                         console.log(res);
-    //                         //已登录
-    //                         if(res.data.code == '1000'){
-    //                             //设置当前用户ID
-    //                             this.setData({
-    //                                 userInfo: res.data.data
-    //                             })
-    //                         }
-    //                     },
-    //                 })
-    //                 console.log("当前用户信息："+this.data.userInfo)
-    //             }else{
-    //                 //未登录
-    //                 swan.showModal({
-    //                     // 提示的标题
-    //                     title: '身份过期',
-    //                     // 提示的内容
-    //                     content: '身份过期，请先登录！',
-    //                     // 是否显示取消按钮 。
-    //                     showCancel: false,
+    onLoad() {
 
-    //                 });
-    //                 // 跳转到登录界面
-    //                 swan.redirectTo({
-    //                     url: '/pages/login/login'
-    //                 })
-    //             }
-    //         },
-    //         fail: res => {
-    //              //未登录
-    //              swan.showModal({
-    //                 // 提示的标题
-    //                 title: '身份过期',
-    //                 // 提示的内容
-    //                 content: '身份过期，请先登录！',
-    //                 // 是否显示取消按钮 。
-    //                 showCancel: false,
+        //先检查用户是否已经登录
+        swan.request({
+            url: 'https://www.hedon.wang/project/login/checkLogin',
+            header: {
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            method: 'POST',
+            responseType: 'text',
+            success: res => {
+                //已登录
+                if(res.data.code == 1000){
+                    console.log("hhhhh"+res.data)
+                    //成功的话就跳转
+                    swan.switchTab({
+                        url: '/pages/home/home'
+                    });
+                    return;
+                }
+            }
+        })
 
-    //             });
-    //         }
-    //     })
 
-    // },
-})
+        // 用户首次进入小程序，同步百度APP登录态
+        swan.login({
+            success: res => {
+                console.log('login success', res);
+
+                // 获取用户手机号或用户信息
+                // 待补
+
+                /**
+                 * 登陆成功后要发送请求到后端，
+                 * 利用这个仅有10s有效期的code去获取openId和sessionKey，
+                 * 因为发送信息需要用户的openId
+                 */
+                swan.request({
+                    url: 'https://www.hedon.wang/project/login/getUserOpenIdAndSessionKeyAndUnionId?code='+res.code,
+                    method: 'POST',
+                    header:{
+                        'Content-Type': 'Application/x-www-form-urlencoded',
+                    },
+                    responseType: 'text',
+                    success: res=>{
+                        console.log("百度登陆")
+                        console.log(res.data)
+                        if(res.data.code == 1000){
+                            this.setData({
+                                username: res.data.data.userUnionId,
+                                password: "123456"
+                            })
+                            swan.showModal({
+                                title: '成功',
+                                content: res
+                            });
+                        }
+                    },
+                    fail: res=>{
+                        console.log(res);
+                        swan.showModal({
+                            title: '失败',
+                            content: res
+                        });
+                    }
+                });
+            },
+            fail: err => {
+                console.log('login fail', err);
+            }
+        });
+
+
+    },
+
+    /**
+     * 登录操作
+     */
+    loginSubmit(){
+        console.log(this.data.username);
+        console.log(this.data.password);
+        swan.request({
+            url: 'https://www.hedon.wang/project/login/login',
+            header: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+            dataType: 'json',
+            responseType: 'text',
+            data: {
+                username: this.data.username,
+                password: this.data.password
+            },
+
+            success: res => {
+                console.log(res.data)
+                if(res.data.code == 1000){
+                    app.setAccessToken(res.data.data.access_token)
+                    app.setUsername(this.data.username)
+                    app.setPassword(this.data.password)
+                    swan.setStorageSync("access_token",res.data.data.access_token);
+                    //成功的话就跳转
+                    swan.switchTab({
+                        url: '/pages/home/home'
+                    });
+                }
+                else{
+                    swan.showToast({
+                        title: JSON.stringify(res.data.message)
+                    })
+                }
+
+            },
+            fail: err => {
+                swan.showToast({
+                    title: JSON.stringify(err)
+                });
+                console.log('request fail', err);
+            },
+        });
+    },
+
+
+
+
+    getuserinfo(e) {
+        console.log(e)
+        if (e.detail.encryptedData) {
+            swan.showModal({
+                title: '获取成功',
+                content: JSON.stringify(e)
+            });
+        }
+        else {
+            swan.showModal({
+                title: '获取失败',
+                content: JSON.stringify(e)
+            });
+        }
+    }
+});
