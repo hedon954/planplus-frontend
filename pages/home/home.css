@@ -52,7 +52,7 @@
     overflow: hidden;
 }
 .title label {
-    margin: 10rpx 260rpx 10rpx 20rpx;
+    margin: 10rpx 220rpx 10rpx 20rpx;
     font-size: small;
     text-align: left;
     width: 200rpx;
@@ -60,7 +60,8 @@
 .title tabs {
     margin: 10rpx 5rpx;
     height: 40rpx;
-    width: 200rpx;
+    /* width: 200rpx; */
+    width: 250rpx;
     border-radius: 36rpx;
 }
 .title tab-item {
