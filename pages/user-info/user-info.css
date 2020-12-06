@@ -1,19 +1,21 @@
 .info-container{
     /* height: 88vh; */
-    height: 400rpx;
+    height: 360rpx;
     justify-items: center;
     padding: 18.116rpx;
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
+    background-color: white;
 }
 
 
 .info-card{
     width: 100%;
     height:340rpx;;
-    background-color: rgba(218, 218, 218, 0.986);
+    /* background-color: rgba(218, 218, 218, 0.986); */
+    background-color: white;
     border-radius: 50rpx;
     overflow: hidden;
-    box-shadow:black 100% 3.019rpx;
+    /* box-shadow:black 100% 3.019rpx; */
 }
 
 .username-box{
@@ -66,7 +68,8 @@
 
 .update-botton{
     border:none;
-    background-color: rgba(218, 218, 218, 0.986);
+    /* background-color: rgba(218, 218, 218, 0.986); */
+    background-color: white;
     padding:0;
     display: inline;
     margin-right: 0;
@@ -117,7 +120,7 @@
 列表格式
 */
 .list {
-    margin-top: 60rpx;
+    margin-top: 20rpx;
     align-content: center;
   }
 
@@ -138,7 +141,7 @@
       /* transform: translateY(240rpx); */
       /* transform: translateY(37vh); */
       position: fixed;
-      bottom: 8vh;
+      bottom: 4vh;
       /* left: ; */
       width: 100vw;
       padding: 20rpx 0rpx 20rpx 0rpx;
