@@ -7,26 +7,27 @@ var barOption = {
     // 标题
     title: {
         text: '近一周任务数量统计',
-        left:'10',
-        top:'10',
+        left:'20',
+        top:'15',
     },
-    color: ['#37A2DA', '#67E0E3'],
+    color: ['#bedcfa', '#98acf8'],
     tooltip:{
         trigger:'axis'
     },
     // 图例
     legend: {
         data:['任务总数','已完成任务数'],
-        top:'45',
+        top:'50',
     },
     grid:{
-        top:90,
+        top:110,
+        left:40,
     },
     // x轴
     xAxis: {
         type:"category",
         axisLabel:{'interval':0},
-        data:[],
+        data:['11-29','\n11-30','12-01','\n12-02','12-03','\n12-04','12-05'],
     },
     yAxis: {
         name:"数量",
@@ -51,20 +52,20 @@ var barOption = {
 var lineOption = {
     title: {
         text: '近一周任务质量统计',
-        left:'10',
-        top:'10',
+        left:'20',
+        top:'15',
     },
-    color: ['#37A2DA', '#9FE6B8'],
+    color: ['#b088f9', '#98acf8'],
     legend: {
         data: ['推迟次数', '完成百分比'],
-        top: 45,
+        top: 55,
         left: 'center',
         z: 100
     },
     grid: {
-        top:90,
+        top:110,
         right:50,
-        left:30,
+        left:40,
         // containLabel: true
     },
     tooltip: {
@@ -75,7 +76,7 @@ var lineOption = {
         type: 'category',
         boundaryGap: false,
         axisLabel:{'interval':0},
-        data: [],
+        data: ['11-29','\n11-30','12-01','\n12-02','12-03','\n12-04','12-05'],
     },
     yAxis: [{
         x: 'center',
@@ -121,6 +122,13 @@ Page({
     data:{
         barOption:barOption,
         lineOption: lineOption,
+        current: 0,
+        itemId: 0,
+        switchIndicateStatus: true,
+        switchAutoPlayStatus: false,
+        switchVerticalStatus: false,
+        switchDuration: 500,
+        autoPlayInterval: 2000,
     },
     onLoad: function () {
         // 监听页面加载的生命周期函数
