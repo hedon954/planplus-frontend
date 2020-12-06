@@ -3,8 +3,6 @@
  */
 const app = getApp();
 
-var weeklyDate= ["11-30", '\n12-01', "12-02", "\n12-03", "12-04", "\n12-05", "12-06"];
-
 var barOption = {
     // 标题
     title: {
@@ -28,7 +26,7 @@ var barOption = {
     xAxis: {
         type:"category",
         axisLabel:{'interval':0},
-        data:weeklyDate,
+        data:[],
     },
     yAxis: {
         name:"数量",
@@ -77,7 +75,7 @@ var lineOption = {
         type: 'category',
         boundaryGap: false,
         axisLabel:{'interval':0},
-        data: weeklyDate,
+        data: [],
     },
     yAxis: [{
         x: 'center',
@@ -121,12 +119,8 @@ Page({
      * 数据
      */
     data:{
-        barOption: barOption,
+        barOption:barOption,
         lineOption: lineOption,
-        date:[],
-        numOfTasks:[],
-        numOfFinishedTasks:[],
-        completePercentage:[],
     },
     onLoad: function () {
         // 监听页面加载的生命周期函数
@@ -140,13 +134,11 @@ Page({
             success:res=>{
                 console.log(res.data);
                 if(res.data.code == 1000){
-                   this.setData({
-                       date:res.data.data.dateOfWeek,
-                       numOfFinishedTasks:res.data.data.numOfFinishedTasks,
-                       numOfTasks:res.data.data.numOfTasks,
-                       completePercentage:res.data.data.completePercentage,
-                   });
-                   this.setChartsData(this.data.date);
+                   this.setData('barOption.xAxis.data',res.data.data.dateOfWeek);
+                   this.setData('lineOption.xAxis.data',res.data.data.dateOfWeek);
+                   this.setData('barOption.series[0].data',res.data.data.numOfTasks);
+                   this.setData('barOption.series[1].data',res.data.data.numOfFinishedTasks);
+                   this.setData('lineOption.series[1].data',res.data.data.completePercentage);
                 }
                 else{
                     swan.showToast({
@@ -161,9 +153,5 @@ Page({
     onShow: function() {
         // 监听页面显示的生命周期函数
     },
-
-    setChartsData:function(param){
-        barOption.xAxis.data = param;
-    }
 
 });
