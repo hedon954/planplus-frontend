@@ -8,7 +8,7 @@
     </image>
     <!-- 登录表单 -->
     <!-- <image src="../../images/login_form.png" class="login-form"></image> -->
-    <form bindsubmit="loginSubmit">
+    <!-- <form bindsubmit="loginSubmit"> -->
         <!-- 手机号 -->
         <!-- <view class="form-item"
             bindtap="handleUpload">
@@ -38,12 +38,10 @@
             bindinput="bindPasswordInput"/>
         </view> -->
         <!-- 登录按钮 -->
-        <button form-type="submit"
-            type="default"
-            class="login-submit">
-            登录
+        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="default" class="login-submit">
+            <view bind:tap="loginSubmit">登录</view>
         </button>
-    </form>
+    <!-- </form> -->
 </view>
 <!-- <view class="button-box">
     注册按钮

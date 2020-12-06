@@ -62,10 +62,6 @@ Page({
                                 username: res.data.data.userUnionId,
                                 password: "123456"
                             })
-                            swan.showModal({
-                                title: '成功',
-                                content: res
-                            });
                         }
                     },
                     fail: res=>{
@@ -130,6 +126,12 @@ Page({
                 console.log('request fail', err);
             },
         });
+    },
+
+    getUserInfo(e) {
+        console.log('用户名称', e.detail.userInfo.nickName)
+        console.log('用户头像', e.detail.userInfo.avatarUrl)
+        console.log('用户性别', e.detail.userInfo.gender)
     },
 
     /**
