@@ -117,11 +117,8 @@ Page({
                 }else{
                     //未登录
                     swan.showModal({
-                        // 提示的标题
                         title: '身份过期',
-                        // 提示的内容
                         content: '身份过期，请先登录！',
-                        // 是否显示取消按钮 。
                         showCancel: false,
                     });
                     // 跳转到登录界面
@@ -225,6 +222,9 @@ Page({
                                 response[i]['taskStartTime'] = startTimeString;
                             }
                         }
+
+                        //判断任务地点是否为空，若为空，则显示“无”
+                        response[i]['taskPlace'] = (response[i]['taskPlace'] == '')? '无': response[i]['taskPlace'];
 
                         console.log('新加的玩意儿：'+response[i]['taskStartTime']);
 
@@ -335,6 +335,9 @@ Page({
                             }
                         }
 
+                        //判断任务地点是否为空，若为空，则显示“无”
+                        response[i]['taskPlace'] = (response[i]['taskPlace'] == '')? '无': response[i]['taskPlace'];
+
 
                         console.log('新加的玩意儿：'+response[i]['taskStartTime']);
 
@@ -409,6 +412,9 @@ Page({
                             response[i]['taskStartTime'] = startTimeString + '-' + response[i]['taskPredictedFinishTime'].substring(11, 16)
                         }
                         console.log('新加的玩意儿：'+response[i]['taskStartTime']);
+
+                        //判断任务地点是否为空，若为空，则显示“无”
+                        response[i]['taskPlace'] = (response[i]['taskPlace'] == '')? '无': response[i]['taskPlace'];
 
                         //判断任务是否已开始
                         if(response[i]['taskStatus'] != 0) {
@@ -603,14 +609,10 @@ Page({
                     });
                 }else{
                     swan.showModal({
-                        // 提示的标题
                         title: '创建失败',
-                        // 提示的内容
                         content: res.data.message,
-                        // 是否显示取消按钮 。
                         showCancel: false,
                         confirmText: '确定',
-                        // 确定按钮的文字颜色。
                         confirmColor: '#',
                     });
                 }
@@ -626,13 +628,9 @@ Page({
         if(this.data.taskContent == null || this.data.taskContent == ''
         || this.data.taskStartTime == null || this.data.taskStartTime == '') {
             swan.showToast({
-                // 提示的内容
                 title: '缺少任务内容或开始时间',
-                // 图标，有效值"success"、"loading"、"none"。
                 icon: 'none',
-                // 自定义图标的本地路径，image 的优先级高于 icon
                 image: '',
-                // 提示的延迟时间，单位毫秒。
                 duration: 2400,
             });
             return;
@@ -641,13 +639,8 @@ Page({
         //判断任务开始时间和结束时间是否有效
         if(!this.timeValid(this.data.taskStartTime, this.data.taskPredictedFinishTime)) {
             swan.showToast({
-                // 提示的内容
                 title: '任务开始时间需早于结束时间',
-                // 图标，有效值"success"、"loading"、"none"。
                 icon: 'none',
-                // 自定义图标的本地路径，image 的优先级高于 icon
-                image: '',
-                // 提示的延迟时间，单位毫秒。
                 duration: 2400,
             });
             return;
@@ -824,4 +817,26 @@ Page({
         this.setData("voiceRecognizeContent", e.detail.value);
     },
 
+
+    //下拉刷新
+    onPullDownRefresh: function() {
+        // 监听用户下拉动作
+        swan.startPullDownRefresh({
+            success: res => {
+                swan.showNavigationBarLoading();
+                this.onLoad();
+                setTimeout(() => {
+                    swan.hideNavigationBarLoading();
+                    swan.stopPullDownRefresh();
+                }, 800);
+            },
+            fail: res => {
+                swan.showToast({
+                    title: '刷新失败',
+                    icon: 'none',
+                    duration: 2000,
+                });
+            },
+        });
+    },
 });
