@@ -8,7 +8,7 @@ Page({
         subScribeId: app.data.subScribeId,
         showVerifyModal: false, //是否显示自定义模态框
         tasks: [], //任务列表
-        activeName: 'today', //当前选中的tab-item名称
+        activeName: '', //当前选中的tab-item名称
         isToday: true,
         endTimeList: [], //定时器结束时间——即各任务开始时间
         countDownList: [], //倒计时时间
@@ -60,12 +60,17 @@ Page({
         //先检查是否已登录
         this.checkLoginOrNot();
         //已登录->查询今日任务
+        console.log('fafffffffffffffffffffffffffffffffffffffffffffffffffff'+app.data.preTab);
         this.setData({
-            activeName: 'today',
-            isToday: true
+            // activeName: 'today',
+            // isToday: true
+            activeName: (app.data.preTab == '')? 'today': app.data.preTab,
+            isToday: (app.data.preTab == '' || app.data.preTab == 'today')? true: false
         });
         //查询今日任务
-        this.getTodayTasks()
+        // this.getTodayTasks()
+        console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'+this.data.activeName+this.data.isToday);
+        this.getTasksByParam(this.data.activeName);
     },
 
     /**
@@ -73,16 +78,20 @@ Page({
      */
     onShow: function() {
         this.setData({
-            activeName: 'today',
-            isToday: true,
+            // activeName: 'today',
+            // isToday: true,
+            activeName: (app.data.preTab == '')? 'today': app.data.preTab,
+            isToday: (app.data.preTab == '' || app.data.preTab == 'today')? true: false,
             subScribeId: app.data.subScribeId
         });
         console.log("onShow...")
         if(!app.data.taskChanged) {
             return;
         }
-        //读取今日任务
-        this.getTodayTasks()
+        // //读取今日任务
+        // this.getTodayTasks()
+        console.log('onshow:hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'+this.data.activeName+this.data.isToday);
+        this.getTasksByParam(this.data.activeName);
     },
 
 
@@ -122,21 +131,6 @@ Page({
                     return;
                 }
             },
-            // fail: res => {
-            //      //未登录
-            //      swan.showModal({
-            //         // 提示的标题
-            //         title: '身份过期',
-            //         // 提示的内容
-            //         content: '身份过期，请先登录！',
-            //         // 是否显示取消按钮 。
-            //         showCancel: false,
-            //     });
-            //     // 跳转到登录界面
-            //     swan.redirectTo({
-            //         url: '/pages/login/login'
-            //     })
-            // }
         });
 
         // 用户首次进入小程序，同步百度APP登录态
@@ -186,13 +180,16 @@ Page({
     },
 
 
+
     /**
-     * 获取所有任务
+     * 按输入参数获取任务
      */
-    getTasks: function(e) {
-        this.setData('isToday', (e.detail.name == 'today' )? true: false);
+    getTasksByParam: function(param) {
+        console.log('进入函数'+param);
+        this.setData('isToday', (param == 'today' )? true: false);
+        console.log(this.data.isToday);
         swan.request({
-            url: 'https://www.hedon.wang/project/task/' + e.detail.name,
+            url: 'https://www.hedon.wang/project/task/' + param,
             method: 'GET',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
@@ -200,13 +197,181 @@ Page({
             success: res => {
                 try {
                     var response = res.data.data;
+                    //防止引用被修改
+                    response = JSON.parse(JSON.stringify(response));
+                    var startTimeString = '';
+                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var delStyleList = []; //临时存放删除线样式
+                    var hasStartedList = []; //临时存放是否结束标志
                     for(var i = 0; i < response.length; i++) {
-                        response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(11, 19);
+                        startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
+                        startTimeString = response[i]['taskStartTime'].substring(11, 16);
+
+
+                        //判断是否为待办任务，若是，则显示日期
+                        if(this.data.activeName == 'todo') {
+                            console.log('这是todo。。。。。。。。。。。。')
+                            if(response[i]['taskStartTime'].substring(0, 16) !=
+                                response[i]['taskPredictedFinishTime'].substring(0, 16)) {
+                                response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 16).replace(/T/, ' ') + '-' + response[i]['taskPredictedFinishTime'].substring(11, 16);
+                            } else {
+                                response[i]['taskStartTime'] = response[i]['taskPredictedFinishTime'].substring(0, 16).replace(/T/, ' ');
+                            }
+                        } else {
+                            //判断任务开始时间和结束时间是否一致
+                            if(startTimeString != response[i]['taskPredictedFinishTime'].substring(11, 16)) {
+                                response[i]['taskStartTime'] = startTimeString + '-' + response[i]['taskPredictedFinishTime'].substring(11, 16);
+                            } else {
+                                response[i]['taskStartTime'] = startTimeString;
+                            }
+                        }
+
+                        console.log('新加的玩意儿：'+response[i]['taskStartTime']);
+
+                        //判断任务是否已开始
+                        if(response[i]['taskStatus'] != 0) {
+                            hasStartedList.push(true);
+                        } else {
+                            hasStartedList.push(false);
+                        }
+
+                        //为已结束任务添加删除线
+                        if(response[i]['taskStatus'] == 2) {
+                            delStyleList.push("text-decoration:line-through");
+                        } else {
+                            delStyleList.push('');
+                        }
                     }
                     this.setData({
-                        activeName: e.detail.name,
-                        tasks: response
+                        tasks: response,
+                        // endTimeList: startTimeList,
+                        deleteStyleList: delStyleList,
+                        hasStarted: hasStartedList
                     });
+
+                    console.log('hhafhafhaihfiahfiahf'+this.data.isToday);
+                    if(this.data.isToday==true) {
+                        this.setData({
+                            endTimeList: startTimeList,
+                        });
+                        //每隔一秒刷新倒计时，直至所有倒计时都为0
+                        this.interval = setInterval(() => {
+                            if(this.getTimeSpan(this.data.endTimeList, this.data.hasStarted) <= 0) {
+                                this.interval && clearInterval(this.interval);
+                            }
+                        }, 1000);
+                    }
+
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            }
+        });
+    },
+
+
+    /**
+     * 获取所有任务
+     */
+    getTasks: function(e) {
+        // this.setData('isToday', (e.detail.name == 'today' )? true: false);
+        this.setData({
+            isToday: (e.detail.name == 'today' )? true: false,
+            activeName: e.detail.name,
+            tasks: []
+        });
+        swan.request({
+            url: 'https://www.hedon.wang/project/task/' + e.detail.name,
+            method: 'GET',
+            header: {
+                'Authorization': 'bearer ' + app.data.access_token
+            },
+            // success: res => {
+            //     try {
+            //         var response = res.data.data;
+            //         for(var i = 0; i < response.length; i++) {
+            //             response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(11, 16);
+            //         }
+            //         this.setData({
+            //             activeName: e.detail.name,
+            //             tasks: response
+            //         });
+            //     }
+            //     catch (error) {
+            //         console.log(error);
+            //     }
+            // }
+            success: res => {
+                try {
+                    var response = res.data.data;
+                    //防止引用被修改
+                    response = JSON.parse(JSON.stringify(response));
+                    var startTimeString = '';
+                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var delStyleList = []; //临时存放删除线样式
+                    var hasStartedList = []; //临时存放是否结束标志
+                    for(var i = 0; i < response.length; i++) {
+                        startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
+                        startTimeString = response[i]['taskStartTime'].substring(11, 16);
+
+
+                        console.log('新加的玩意儿：'+this.data.activeName);
+                        //判断是否为待办任务，若是，则显示日期
+                        if(this.data.activeName == 'todo') {
+                            console.log('这是todo。。。。。。。。。。。。')
+                            if(response[i]['taskStartTime'].substring(0, 16) !=
+                                response[i]['taskPredictedFinishTime'].substring(0, 16)) {
+                                response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 16).replace(/T/, ' ') + '-' + response[i]['taskPredictedFinishTime'].substring(11, 16);
+                            } else {
+                                response[i]['taskStartTime'] = response[i]['taskPredictedFinishTime'].substring(0, 16).replace(/T/, ' ');
+                            }
+                        } else {
+                            //判断任务开始时间和结束时间是否一致
+                            if(startTimeString != response[i]['taskPredictedFinishTime'].substring(11, 16)) {
+                                response[i]['taskStartTime'] = startTimeString + '-' + response[i]['taskPredictedFinishTime'].substring(11, 16);
+                            } else {
+                                response[i]['taskStartTime'] = startTimeString;
+                            }
+                        }
+
+
+                        console.log('新加的玩意儿：'+response[i]['taskStartTime']);
+
+                        //判断任务是否已开始
+                        if(response[i]['taskStatus'] != 0) {
+                            hasStartedList.push(true);
+                        } else {
+                            hasStartedList.push(false);
+                        }
+
+                        //为已结束任务添加删除线
+                        if(response[i]['taskStatus'] == 2) {
+                            delStyleList.push("text-decoration:line-through");
+                        } else {
+                            delStyleList.push('');
+                        }
+                    }
+                    this.setData({
+                        tasks: response,
+                        // endTimeList: startTimeList,
+                        deleteStyleList: delStyleList,
+                        hasStarted: hasStartedList
+                    });
+
+                    console.log('hhafhafhaihfiahfiahf'+this.data.isToday);
+                    if(this.data.isToday) {
+                        this.setData({
+                            endTimeList: startTimeList,
+                        });
+                        //每隔一秒刷新倒计时，直至所有倒计时都为0
+                        this.interval = setInterval(() => {
+                            if(this.getTimeSpan(this.data.endTimeList, this.data.hasStarted) <= 0) {
+                                this.interval && clearInterval(this.interval);
+                            }
+                        }, 1000);
+                    }
+
                 }
                 catch (error) {
                     console.log(error);
@@ -236,8 +401,14 @@ Page({
                     var hasStartedList = []; //临时存放是否结束标志
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
-                        startTimeString = response[i]['taskStartTime'].substring(11, 19);
+                        startTimeString = response[i]['taskStartTime'].substring(11, 16);
                         response[i]['taskStartTime'] = startTimeString;
+
+                        //判断任务开始时间和结束时间是否一致
+                        if(startTimeString != response[i]['taskPredictedFinishTime'].substring(11, 16)) {
+                            response[i]['taskStartTime'] = startTimeString + '-' + response[i]['taskPredictedFinishTime'].substring(11, 16)
+                        }
+                        console.log('新加的玩意儿：'+response[i]['taskStartTime']);
 
                         //判断任务是否已开始
                         if(response[i]['taskStatus'] != 0) {
@@ -420,7 +591,8 @@ Page({
                         confirmText: '确定',
                         success: res=>{
                             //重新读取所有任务
-                            this.getTodayTasks()
+                            // this.getTodayTasks()
+                            this.getTasksByParam(this.data.activeName);
                             if(res.cancel){
                                 //跳转到详情页
                                 swan.navigateTo({
@@ -447,7 +619,7 @@ Page({
         });
     },
 
-    //创建任务，显示模态框，确认任务信息
+    //创建任务，显示模态框，确认任务信息；已废弃
     verifyTask: function(e) {
 
         //判断任务内容和任务开始时间是否为空
@@ -601,6 +773,7 @@ Page({
         console.log(taskId);
         // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
         // console.log(cpn);
+        app.setPreTab(this.data.activeName);
         swan.navigateTo({
             url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
         });
@@ -650,30 +823,5 @@ Page({
     taskSentenceChange: function(e) {
         this.setData("voiceRecognizeContent", e.detail.value);
     },
-
-
-
-    /**
-     * 用于创建新任务，临时测试
-     */
-    contentChange(e) {
-        this.setData('taskContent', e.detail.value);
-    },
-    startChange(e) {
-        this.setData('taskStartTime', e.detail.value);
-    },
-    endChange(e) {
-        this.setData('taskPredictedFinishTime', e.detail.value);
-        console.log(e.detail.value);
-    },
-    placeChange(e) {
-        this.setData('taskPlace', e.detail.value);
-    },
-    rateChange(e) {
-        this.setData('taskRate', e.detail.v);
-    },
-    remindChange(e) {
-        this.setData('taskAdvanceRemindTime', e.detail.value);
-    }
 
 });

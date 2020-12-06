@@ -59,7 +59,7 @@ Page({
                 try {
                     var response = res.data.data;
                     for(var i = 0; i < response.length; i++) {
-                        response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 16);
+                        response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 10) +" "+response[i]['taskStartTime'].substring(11, 16);
                     }
                     this.setData({
                         activeName: e.detail.name,
@@ -87,7 +87,7 @@ Page({
                 try {
                     var response = res.data.data;
                     for(var i = 0; i < response.length; i++) {
-                        response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 16);
+                        response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 10) +" "+response[i]['taskStartTime'].substring(11, 16);
                     }
                     this.setData({
                         activeName: "all",

@@ -1,0 +1,32 @@
+.modal-mask {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    margin: -120rpx 0rpx;
+    z-index: 9000;
+    background-color: white;
+    opacity: 0.4;
+}
+
+.modal-dialog {
+    width: 300rpx;
+    max-height: 380rpx;
+    padding-top: 40rpx;
+    border-radius: 40rpx;
+    background-color: whitesmoke;
+    margin: 600rpx 360rpx;
+    position: fixed;
+    z-index: 9500;
+}
+
+.modal-btn {
+    /* margin-bottom: 20rpx; */
+    font-size: 30rpx;
+    height: 70rpx;
+    width: 200rpx;
+    margin-left: 50rpx;
+}
+
+.modal-delete-btn {
+    color:  rgb(240, 100, 100);
+}

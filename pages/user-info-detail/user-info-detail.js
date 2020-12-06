@@ -17,9 +17,6 @@ Page({
         }, {
             id: '1',
             name:'男'
-        }, {
-            id: '2',
-            name:'未知'
         }],
         rangeKey: ['男'],
     },
@@ -88,17 +85,10 @@ Page({
                     }
                 );
                 break;
-            case 1:
-                this.setData(
-                    {
-                        userGenderText:"男",
-                    }
-                );
-                break;
             default:
                 this.setData(
                     {
-                        userGenderText:"未知",
+                        userGenderText:"男",
                     }
                 );
                 break;
@@ -156,17 +146,10 @@ Page({
                                         }
                                     );
                                     break;
-                                case 1:
-                                    this.setData(
-                                        {
-                                            userGenderText:"男",
-                                        }
-                                    );
-                                    break;
                                 default:
                                     this.setData(
                                         {
-                                            userGenderText:"未知",
+                                            userGenderText:"男",
                                         }
                                     );
                                     break;

@@ -28,34 +28,6 @@
 </view>
 
 
-<!-- 创建任务，用于临时测试
-<view class="main-view">
-    <view class="sub-view">
-        <label class="tmp">任务内容：</label>
-        <input type="text" value="{{taskContent}}" bindinput="contentChange"/>
-    </view>
-    <view class="sub-view">
-        <label class="tmp">开始时间：</label>
-        <input type="text" value="{{taskStartTime}}" bindinput="startChange"/>
-    </view>
-    <view class="sub-view">
-        <label class="tmp">结束时间：</label>
-        <input type="text" value="{{taskPredictedFinishTime}}" bindinput="endChange"/>
-    </view>
-    <view class="sub-view">
-        <label class="tmp">地点：</label>
-        <input type="text" value="{{taskPlace}}" bindinput="placeChange"/>
-    </view>
-    <view class="sub-view">
-        <label class="tmp">频率：</label>
-        <input type="text" value="{{taskRate}}" bindinput="rateChange"/>
-    </view>
-    <view class="sub-view">
-        <label class="tmp">提前提醒：</label>
-        <input type="text" value="{{taskAdvanceRemindTime}}" bindinput="remindChange"/>
-</view>-->
-
-
 <!-- 任务列表区域 -->
 <view class="detail">
     <!-- 标题区域，包含日期切换按钮 -->
@@ -66,6 +38,7 @@
         <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
             <tab-item class="tab1" name="today" label="今日" />
             <tab-item class="tab2" name="tomorrow" label="明日" />
+            <tab-item class="tab3" name="todo" label="待办" />
         </tabs>
     </view>
     <!-- 任务列表 -->

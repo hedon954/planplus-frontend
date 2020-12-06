@@ -5,7 +5,8 @@ Page({
     data: {
         subScribeId: app.data.subScribeId, //订阅ID
         formId: '',                        //表单ID，订阅通知的时候需要用到
-        showModal: false,
+        showTaskDelayModal: false,         //推迟任务模态框
+        showTaskOperationModal: false,     //操作按钮模态框
         taskId: 0,
         content: "",                       //任务内容
         startDate: '',                     //任务开始日期
@@ -76,7 +77,7 @@ Page({
         // console.log(myDate.getHours() + ':' + myDate.getMinutes());
         this.setData({
             taskId: options.taskId,
-            showModal: false
+            showTaskDelayModal: false
         });
         app.setTaskChanged(false);
         swan.request({
@@ -192,8 +193,10 @@ Page({
     },
     //时间（时：分）加减
     timeCal(paramTime, n) {
-        let mm = parseInt(paramTime.substring(3));
-        let hh = parseInt(paramTime.substring(0, 2));
+        // let mm = parseInt(paramTime.substring(3));
+        // let hh = parseInt(paramTime.substring(0, 2));
+        let hh = parseInt(paramTime.split(':')[0]);
+        let mm = parseInt(paramTime.split(':')[1])
         if(mm + n < 60) {
             mm += n;
         } else {
@@ -530,13 +533,13 @@ Page({
         this.setData({
             formId: e.detail.formId
         });
-        this.setData('showModal', true);
-        console.log(this.data.showModal);
+        this.setData('showTaskDelayModal', true);
+        console.log(this.data.showTaskDelayModal);
     },
 
     //关闭模态框
     closeModal() {
-        this.setData('showModal', false);
+        this.setData('showTaskDelayModal', false);
     },
 
     delayConfirm(e) {
@@ -555,7 +558,7 @@ Page({
                 try {
                     console.log(`任务已推迟${e.currentTarget.id}分钟。。。`);
                     app.setTaskChanged(true);
-                    this.setData('showModal', false);
+                    this.setData('showTaskDelayModal', false);
                     //存储新的 subScribeId， 防止产生相同的 formId
                     app.setSubScribeId(res.data.data.subScribeId)
                     this.setData({
@@ -577,5 +580,15 @@ Page({
                 }
             },
         });
-    }
+    },
+
+    //打开操作选项模态框
+    showOperationsModal() {
+        this.setData('showTaskOperationModal', true);
+    },
+
+    //关闭操作选项模态框
+    closeOperationsModal() {
+        this.setData('showTaskOperationModal', false);
+    },
 });

@@ -65,7 +65,7 @@ Page({
         //发送请求，获取验证码
         swan.request({
             // url: 'http://localhost:443/project/code/register',
-            url: 'https://www.hedon.wang/project/code/register',
+            url: 'https://www.hedon.wang/mail/code/register',
             method: 'POST',
             data:{
                 username:this.data.username,

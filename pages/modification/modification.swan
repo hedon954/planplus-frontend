@@ -1,4 +1,6 @@
-
+<!-- 用于显示操作按钮的自定义模态框 -->
+<operation-modal showOperationModal="{{showTaskOperationModal}}" formSubScribeId="{{subScribeId}}" btn-visible="{{visible}}" bind:handleSave="save" bind:handleDelay="delay" bind:handleDraft="draft" bind:handleDelete="delete" bind:handleCancel="closeOperationsModal"></operation-modal>
+<!-- 主视图内容 -->
 <view class="main-view">
     <view class="sub-view">
         <label>任务内容：</label>
@@ -103,42 +105,15 @@
         </button>
     </form>
 </view>
-<view class="bottom">
-    <!-- 保存修改 -->
-    <form
-        report-submit="{{true}}"
-        report-type="subscribe"
-        template-id="BD0044"
-        subscribe-id="{{subScribeId}}"
-        bindsubmit="save"
-        bindreset="formReset">
-        <button class="my-button bottom-button" formType="submit" hidden="{{!visible}}">
-            保存修改
-        </button>
-    </form>
-    <!-- 推迟任务 -->
-    <form
-        report-submit="{{true}}"
-        report-type="subscribe"
-        template-id="BD0044"
-        subscribe-id="{{subScribeId}}"
-        bindsubmit="delay"
-        bindreset="formReset">
-        <button class="my-button bottom-button" formType="submit" hidden="{{!visible}}">
-            推迟任务
-        </button>
-    </form>
-</view>
-<view  class="bottom">
-    <!-- 保存草稿 -->
-    <button class="my-button bottom-button draft-button" bindtap="draft" hidden="{{!visible}}">
-        保存草稿
-    </button>
-    <!-- 删除任务 -->
-    <button class="my-button bottom-button delete-button" bindtap="delete" >
-        <!-- <smt-icon name="trash" color="#6D6E74"></smt-icon> -->
-        删除任务
+
+
+<view>
+    <button class="operation-btn" bindtap="showOperationsModal">
+        <smt-icon name="settings"></smt-icon>
     </button>
 </view>
+
+
 <!-- 用于选择任务推迟时间的自定义模态框 -->
-<delay-modal showDelayModal="{{showModal}}" bind:handleDelay="delayConfirm" bind:handleClose="closeModal"></delay-modal>
+<delay-modal showDelayModal="{{showTaskDelayModal}}" bind:handleDelay="delayConfirm" bind:handleClose="closeModal"></delay-modal>
+
