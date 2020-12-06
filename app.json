@@ -1,5 +1,6 @@
 {
     "pages": [
+
         "pages/login/login",
         "pages/home/home",
         "pages/user-info/user-info",
@@ -13,7 +14,8 @@
         "pages/help/help",
         "pages/test/test",
         "pages/register/register",
-        "pages/forgot-password/forgot-password"
+        "pages/forgot-password/forgot-password",
+        "pages/list/list"
     ],
     "window": {
         "navigationBarBackgroundColor": "#919ffa",

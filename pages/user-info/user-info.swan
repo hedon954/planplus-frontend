@@ -15,13 +15,20 @@
 
         </view>
     </view>
-    <view>
+    <!-- <view>
         <button class="my-button top-button" bind:tap="goToAllTask">所有任务</button>
         <button class="my-button" bind:tap="goToHelpPage">使用帮助</button>
         <button class="my-button " bind:tap="goToFeedback">反馈</button>
-    </view>
+    </view> -->
 
 </view>
-<view class="logout-view">
+<!-- <view class="logout-view">
     <button class="logout-button" bind:tap="logout">退出登录</button>
+</view> -->
+<view class='list'>
+    <view s-for="{{btns}}" class='text-content' bindtap="{{opts[index]}}">{{item}}</view>
+</view>
+
+<view class="logout" bindtap="logout">
+    退出登录
 </view>
