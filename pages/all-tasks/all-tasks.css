@@ -12,7 +12,8 @@
 
 .title {
     display: flex;
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
+    background-color: #9db4f3;
     border-top-left-radius: 36rpx;
     border-top-right-radius: 36rpx;
     height: 60rpx;
@@ -31,6 +32,7 @@
     border-radius: 36rpx;
 }
 .title tab-item {
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
+    background-color: #9db4f3;
     font-size: 6.039rpx;
 }

@@ -50,9 +50,9 @@ page {
     /* background: #fff; */
     margin-top: 660rpx;
     margin-left: 75rpx;
-    border: 1rpx solid white;
-    border-radius: 40rpx;
-    box-shadow: 0.5rpx 6.039rpx 10rpx 6.039rpx #c9cff3;
+    /* border: 1rpx solid white; */
+    /* border-radius: 40rpx; */
+    /* box-shadow: 0.5rpx 6.039rpx 10rpx 6.039rpx #c9cff3; */
 }
 
 .form-item {

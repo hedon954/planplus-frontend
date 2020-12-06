@@ -3,5 +3,6 @@
         "task-detail": "/components/task-detail/task-detail",
         "diy-modal": "/components/diy-modal/diy-modal",
         "smt-voice-recognizer": "@smt-ui/component/src/voice-recognizer"
-    }
+    },
+    "enablePullDownRefresh": true
 }
