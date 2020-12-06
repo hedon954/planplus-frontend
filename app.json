@@ -23,6 +23,11 @@
         "navigationBarTitleText": "PlanPlus",
         "backgroundTextStyle": "light"
     },
+    "dynamicLib": {
+        "echartsLib": {
+            "provider": "echarts_4_7_0"
+        }
+    },
     "tabBar": {
         "color": "#FFF;",
         "selectedColor": "#000",
