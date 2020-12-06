@@ -10,7 +10,7 @@
     <!-- <image src="../../images/login_form.png" class="login-form"></image> -->
     <form bindsubmit="loginSubmit">
         <!-- 手机号 -->
-        <view class="form-item"
+        <!-- <view class="form-item"
             bindtap="handleUpload">
             <image src="../../images/user_icon.png"
                 class="login-icon">
@@ -22,9 +22,9 @@
             value="{= username =}"
             placeholder-class="form-item-placeholder"
             bindinput="bindPhoneNumberInput"/>
-        </view>
+        </view> -->
         <!-- 密码 -->
-        <view class="form-item"
+        <!-- <view class="form-item"
             bindtap="handleUpload">
             <image src="../../images/password_icon.png"
                 class="login-icon">
@@ -36,7 +36,7 @@
             value="{= password =}"
             placeholder-class="form-item-placeholder"
             bindinput="bindPasswordInput"/>
-        </view>
+        </view> -->
         <!-- 登录按钮 -->
         <button form-type="submit"
             type="default"
@@ -45,19 +45,19 @@
         </button>
     </form>
 </view>
-<view class="button-box">
-    <!--注册按钮-->
+<!-- <view class="button-box">
+    注册按钮
     <button type="default"
         class="short-button left-button"
         bind:tap="jumpToRegister">
         快速注册
     </button>
-    <!-- 分割线 -->
+    分割线
     <label class="separator-label">|</label>
-    <!--找回密码-->
+    找回密码
     <button type="default"
         class="short-button right-button"
         bind:tap="jumpToForgotPassword">
         找回密码
     </button>
-</view>
+</view> -->
