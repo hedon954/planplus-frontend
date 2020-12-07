@@ -1,0 +1,6 @@
+.help-image {
+    width: 100vw;
+    height: 4500rpx;
+    background-size: cover;
+    background-image: url(../../images/use-help.png);
+}

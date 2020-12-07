@@ -102,13 +102,15 @@ var lineOption = {
         name: '推迟次数',
         type: 'line',
         smooth: true,
-        data: [18, 36, 65, 30, 78, 40, 33]
+        // data: [18, 36, 65, 30, 78, 40, 33]
+        data: []
     }, {
         name: '完成百分比',
         type: 'line',
         smooth: true,
         yAxisIndex:1,
-        data: [12, 50, 51, 35, 70, 30, 20]
+        // data: [12, 50, 51, 35, 70, 30, 20]
+        data: []
     }]
 };
 

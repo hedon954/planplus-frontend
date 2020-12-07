@@ -1,0 +1,15 @@
+<view>
+
+    <scroll-view
+            class="help-image"
+            scroll-y
+            upper-threshold="1"
+            lower-threshold="1"
+            scroll-with-animation="true"
+            enable-back-to-top="true"
+            bindscrolltoupper="upper"
+            bindscrolltolower="lower"
+            bindscroll="scroll">
+           <!-- 设置box与是scroll-view区域同高是为了滚动条能正常展示 -->
+        </scroll-view>
+</view>

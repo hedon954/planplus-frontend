@@ -63,6 +63,7 @@ Page({
                                 password: "123456"
                             })
                             app.setIsNewUser(res.data.data.isNewUser)
+                            console.log("从数据库中读取数据：isNewUser：" + res.data.data.isNewUser)
                         }
                     },
                     fail: res=>{

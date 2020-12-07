@@ -85,7 +85,7 @@ Page({
                     app.setIsNewUser(0);
                     if(res.confirm){
                         swan.navigateTo({
-                            url: '/pages/help/help'
+                            url: '/pages/user-help/user-help'
                         });
                     }
                 },
@@ -128,10 +128,9 @@ Page({
             responseType: 'text',
             success: res => {
                 console.log(res);
-                console.log("ssssssssssss" + typeof res.data.code)
                 //已登录
-                if(res.data.code == '1000'){
-                    console.log("hhhhh"+res.data)
+                if(res.data.code == 1000){
+                    console.log("setUserToOld 发送成功")
                 }else{
                     console.log("setUserToOld 发送错误")
                 }
