@@ -15,6 +15,7 @@ App({
         preTab: '', //home页面，记录进入修改界面之前tab的状态（今日or明日）
         access_token:'',
         infoChanged:false,
+        isNewUser: 0
     },
 
     setAccessToken:function(param){
@@ -43,6 +44,10 @@ App({
 
     setPassword:function(param){
         this.data.password = param;
+    },
+
+    setIsNewUser:function(param){
+        this.data.isNewUser = param;
     },
 
     onLaunch(options) {

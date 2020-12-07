@@ -56,21 +56,41 @@ Page({
      * 当页面加载时
      */
     onLoad: function() {
-        console.log("read app access token in home: "+ app.data.access_token)
         //先检查是否已登录
         this.checkLoginOrNot();
         //已登录->查询今日任务
-        console.log('fafffffffffffffffffffffffffffffffffffffffffffffffffff'+app.data.preTab);
         this.setData({
-            // activeName: 'today',
-            // isToday: true
             activeName: (app.data.preTab == '')? 'today': app.data.preTab,
             isToday: (app.data.preTab == '' || app.data.preTab == 'today')? true: false
         });
         //查询今日任务
-        // this.getTodayTasks()
-        console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'+this.data.activeName+this.data.isToday);
         this.getTasksByParam(this.data.activeName);
+        //检查是否为新用户
+        console.log("isNewUser" + app.data.isNewUser)
+        if(app.data.isNewUser == 1){
+            swan.showModal({
+                // 提示的标题
+                title: '欢迎来到 PlanPlus',
+                // 提示的内容
+                content: '请问是否需要进入用户指引界面？',
+                // 是否显示取消按钮 。
+                showCancel: true,
+                // 取消按钮的文字，最多 4 个字符。
+                cancelText: '不需要',
+                // 确定按钮的文字，最多 4 个字符。
+                confirmText: '需要',
+                // 接口调用成功的回调函数
+                success: res => {
+                    this.setUserToOld();
+                    app.setIsNewUser(0);
+                    if(res.confirm){
+                        swan.navigateTo({
+                            url: '/pages/help/help'
+                        });
+                    }
+                },
+            });
+        }
     },
 
     /**
@@ -92,6 +112,31 @@ Page({
         // this.getTodayTasks()
         console.log('onshow:hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'+this.data.activeName+this.data.isToday);
         this.getTasksByParam(this.data.activeName);
+    },
+
+    /**
+     * 将用户设置为老用户
+     */
+    setUserToOld:function(){
+        swan.request({
+            url: 'https://www.hedon.wang/project/user/setUserToOld',
+            // url: 'http://localhost:443/project/user/setUserToOld',
+            header: {
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            method: 'PUT',
+            responseType: 'text',
+            success: res => {
+                console.log(res);
+                console.log("ssssssssssss" + typeof res.data.code)
+                //已登录
+                if(res.data.code == '1000'){
+                    console.log("hhhhh"+res.data)
+                }else{
+                    console.log("setUserToOld 发送错误")
+                }
+            }
+        });
     },
 
 
