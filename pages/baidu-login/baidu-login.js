@@ -151,6 +151,7 @@ Page({
                    this.setData('barOption.series[0].data',res.data.data.numOfTasks);
                    this.setData('barOption.series[1].data',res.data.data.numOfFinishedTasks);
                    this.setData('lineOption.series[1].data',res.data.data.completePercentage);
+                   this.setData('lineOption.series[0].data',res.data.data.numOfDelay);
                 }
                 else{
                     swan.showToast({
