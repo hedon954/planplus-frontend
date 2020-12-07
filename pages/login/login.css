@@ -1,13 +1,14 @@
 page {
-    background-color: white;
+    background-color:  #6699ff;
 }
 .cover {
     width: 600rpx;
     /* todo:待视觉确认，height: 1182px */
     height: 600rpx;
     position: fixed;
-    margin-top: -30rpx;
+    /* margin-top: -30rpx; */
     margin-left: 80rpx;
+    transform: translateY(10rpx);
     /* border-radius: 50%; */
     /* background-color: white; */
     /* box-shadow: 10px 10px 10px rgba(0, 0,0, 0.2); */
@@ -25,7 +26,8 @@ page {
     overflow: hidden; */
     width: 100vw;
     /* height: 100vh; */
-    height: 800rpx;
+    height: 103vh;
+    transform: translateY(-3vh);
     background-size: cover;
     background-image: url('../../images/login_background.png');
 }
@@ -103,7 +105,7 @@ page {
     width: 250rpx;
     margin-top: 25rpx;
     /* margin-left: 250rpx; */
-    transform: translateY(72rpx);
+    transform: translateY(972rpx);
 }
 .login-submit.default {
     background: #fff;

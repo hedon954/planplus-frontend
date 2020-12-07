@@ -38,13 +38,15 @@ var barOption = {
         {
             name: '任务总数',
             type: 'bar',
-            data: [10, 25, 37, 15,14,28,36],
+            // data: [10, 25, 37, 15,14,28,36],
+            data: [],
             barGap: 0,
         },
         {
             name: '已完成任务数',
             type: 'bar',
-            data: [5, 20, 36, 10,8,24,32],
+            // data: [5, 20, 36, 10,8,24,32],
+            data: [],
         }
     ],
 };
@@ -133,7 +135,7 @@ Page({
     onLoad: function () {
         // 监听页面加载的生命周期函数
         swan.request({
-            url: 'http://localhost:10030/project/task/weeklyState',
+            url: 'https://www.hedon.wang/project/task/weeklyState',
             method: 'GET',
             header:{
                 'Authorization': 'bearer '+app.data.access_token

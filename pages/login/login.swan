@@ -6,42 +6,10 @@
         src="../../images/planplus.png"
         class="cover">
     </image>
-    <!-- 登录表单 -->
-    <!-- <image src="../../images/login_form.png" class="login-form"></image> -->
-    <!-- <form bindsubmit="loginSubmit"> -->
-        <!-- 手机号 -->
-        <!-- <view class="form-item"
-            bindtap="handleUpload">
-            <image src="../../images/user_icon.png"
-                class="login-icon">
-            </image>
-            <input cursor-spacing="{{30}}"
-            id="phone-number-input"
-            type="text"
-            placeholder="请输入邮箱"
-            value="{= username =}"
-            placeholder-class="form-item-placeholder"
-            bindinput="bindPhoneNumberInput"/>
-        </view> -->
-        <!-- 密码 -->
-        <!-- <view class="form-item"
-            bindtap="handleUpload">
-            <image src="../../images/password_icon.png"
-                class="login-icon">
-            </image>
-            <input cursor-spacing="{{30}}"
-            id="password-input"
-            password="true"
-            placeholder="请输入密码"
-            value="{= password =}"
-            placeholder-class="form-item-placeholder"
-            bindinput="bindPasswordInput"/>
-        </view> -->
-        <!-- 登录按钮 -->
-        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="default" class="login-submit">
-            <view bind:tap="loginSubmit">登录</view>
-        </button>
-    <!-- </form> -->
+    <!-- 登录 -->
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="default" class="login-submit">
+        <view bind:tap="loginSubmit">登录</view>
+    </button>
 </view>
 <!-- <view class="button-box">
     注册按钮

@@ -62,6 +62,7 @@ Page({
                                 username: res.data.data.userUnionId,
                                 password: "123456"
                             })
+                            app.setIsNewUser(res.data.data.isNewUser)
                         }
                     },
                     fail: res=>{
@@ -107,10 +108,6 @@ Page({
                     app.setUsername(this.data.username)
                     app.setPassword(this.data.password)
                     swan.setStorageSync("access_token",res.data.data.access_token);
-                    //成功的话就跳转
-                    swan.switchTab({
-                        url: '/pages/home/home'
-                    });
                 }
                 else{
                     swan.showToast({
@@ -128,10 +125,35 @@ Page({
         });
     },
 
+    /**
+     * 获取用户信息
+     */
     getUserInfo(e) {
+        this.sleep(500);
         console.log('用户名称', e.detail.userInfo.nickName)
         console.log('用户头像', e.detail.userInfo.avatarUrl)
         console.log('用户性别', e.detail.userInfo.gender)
+
+        swan.request({
+            url: 'https://www.hedon.wang/project/user/info',
+            method: 'PUT',
+            header:{
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            data:{
+                userNickname: e.detail.userInfo.nickName,
+                userAvatarUrl: e.detail.userInfo.avatarUrl
+            },
+            responseType: 'text',
+            success:res=>{
+                console.log("同步用户百度信息成功")
+                //成功的话就跳转
+                swan.switchTab({
+                    url: '/pages/home/home'
+                });
+            }
+        })
+
     },
 
     /**
@@ -166,4 +188,15 @@ Page({
             url:'../../pages/forgot-password/forgot-password'
         });
     },
+
+
+    sleep: function(numberMillis) {
+        let now = new Date();
+        var exitTime = now.getTime() + numberMillis
+        while (true) {
+            now = new Date();
+            if (now.getTime() > exitTime)
+            return;
+        }
+    }
 });
