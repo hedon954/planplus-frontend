@@ -9,11 +9,7 @@
         "pages/all-tasks/all-tasks",
         "pages/feedback/feedback",
         "pages/user-help/user-help",
-        "pages/pwd-changed/pwd-changed",
         "pages/help/help",
-        "pages/test/test",
-        "pages/register/register",
-        "pages/forgot-password/forgot-password",
         "pages/list/list"
     ],
     "window": {

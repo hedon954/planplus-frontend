@@ -56,6 +56,8 @@ Page({
      * 当页面加载时
      */
     onLoad: function() {
+        //先睡1000ms，确保token已经写入app.js
+        this.sleep(1000)
         //先检查是否已登录
         this.checkLoginOrNot();
         //已登录->查询今日任务
@@ -172,51 +174,6 @@ Page({
                     return;
                 }
             },
-        });
-
-        // 用户首次进入小程序，同步百度APP登录态
-        swan.login({
-            success: res => {
-                console.log('login success', res);
-
-                // 获取用户手机号或用户信息
-                // 待补
-
-                /**
-                 * 登陆成功后要发送请求到后端，
-                 * 利用这个仅有10s有效期的code去获取openId和sessionKey，
-                 * 因为发送信息需要用户的openId
-                 */
-                swan.request({
-                    url: 'https://www.hedon.wang/project/user/getUserOpenIdAndSessionKey?code='+res.code,
-                    method: 'POST',
-                    header:{
-                        'Content-Type': 'Application/x-www-form-urlencoded',
-                        'Authorization': 'bearer ' + app.data.access_token
-                    },
-                    responseType: 'text',
-                    success: res=>{
-                        console.log(res);
-                        swan.showModal({
-                            title: '成功',
-                            content: res
-                        });
-                        this.setData({
-                            hasLogin: 'yes'
-                        })
-                    },
-                    fail: res=>{
-                        console.log(res);
-                        swan.showModal({
-                            title: '失败',
-                            content: res
-                        });
-                    }
-                });
-            },
-            fail: err => {
-                console.log('login fail', err);
-            }
         });
     },
 
@@ -883,4 +840,19 @@ Page({
             },
         });
     },
+
+
+    /**
+     * 睡眠
+     */
+    sleep: function(numberMillis) {
+        console.log("睡眠中")
+        let now = new Date();
+        var exitTime = now.getTime() + numberMillis
+        while (true) {
+            now = new Date();
+            if (now.getTime() > exitTime)
+            return;
+        }
+    }
 });

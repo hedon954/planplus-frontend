@@ -107,6 +107,7 @@ page {
     /* margin-left: 250rpx; */
     transform: translateY(972rpx);
 }
+
 .login-submit.default {
     background: #fff;
     color: #333;
@@ -116,6 +117,29 @@ page {
     display: none;
 }
 
+
+.login-baidu {
+    height: 79.71rpx;
+    font-size: 32.609rpx;
+    color: #fff;
+    background-color: #678ff9;
+    border-radius: 39.855rpx;
+    /* margin:40rpx 0; */
+    width: 300rpx;
+    margin-top: 25rpx;
+    /* margin-left: 250rpx; */
+    transform: translateY(972rpx);
+}
+
+
+.login-baidu.default {
+    background: #fff;
+    color: #333;
+    border: 1.208rpx solid #999;
+}
+.login-baidu::after {
+    display: none;
+}
 
 .our-docs {
     display: flex;
