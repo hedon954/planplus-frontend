@@ -10,10 +10,17 @@ Page({
         userAvatarUrl:"",
         userGenderText:"未知",
         userAge:"",
-        btns: ['所有任务', '使用帮助', '反馈'],
-        opts: ['goToAllTask', 'goToHelpPage', 'goToFeedback'],
     },
 
+
+    /**
+     * 跳转到图片界面
+     */
+    goToUserHelp: function() {
+        swan.navigateTo({
+            url: '../../pages/user-help/user-help'
+        });
+    },
 
     /**
      * 跳转到帮助页面

@@ -2,7 +2,8 @@
     "usingComponents": {
         "task-detail": "/components/task-detail/task-detail",
         "diy-modal": "/components/diy-modal/diy-modal",
-        "smt-voice-recognizer": "@smt-ui/component/src/voice-recognizer"
+        "smt-voice-recognizer": "@smt-ui/component/src/voice-recognizer",
+        "smt-icon": "@smt-ui/component/src/icon"
     },
     "enablePullDownRefresh": true
 }

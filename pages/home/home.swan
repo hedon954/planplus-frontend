@@ -3,8 +3,11 @@
 <!-- 头部任务输入区域 -->
 <view class="header">
     <!-- 语音输入 -->
-    <button class="head-btn" bind:tap="voiceRecognize">
-        <image src="/images/microphone_24px.png" class="head-img"></image>
+    <button class="head-btn-left" bind:tap="voiceRecognize">
+        <!-- <image src="/images/microphone_24px.png" class="head-img"></image> -->
+        <view class="head-icon">
+            <smt-icon name="voice"></smt-icon>
+        </view>
     </button>
     <smt-voice-recognizer
         show-panel="{= showVoiceRecognizePanel =}"
@@ -21,8 +24,11 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="createTask"
         bindreset="formReset">
-        <button formType="submit" class="head-btn">
-            <image src="/images/checkmark_24px.png" class="form-img"></image>
+        <button formType="submit" class="head-btn-right">
+            <!-- <image src="/images/checkmark_24px.png" class="form-img"></image> -->
+            <view class="head-icon">
+                <smt-icon name='add'></smt-icon>
+            <view>
         </button>
     </form>
 </view>
