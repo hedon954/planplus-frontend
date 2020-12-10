@@ -67,7 +67,7 @@ Page({
         endTimeDisplay: '', //打开时间选择器时默认选中（显示）的时间/结束时间
 
         mutable: true, //当前页面所有控件是否可编辑
-        visible: true, //当前页面的按钮是否可见（除结束按钮和删除按钮）
+        visible: false, //当前页面的按钮是否可见（除结束按钮和删除按钮）
         endBtnVisible: true, //结束按钮是否可见
     },
     onLoad(options) {

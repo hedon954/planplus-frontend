@@ -19,16 +19,27 @@
     height: 15vh;
     padding-top: 30rpx;
 }
-.head-btn {
+.head-btn-left {
     height: 60rpx;
     width: 60rpx;
-    margin: 42rpx 5rpx;
+    margin: 40rpx 5rpx;
+    background-color: white;
+}
+.head-btn-right {
+    height: 60rpx;
+    width: 60rpx;
+    margin: 40rpx 23rpx;
     background-color: white;
 }
 
-.head-btn::after {
+.head-icon {
+    margin-left: -25rpx;
+}
+
+.head-btn-left::after, .head-btn-right::after {
     border: 0;
 }
+
 .form-img {
     height: 60rpx;
     width: 60rpx;

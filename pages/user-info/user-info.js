@@ -10,8 +10,6 @@ Page({
         userAvatarUrl:"",
         userGenderText:"未知",
         userAge:"",
-        btns: ['所有任务', '新手指南', '使用帮助', '反馈'],
-        opts: ['goToAllTask', 'goToUserHelp', 'goToHelpPage', 'goToFeedback'],
     },
 
 

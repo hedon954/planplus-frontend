@@ -26,7 +26,30 @@
     <button class="logout-button" bind:tap="logout">退出登录</button>
 </view> -->
 <view class='list'>
-    <view s-for="{{btns}}" class='text-content' bindtap="{{opts[index]}}">{{item}}</view>
+    <view class='text-content' bindtap="goToAllTask">
+        所有任务
+        <view>
+            <smt-icon name="arrow" class="icon"></smt-icon>
+        </view>
+    </view>
+    <view class='text-content' bindtap="goToUserHelp">
+        新手指南
+        <view>
+            <smt-icon name="arrow" class="icon"></smt-icon>
+        </view>
+    </view>
+    <view class='text-content' bindtap="goToHelpPage">
+        使用帮助
+        <view>
+            <smt-icon name="arrow" class="icon"></smt-icon>
+        </view>
+    </view>
+    <view class='text-content' bindtap="goToFeedback">
+        反馈
+        <view>
+            <smt-icon name="arrow" class="feedback-icon"><smt-icon>
+        </view>
+    </view>
 </view>
 
 <view class="logout" bindtap="logout">
