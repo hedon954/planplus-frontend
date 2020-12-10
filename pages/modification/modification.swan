@@ -1,5 +1,5 @@
 <!-- 用于显示操作按钮的自定义模态框 -->
-<operation-modal showOperationModal="{{showTaskOperationModal}}" formSubScribeId="{{subScribeId}}" btn-visible="{{visible}}" bind:handleSave="save" bind:handleDelay="delay" bind:handleDraft="draft" bind:handleDelete="delete" bind:handleCancel="closeOperationsModal"></operation-modal>
+<operation-modal showOperationModal="{{showTaskOperationModal}}" formSubScribeId="{{subScribeId}}" btn-visible="{{visible}}" bind:handleDelay="delay" bind:handleDraft="draft" bind:handleDelete="delete" bind:handleCancel="closeOperationsModal"></operation-modal>
 <!-- 主视图内容 -->
 <view class="main-view">
     <view class="sub-view">
@@ -87,9 +87,23 @@
         </view>
     </view>
 </view>
-<view class="bottom">
+<!-- 保存修改按钮 -->
+<view>
+    <form
+        report-submit="{{true}}"
+        report-type="subscribe"
+        template-id="BD0044"
+        subscribe-id="{{form-subScribeId}}"
+        bindsubmit="handleSave"
+        bindreset="formReset">
+        <button class="save-btn" formType="submit" hidden="{{!visible}}">
+            保存修改
+        </button>
+    </form>
+</view>
+<view class="start-end-view">
     <!-- 开始任务 -->
-    <button class="start-end-button" bindtap="start" hidden="{{!visible}}">
+    <button class="start-end-btn" bindtap="start" hidden="{{!visible}}">
         <smt-icon class="icon" name="play" color="#8785a2"></smt-icon>
     </button>
     <!-- 结束任务 -->
@@ -100,13 +114,14 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="finish"
         bindreset="formReset">
-        <button class="start-end-button" formType="submit" hidden="{{!endBtnVisible}}">
+        <button class="start-end-button" formType="submit" hidden="{{!Visible}}">
             <smt-icon class="icon" name="stop" color="#8785a2"></smt-icon>
         </button>
     </form>
 </view>
 
 
+<!-- 操作选项按钮 -->
 <view>
     <button class="operation-btn" bindtap="showOperationsModal">
         <smt-icon name="settings"></smt-icon>

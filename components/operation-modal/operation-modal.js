@@ -15,9 +15,6 @@ Component({
     },
 
     methods: {
-        handleSave(e) {
-            this.triggerEvent('handleSave', e);
-        },
         handleDelay(e) {
             this.triggerEvent('handleDelay', e);
         },

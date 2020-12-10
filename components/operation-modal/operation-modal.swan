@@ -1,16 +1,5 @@
 <view class="modal-mask" s-if="showOperationModal"></view>
 <view class="modal-dialog" s-if="showOperationModal">
-    <form
-        report-submit="{{true}}"
-        report-type="subscribe"
-        template-id="BD0044"
-        subscribe-id="{{form-subScribeId}}"
-        bindsubmit="handleSave"
-        bindreset="formReset">
-        <button class="modal-btn" formType="submit" hidden="{{!btnVisible}}">
-            保存修改
-        </button>
-    </form>
     <!-- 推迟任务 -->
     <form
         report-submit="{{true}}"

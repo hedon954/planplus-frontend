@@ -304,31 +304,44 @@ Page({
     //将任务保存至草稿箱
     draft() {
         console.log('将任务保存至草稿箱。。。')
-        swan.request({
-            url: 'https://www.hedon.wang/project/task/draft/' + this.data.taskId,
-            method: 'PUT',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
-            success: res => {
-                try {
-                    console.log('成功保存至草稿箱。。。');
-                    app.setTaskChanged(true);
-                    swan.showToast({
-                        // 提示的内容
-                        title: '已保存至草稿箱',
-                        icon: 'success',
-                        image: '',
-                        duration: 1000,
-                    });
-                    setTimeout(function() {
-                        swan.navigateBack({
+        this.closeOperationsModal();
 
-                        });
-                    }, 800);
-                }
-                catch (error) {
-                    console.log(error);
+        //弹出模态框，待用户确认操作
+        swan.showModal({
+            title: '温馨提示',
+            content: '您即将把任务移动至草稿箱',
+            success: res => {
+                //点击确定后，保存任务至草稿箱
+                if(res.confirm) {
+                    swan.request({
+                        url: 'https://www.hedon.wang/project/task/draft/' + this.data.taskId,
+                        method: 'PUT',
+                        header: {
+                            'Authorization': 'bearer ' + app.data.access_token
+                        },
+                        success: res => {
+                            try {
+                                console.log('成功保存至草稿箱。。。');
+                                app.setTaskChanged(true);
+                                swan.showToast({
+                                    title: '已保存至草稿箱',
+                                    icon: 'success',
+                                    image: '',
+                                    duration: 1000,
+                                });
+
+                                //任务保存至草稿箱后，自动返回主界面
+                                setTimeout(function() {
+                                    swan.navigateBack({
+
+                                    });
+                                }, 800);
+                            }
+                            catch (error) {
+                                console.log(error);
+                            }
+                        },
+                    });
                 }
             },
         });
@@ -336,126 +349,175 @@ Page({
 
     //删除任务
     delete() {
-        swan.request({
-            url: 'https://www.hedon.wang/project/task/delete/' + this.data.taskId,
-            method: 'DELETE',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
+        this.closeOperationsModal();
+
+        //弹出模态框，待用户确认操作
+        swan.showModal({
+            title: '温馨提示',
+            content: '您即将删除该任务',
             success: res => {
-                try {
-                    console.log('删除成功。。。');
-                    app.setTaskChanged(true);
-                    swan.showToast({
-                        // 提示的内容
-                        title: '任务已删除',
-                        icon: 'success',
-                        image: '',
-                        duration: 1000,
+                //点击确定后，删除任务
+                if(res.confirm) {
+                    swan.request({
+                        url: 'https://www.hedon.wang/project/task/delete/' + this.data.taskId,
+                        method: 'DELETE',
+                        header: {
+                            'Authorization': 'bearer ' + app.data.access_token
+                        },
+                        success: res => {
+                            try {
+                                console.log('删除成功。。。');
+                                app.setTaskChanged(true);
+                                swan.showToast({
+                                    title: '任务已删除',
+                                    icon: 'success',
+                                    image: '',
+                                    duration: 1000,
+                                });
+
+                                //任务删除后，自动返回主界面
+                                setTimeout(function() {
+                                    swan.navigateBack({
+
+                                    });
+                                }, 800);
+                            }
+                            catch (error) {
+                                console.log(error);
+                            }
+                        },
                     });
-                    setTimeout(function() {
-                        swan.navigateBack({
-
-                        });
-                    }, 800);
-
-
-                }
-                catch (error) {
-                    console.log(error);
+                } else {
+                    this.closeOperationsModal();
                 }
             },
         });
+
+
     },
 
     //开始任务
     start() {
         console.log('开始任务。。。')
-        swan.request({
-            url: 'https://www.hedon.wang/project/task/start/' + this.data.taskId,
-            method: 'PUT',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
-            success: res => {
-                try {
-                    console.log('任务已开始。。。');
-                    app.setTaskChanged(true);
-                    swan.showToast({
-                        // 提示的内容
-                        title: '任务已开始',
-                        icon: 'success',
-                        image: '',
-                        duration: 1000,
-                    });
 
-                    //任务已开始，禁止编辑功能
-                    this.setData({
-                        mutable: false,
-                        visible: false,
-                        endBtnVisible: true
+        //弹出模态框，待用户确认操作
+        swan.showModal({
+            title: '温馨提示',
+            content: '您即将开始该任务',
+            success: res => {
+                //若点击确定，则开始任务
+                if(res.confirm) {
+                    swan.request({
+                        url: 'https://www.hedon.wang/project/task/start/' + this.data.taskId,
+                        method: 'PUT',
+                        header: {
+                            'Authorization': 'bearer ' + app.data.access_token
+                        },
+                        success: res => {
+                            try {
+                                console.log('任务已开始。。。');
+                                app.setTaskChanged(true);
+                                swan.showToast({
+                                    // 提示的内容
+                                    title: '任务已开始',
+                                    icon: 'success',
+                                    image: '',
+                                    duration: 1000,
+                                });
+
+                                //任务已开始，禁止编辑功能
+                                this.setData({
+                                    mutable: false,
+                                    visible: false,
+                                    endBtnVisible: true
+                                });
+
+                                //开始任务后，自动返回主界面
+                                setTimeout(function() {
+                                    swan.navigateBack({
+
+                                    });
+                                }, 800);
+                            }
+                            catch (error) {
+                                console.log(error);
+                            }
+                        },
                     });
-                }
-                catch (error) {
-                    console.log(error);
                 }
             },
         });
+
     },
 
     //结束任务
     finish(e) {
         console.log('结束任务。。。');
         console.log(e.detail.formId);
-        swan.request({
-            url: 'https://www.hedon.wang/project/task/finish/' + this.data.taskId +
-            "?fromId="+e.detail.formId,
-            method: 'PUT',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
-            success: res => {
-                try {
-                    console.log('任务已结束。。。');
-                    console.log(res);
-                    app.setTaskChanged(true);
-                    swan.showToast({
-                        // 提示的内容
-                        title: '任务已结束',
-                        icon: 'success',
-                        image: '',
-                        duration: 1000,
-                    });
 
-                    //任务已结束，禁止编辑功能
-                    this.setData({
-                        mutable: false,
-                        visible: false,
-                        endBtnVisible: false
+        //弹出模态框，待用户确认操作
+        swan.showModal({
+            title: '温馨提示',
+            content: '您即将结束该任务',
+            success: res => {
+                //若点击确定，则结束任务
+                if(res.confirm) {
+                    swan.request({
+                        url: 'https://www.hedon.wang/project/task/finish/' + this.data.taskId +
+                        "?fromId="+e.detail.formId,
+                        method: 'PUT',
+                        header: {
+                            'Authorization': 'bearer ' + app.data.access_token
+                        },
+                        success: res => {
+                            try {
+                                console.log('任务已结束。。。');
+                                console.log(res);
+                                app.setTaskChanged(true);
+                                swan.showToast({
+                                    // 提示的内容
+                                    title: '任务已结束',
+                                    icon: 'success',
+                                    image: '',
+                                    duration: 1000,
+                                });
+
+                                //任务已结束，禁止编辑功能
+                                this.setData({
+                                    mutable: false,
+                                    visible: false,
+                                    endBtnVisible: false
+                                });
+
+                                //结束任务后，自动返回主界面
+                                setTimeout(function() {
+                                    swan.navigateBack({
+
+                                    });
+                                }, 800);
+                            }
+                            catch (error) {
+                                console.log(error);
+                            }
+                        },
                     });
-                }
-                catch (error) {
-                    console.log(error);
                 }
             },
         });
+
     },
 
     //保存修改
     save(e) {
+        this.closeOperationsModal();
 
         //判断任务内容和任务开始时间是否为空
         if(this.data.content == null || this.data.content == ''
         || this.data.startDate == null || this.data.startDate == ''
         || this.data.startTime == null || this.data.startTime == '') {
             swan.showToast({
-                // 提示的内容
                 title: '缺少任务内容或开始时间',
-                // 图标，有效值"success"、"loading"、"none"。
                 icon: 'none',
-                // 自定义图标的本地路径，image 的优先级高于 icon
-                image: '',
-                // 提示的延迟时间，单位毫秒。
                 duration: 2400,
             });
             return;
@@ -528,6 +590,7 @@ Page({
 
     //推迟任务
     delay(e) {
+        this.closeOperationsModal();
         //获取formId
         console.log("delay formId = " + e.detail.formId)
         this.setData({

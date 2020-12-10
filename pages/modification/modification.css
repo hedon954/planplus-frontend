@@ -39,7 +39,8 @@ input {
     padding-left: 20rpx;
     border-radius: 10rpx;
 }
-.bottom {
+.start-end-view {
+    margin-top: 30rpx;
     display: flex;
     /* margin-bottom: 40rpx; */
 }
@@ -55,22 +56,6 @@ button::after {
     border: 0;
 }
 
-.my-button{
-    /* background-color: #8785a2; */
-    background-color: #678ff9;
-    width: 200rpx;
-    font-size:32rpx;
-    border-radius: 51.329rpx;
-    color: whitesmoke;
-    height: 70rpx;
-    line-height: 70rpx;
-}
-
-
-.my-button::after {
-    border: none;
-}
-
 .delete-button{
     transform: translate(-62rpx,-60rpx);
     background-color: rgb(240, 100, 100);
@@ -81,7 +66,22 @@ button::after {
     transform: translateY(-60rpx);
 }
 
-.start-end-button{
+.save-btn{
+    background-color: #678ff9;
+    width: 200rpx;
+    font-size:32rpx;
+    border-radius: 51.329rpx;
+    color: whitesmoke;
+    height: 70rpx;
+    line-height: 70rpx;
+    transform: translateX(165rpx);
+}
+
+.save-btn::after {
+    border: none;
+}
+
+.start-end-btn {
     background-color:  rgba(218, 218, 218, 0.986);
     width: 90rpx;
     margin-left: 320rpx;
@@ -94,11 +94,6 @@ button::after {
     padding: 12rpx 0 0 4rpx;
 }
 
-.bottom-button{
-    margin-top: 90rpx;
-    margin-left: 112.5rpx;
-}
-
 .icon{
     text-align: center;
     display: flex;
@@ -107,5 +102,5 @@ button::after {
 
 
 .operation-btn {
-    transform: translate(540rpx, 180rpx);
+    transform: translate(540rpx, 100rpx);
 }

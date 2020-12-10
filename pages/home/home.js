@@ -506,7 +506,7 @@ Page({
 
             //如果任务已经开始，就不进行倒计时
             if(started[i] == true) {
-                tmpList.push("00:00:00");
+                tmpList.push("");
                 continue;
             }
 
@@ -514,7 +514,14 @@ Page({
             let endTime = new Date(list[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
             let formatTime = this.timeFormat(time);
-            tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
+
+            //若倒计时为00：00：00，则不显示
+            if(formatTime.hh == '00' && formatTime.mm == '00' && formatTime.ss == '00') {
+                tmpList.push("");
+            } else {
+                tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
+            }
+
             // console.log("跳出循环。。。")
             maxTime = time > maxTime? time: maxTime;
         }
