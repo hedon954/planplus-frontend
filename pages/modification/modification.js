@@ -397,7 +397,7 @@ Page({
     },
 
     //开始任务
-    start() {
+    start(e) {
         console.log('开始任务。。。')
 
         //弹出模态框，待用户确认操作
@@ -408,7 +408,8 @@ Page({
                 //若点击确定，则开始任务
                 if(res.confirm) {
                     swan.request({
-                        url: 'https://www.hedon.wang/project/task/start/' + this.data.taskId,
+                        url: 'https://www.hedon.wang/project/task/start/' + this.data.taskId +
+                        "?fromId="+e.detail.formId,
                         method: 'PUT',
                         header: {
                             'Authorization': 'bearer ' + app.data.access_token
