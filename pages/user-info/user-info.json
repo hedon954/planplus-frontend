@@ -1,5 +1,7 @@
 {
     "usingComponents": {
-        "smt-icon": "@smt-ui/component/src/icon"
+        "smt-icon": "@smt-ui/component/src/icon",
+        "smt-list": "@smt-ui/component/src/list",
+        "smt-list-item": "@smt-ui/component/src/list-item"
     }
 }

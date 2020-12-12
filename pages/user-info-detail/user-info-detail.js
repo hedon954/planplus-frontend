@@ -23,10 +23,10 @@ Page({
 
     dateChange(e) {
         console.log('picker-date changed，值为', e.detail.value);
-        this.setData(
-            'userBirthday', e.detail.value,
-            'userBirthdayText',e.detail.value,
-        );
+        this.setData({
+            userBirthday: e.detail.value,
+            userBirthdayText: e.detail.value,
+        });
     },
 
     nicknameChange(e) {
@@ -95,6 +95,52 @@ Page({
         }
     },
 
+    onLoad: function(){
+        this.getInfo();
+    },
+
+    getInfo:function(){
+        //读取当前用户数据
+        swan.request({
+            url: 'https://www.hedon.wang/project/user/info',
+            method: 'GET',
+            header:{
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            responseType: 'text',
+            success:res=>{
+                console.log("成功获取数据");
+                console.log(res.data.data);
+
+                this.setData(
+                    {
+                        userNickname:res.data.data.userNickname,
+                        userAvatarUrl:res.data.data.userAvatarUrl,
+                        userGender:res.data.data.userGender,
+                        userBirthday:res.data.data.userBirthday.substring(0,10),
+                        userBirthdayText: res.data.data.userBirthday.substring(0, 10),
+                    }
+                );
+                switch(this.data.userGender)
+                {
+                    case 0:
+                        this.setData(
+                            {
+                               userGenderText:"女",
+                            }
+                        );
+                        break;
+                    default:
+                        this.setData(
+                            {
+                                userGenderText:"男",
+                            }
+                        );
+                        break;
+                }
+            }
+        })
+    },
 
     chooseImage() {
         swan.showModal({
