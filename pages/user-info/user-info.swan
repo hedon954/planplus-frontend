@@ -29,25 +29,25 @@
     <view class='text-content' bindtap="goToAllTask">
         所有任务
         <view>
-            <smt-icon name="arrow" class="icon"></smt-icon>
+            <smt-icon name="arrow" class="icon" size="40rpx" color="lightgrey"></smt-icon>
         </view>
     </view>
     <view class='text-content' bindtap="goToUserHelp">
         新手指南
         <view>
-            <smt-icon name="arrow" class="icon"></smt-icon>
+            <smt-icon name="arrow" class="icon" size="40rpx" color="lightgrey"></smt-icon>
         </view>
     </view>
     <view class='text-content' bindtap="goToHelpPage">
         使用帮助
         <view>
-            <smt-icon name="arrow" class="icon"></smt-icon>
+            <smt-icon name="arrow" class="icon" size="40rpx" color="lightgrey"></smt-icon>
         </view>
     </view>
     <view class='text-content' bindtap="goToFeedback">
         反馈
         <view>
-            <smt-icon name="arrow" class="feedback-icon"><smt-icon>
+            <smt-icon name="arrow" class="feedback-icon" size="40rpx" color="lightgrey"><smt-icon name="arrow">
         </view>
     </view>
 </view>
