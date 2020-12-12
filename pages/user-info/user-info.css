@@ -1,33 +1,31 @@
 .info-container{
-    /* height: 88vh; */
-    height: 360rpx;
+    height: 260rpx;
     justify-items: center;
     padding: 18.116rpx;
-    /* background-color: whitesmoke; */
-    background-color: white;
+    background-color: #919ffa;
 }
 
 
 .info-card{
-    width: 100%;
-    height:340rpx;;
-    /* background-color: rgba(218, 218, 218, 0.986); */
-    background-color: white;
+    width: 100vw;
+    height:260rpx;;
+    background-color: #919ffa;
     border-radius: 50rpx;
     overflow: hidden;
-    /* box-shadow:black 100% 3.019rpx; */
+    display: flex;
 }
 
-.username-box{
-    margin-top: 24.155rpx;
-    margin-left: 24.155rpx;
-    display: flex;
+.text-box{
+    width: 50vw;
+    margin-left: 10rpx;
+    margin-top: 36rpx;
     align-items: center;
+    color: white;
 }
 
 .detail{
-    margin-top: 18.116rpx;
-    margin-left: 24.155rpx;
+    margin-left: 75rpx;
+    margin-top: 30rpx;
     display: flex;
     align-items: center;
 }
@@ -36,25 +34,29 @@
     font-size: 28rpx;
     line-height: 30rpx;
     padding: 7rpx 20rpx;
-    background-color: rgb(255, 255, 255);
-    border: 2rpx rgb(49, 48, 48) solid;
+    background-color: #919ffa;
+    border: 2rpx whitesmoke solid;
     border-radius: 20rpx;
+    color: white;
 }
 
 .age-box{
-    margin-left: 51.329rpx;
+    margin-right: 15rpx;
 }
 
 .gender-box{
-    margin-left: 24.155rpx;
+    margin-left: 15rpx;
 }
 
 .username{
-    width: 301.932rpx;
     font-size: 48rpx;
     line-height: 52rpx;
     padding: 16.304rpx;
     margin-left: 48.309rpx;
+}
+
+.image-box {
+    width: 50vw;
 }
 
 .avatar{
@@ -66,34 +68,50 @@
     border: 4rpx whitesmoke solid;
 }
 
-.update-botton{
-    border:none;
-    /* background-color: rgba(218, 218, 218, 0.986); */
-    background-color: white;
-    padding:0;
-    display: inline;
-    margin-right: 0;
-    margin-left: 280rpx;
-    padding-left: 20rpx;
+.common-use-list {
+    overflow: hidden;
+    margin:-8% 4% 4%;
+    border-radius: 8px 8px;
+    background: #FFF;
+    width: 92vw;
+    height: 100%;
 }
 
-.update-botton::after{
-    border:0;
+.other-use-list {
+    overflow: hidden;
+    margin: 4% 4% 2%;
+    border-radius: 8px 8px;
+    background: #FFF;
+    width: 92vw;
+    height: 100%;
 }
 
-.my-button{
-    /* background-color: #8785a2; */
-    background-color: #678ff9;
-    margin-top: 20rpx;
-    width: 573.671rpx;
-    font-size:32rpx;
-    border-radius: 51.329rpx;
-    color: whitesmoke;
+.top-description {
+    margin-left: 10rpx;
+    display: flex;
+    padding: 2vw;
+    font-weight: bolder;
+    font-size: small;
+    justify-content: space-between;
 }
 
-.my-button::after{
-    border: none;
+.border-bottom {
+    position: relative;
+    border: 0;
 }
+
+.border-bottom:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #E6E6E6;
+    -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+}
+
 
 
 .logout-button{
@@ -143,6 +161,10 @@
 
 .feedback-icon {
     margin-left: 576rpx;
+}
+
+.logout-item {
+    color: red;
 }
 
 .logout {

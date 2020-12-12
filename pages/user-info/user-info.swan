@@ -1,48 +1,46 @@
 <view class="info-container">
-    <view class="info-card">
-        <view class="username-box">
+    <view class="info-card" bind:tap="goToDetail">
+        <view class="text-box">
             <text class="username">{{userNickname}}</text>
-            <image src="{{userAvatarUrl == undefined ? '../../images/test_avatar.JPG' : userAvatarUrl}}"
+            <view class="detail">
+                <text class="age-box">{{userAge}}</text>
+                <text class="gender-box">{{userGenderText}}</text>
+            </view>
+        </view>
+        <view class="image-box">
+            <image src="{{userAvatarUrl}}"
                 class="avatar">
             </image>
         </view>
-        <view class="detail">
-            <text class="age-box">{{userAge}}</text>
-            <text class="gender-box">{{userGenderText}}</text>
-            <button class="update-botton" bind:tap="goToDetail">
-                <smt-icon name="comment-editor" color="#6D6E74"></smt-icon>
-            </button>
-
-        </view>
-    </view>
-</view>
-<view class='list'>
-    <view class='text-content' bindtap="goToAllTask">
-        所有任务
-        <view>
-            <smt-icon name="arrow" class="icon" size="40rpx" color="lightgrey"></smt-icon>
-        </view>
-    </view>
-    <view class='text-content' bindtap="goToUserHelp">
-        新手指南
-        <view>
-            <smt-icon name="arrow" class="icon" size="40rpx" color="lightgrey"></smt-icon>
-        </view>
-    </view>
-    <view class='text-content' bindtap="goToHelpPage">
-        使用帮助
-        <view>
-            <smt-icon name="arrow" class="icon" size="40rpx" color="lightgrey"></smt-icon>
-        </view>
-    </view>
-    <view class='text-content' bindtap="goToFeedback">
-        反馈
-        <view>
-            <smt-icon name="arrow" class="feedback-icon" size="40rpx" color="lightgrey"><smt-icon name="arrow">
-        </view>
     </view>
 </view>
 
-<view class="logout" bindtap="logout">
-    退出登录
+<view class="list-container">
+    <view class="common-use-list">
+        <view class="top-description border-bottom">常用服务</view>
+        <smt-list
+            s-for="commonUseOperationList"
+            title="{{item.title}}"
+            imgSrc="{{item.imgSrc}}"
+            bind:tap="{{item.function}}"
+            disable="false">
+        </smt-list>
+    </view>
+    <view class="other-use-list">
+        <view class="top-description border-bottom">其它服务</view>
+        <smt-list
+            s-for="otherUseOperationList"
+            title="{{item.title}}"
+            imgSrc="{{item.imgSrc}}"
+            bind:tap="{{item.function}}"
+            disable="false">
+        </smt-list>
+        <smt-list
+            title="退出登录"
+            imgSrc="/images/API_selected.png"
+            bind:tap="logout"
+            disable="false"
+            class='logout-item'>
+        </smt-list>
+    </view>
 </view>

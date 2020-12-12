@@ -10,6 +10,30 @@ Page({
         userAvatarUrl:"",
         userGenderText:"未知",
         userAge:"",
+        commonUseOperationList: [
+            {
+                title: '所有任务',
+                function: 'goToAllTask',
+                imgSrc: '/images/API_selected.png',
+            }
+        ],
+        otherUseOperationList: [
+            {
+                title: '新手指南',
+                function: 'goToUserHelp',
+                imgSrc: '/images/API_selected.png',
+            },
+            {
+                title: '使用帮助',
+                function: 'goToHelpPage',
+                imgSrc: '/images/API_selected.png',
+            },
+            {
+                title: '反馈',
+                function: 'goToFeedback',
+                imgSrc: '/images/API_selected.png',
+            },
+        ],
     },
 
 
