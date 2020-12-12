@@ -69,7 +69,6 @@ Page({
         //读取当前用户数据
         swan.request({
             // url: 'http://localhost:9527/project/user/info',
-            // url: 'http://182.61.131.18:9527/project/user/info',
             url: 'https://www.hedon.wang/project/user/info',
             method: 'GET',
             header:{
@@ -158,7 +157,6 @@ Page({
      * 页面加载时
      */
     onShow: function() {
-        // 监听页面显示的生命周期函数
         console.log("user-info onshow")
         if(app.data.infoChanged){
             this.getInfo();
@@ -166,6 +164,9 @@ Page({
         }
     },
 
+    /**
+     * 退出登录
+     */
     logout: function(){
         app.setAccessToken("");
         app.setInfoChanged(true);
