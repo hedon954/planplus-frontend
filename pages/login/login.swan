@@ -11,7 +11,11 @@
         登录百度账号
     </button>
     <!-- 登录 -->
-    <button s-if="{{hasLoginBaidu}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="default" class="login-submit">
+    <!-- <button s-if="{{hasLoginBaidu}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="default" class="login-submit">
+        <view bind:tap="loginSubmit">登录</view>
+    </button> -->
+    <!-- 登录 -->
+    <button s-if="{{hasLoginBaidu}}"   type="default" class="login-submit">
         <view bind:tap="loginSubmit">登录</view>
     </button>
 </view>

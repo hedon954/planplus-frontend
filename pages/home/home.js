@@ -1,4 +1,4 @@
-const app = getApp();
+var app = getApp();
 
 Page({
     /**
@@ -56,8 +56,6 @@ Page({
      * 当页面加载时
      */
     onLoad: function() {
-        //先睡1000ms，确保token已经写入app.js
-        this.sleep(1000)
         //先检查是否已登录
         this.checkLoginOrNot();
         //已登录->查询今日任务
@@ -669,6 +667,17 @@ Page({
             return;
         }
 
+        swan.showToast({
+            // 提示的内容
+            title: '创建中...',
+            // 图标，有效值"success"、"loading"、"none"。
+            icon: 'loading',
+            // 提示的延迟时间，单位毫秒。
+            duration: 2000,
+            // 是否显示透明蒙层，防止触摸穿透。
+            mask: true
+        });
+
         console.log("formId = " + e.detail.formId)
         swan.request({
             url: 'https://www.hedon.wang/project/task/create',
@@ -849,17 +858,5 @@ Page({
     },
 
 
-    /**
-     * 睡眠
-     */
-    sleep: function(numberMillis) {
-        console.log("睡眠中")
-        let now = new Date();
-        var exitTime = now.getTime() + numberMillis
-        while (true) {
-            now = new Date();
-            if (now.getTime() > exitTime)
-            return;
-        }
-    }
+
 });

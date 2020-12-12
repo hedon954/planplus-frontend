@@ -16,7 +16,7 @@
     </smt-voice-recognizer>
 
     <!-- 多行文本框，创建任务按钮 -->
-    <textarea placeholder="明天下午3点去健身房健身(时间-地点-事件)" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
+    <textarea placeholder="格式：时间-地点-事件&#10;如：明天下午3点去健身房健身&#10;如：今天晚上9点到10点在图书馆自习" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
     <form
         report-submit="{{true}}"
         report-type="subscribe"

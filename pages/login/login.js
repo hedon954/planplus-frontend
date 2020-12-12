@@ -6,7 +6,8 @@ Page({
         username: app.data.username,
         password: app.data.password,
         userInfo: {},
-        hasLoginBaidu: true
+        hasLoginBaidu: true,
+        writeFinished: false
     },
     /**
      * 监听页面加载的生命周期函数
@@ -180,7 +181,6 @@ Page({
             // 是否显示透明蒙层，防止触摸穿透。
             mask: true
         });
-        this.sleep(500)
         console.log(this.data.username);
         console.log(this.data.password);
         swan.request({
@@ -204,6 +204,14 @@ Page({
                     app.setUsername(this.data.username)
                     app.setPassword(this.data.password)
                     swan.setStorageSync("access_token",res.data.data.access_token);
+                    this.setData({
+                        writeFinished: true
+                    })
+                    console.log("写完了")
+                    //成功的话就跳转
+                    swan.switchTab({
+                        url: '/pages/home/home'
+                    });
                 }
                 else{
                     swan.showToast({
@@ -225,9 +233,9 @@ Page({
      * 获取用户信息
      */
     getUserInfo(e) {
+        var jump = this.data.writeFinished
         //如果是新用户，那就同步百度信息
         if(app.data.isNewUser == 1){
-            this.sleep(500);
             swan.request({
                 url: 'https://www.hedon.wang/project/user/info',
                 method: 'PUT',
