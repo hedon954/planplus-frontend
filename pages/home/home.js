@@ -83,7 +83,7 @@ Page({
                         this.setUserToOld();
                         app.setIsNewUser(0);
                         swan.navigateTo({
-                            url: '/pages/user-help-steps/user-help-steps'
+                            url: '/home/pages/user-help-steps/user-help-steps'
                         });
                     }
                     if(res.cancel){
@@ -469,7 +469,7 @@ Page({
 
     // 获取时间差
     getTimeSpan: function(list, started) {
-        // console.log("进来了。。。")
+        console.log("进来了。。。")
         let offset = new Date().getTimezoneOffset();
         let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
@@ -625,7 +625,7 @@ Page({
                             if(res.cancel){
                                 //跳转到详情页
                                 swan.navigateTo({
-                                    url:'/pages/modification/modification?taskId='+this.data.taskId
+                                    url:'/home/pages/modification/modification?taskId='+this.data.taskId
                                 });
                             }
                         }
@@ -766,7 +766,7 @@ Page({
                             if(res.cancel){
                                 //跳转到详情页
                                 swan.navigateTo({
-                                    url:'/pages/modification/modification?taskId='+this.data.taskId
+                                    url:'/home/pages/modification/modification?taskId='+this.data.taskId
                                 });
                             }
                         }
@@ -802,7 +802,7 @@ Page({
         // console.log(cpn);
         app.setPreTab(this.data.activeName);
         swan.navigateTo({
-            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
+            url: `/home/pages/modification/modification?taskId=${e.currentTarget.id}`
         });
     },
 
