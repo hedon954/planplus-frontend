@@ -105,7 +105,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 92%;
+    transform: translateX(4%);
     height: 1px;
     background: #E6E6E6;
     -webkit-transform-origin: 0 100%;
