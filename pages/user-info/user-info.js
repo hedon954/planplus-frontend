@@ -32,7 +32,7 @@ Page({
             {
                 title: '开发计划',
                 function: 'goToDevelopTimeLine',
-                imgSrc: '/images/feedback.png',
+                imgSrc: '/images/develop-plan.png',
             },
             {
                 title: '使用反馈',

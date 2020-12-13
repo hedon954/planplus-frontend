@@ -3,6 +3,7 @@
     <view class="card-area">
         <view class="image-area">
             <image
+             mode="aspectFit"
              src="{{showImage[imageActive]}}">
             </image>
         </view>

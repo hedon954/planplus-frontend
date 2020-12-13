@@ -16,10 +16,10 @@ Page({ // eslint-disable-line
             }
         ],
         showImage: [
-            "/images/createTask.png",
-            "/images/modifyTask.png",
-            "/images/startTask.png",
-            "/images/finishTask.png"
+            "https://tva1.sinaimg.cn/large/0081Kckwgy1glmbjjg8s7j30u01j478t.jpg",
+            "https://tva1.sinaimg.cn/large/0081Kckwgy1glmbk1zihuj30u01j4jxu.jpg",
+            "https://tva1.sinaimg.cn/large/0081Kckwgy1glmbk9tpevj30u01j479j.jpg",
+            "https://tva1.sinaimg.cn/large/0081Kckwgy1glmbkez6faj30u01j4juc.jpg"
         ],
         imageActive: 0
     },

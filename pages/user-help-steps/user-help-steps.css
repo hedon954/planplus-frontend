@@ -28,7 +28,12 @@
 },
 
 .image-area{
-    height: 65vh
+    height: 70vh
+},
+
+.image-area image{
+    height: 100%;
+    width: 100%
 },
 
 Page {
