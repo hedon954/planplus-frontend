@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "开发计划",
+    "usingComponents": {
+        "smt-timeline": "@smt-ui/component/src/timeline"
+    }
+}

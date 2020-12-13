@@ -210,6 +210,7 @@ Page({
             duration: 1000,
             mask: true
         });
+        this.sleep(500);
         swan.request({
             url: 'https://www.hedon.wang/project/login/login',
             // url: 'http://localhost:443/project/login/login',

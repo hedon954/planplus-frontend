@@ -50,6 +50,7 @@ Page({
          * 标记各任务是否已经结束
          */
         hasStarted: [],
+        isNewUser: 1
     },
 
     /**
@@ -65,6 +66,9 @@ Page({
         });
         //查询今日任务
         this.getTasksByParam(this.data.activeName);
+    },
+
+    onReady: function(){
         //检查是否为新用户
         console.log("isNewUser" + app.data.isNewUser)
         if(app.data.isNewUser == 1){
@@ -75,12 +79,16 @@ Page({
                 cancelText: '不需要',
                 confirmText: '需要',
                 success: res => {
-                    this.setUserToOld();
-                    app.setIsNewUser(0);
                     if(res.confirm){
+                        this.setUserToOld();
+                        app.setIsNewUser(0);
                         swan.navigateTo({
-                            url: '/pages/user-help/user-help'
+                            url: '/pages/user-help-steps/user-help-steps'
                         });
+                    }
+                    if(res.cancel){
+                        this.setUserToOld();
+                        app.setIsNewUser(0);
                     }
                 },
             });
@@ -125,6 +133,9 @@ Page({
                 //已登录
                 if(res.data.code == 1000){
                     console.log("setUserToOld 发送成功")
+                    this.setData({
+                        isNewUser: 0
+                    })
                 }else{
                     console.log("setUserToOld 发送错误")
                 }
@@ -151,7 +162,10 @@ Page({
                 console.log("ssssssssssss" + typeof res.data.code)
                 //已登录
                 if(res.data.code == '1000'){
-                    console.log("hhhhh"+res.data)
+                    console.log(res.data)
+                    this.setData({
+                        isNewUser: res.data.data.new
+                    })
                 }else{
                     //未登录
                     swan.showModal({

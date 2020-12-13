@@ -30,6 +30,11 @@ Page({
                 imgSrc: '/images/help.png',
             },
             {
+                title: '开发计划',
+                function: 'goToDevelopTimeLine',
+                imgSrc: '/images/feedback.png',
+            },
+            {
                 title: '使用反馈',
                 function: 'goToFeedback',
                 imgSrc: '/images/feedback.png',
@@ -65,6 +70,12 @@ Page({
                 url: '../../pages/user-info-detail/user-info-detail'
             });
         }
+    },
+
+    goToDevelopTimeLine:function(){
+        swan.navigateTo({
+            url: '../../pages/develop-timeline/develop-timeline'
+        })
     },
 
     /**

@@ -1,0 +1,34 @@
+<view class="wrap">
+    <custom chinaName="步骤条" engName="steps"></custom>
+    <view class="card-area">
+        <view class="image-area">
+            <image
+             src="{{showImage[imageActive]}}">
+            </image>
+        </view>
+        <view class="border-bottom">
+            <smt-steps
+                active="{{fourStepsActive}}"
+                line-style="solid"
+                steps="{{fourSteps}}"
+                active-color="#2772fb"
+                step-main-class="step-main"
+            >
+            </smt-steps>
+        </view>
+        <button
+            bindtap="changeActiveDown"
+            class="step-btn-cls-left"
+            hover-stop-propagation="true"
+            type="primary">
+            上一步
+        </button>
+        <button
+            bindtap="changeActiveUp"
+            class="step-btn-cls-right"
+            hover-stop-propagation="true"
+            type="primary">
+            下一步
+        </button>
+    </view>
+</view>

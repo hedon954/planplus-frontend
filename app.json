@@ -10,7 +10,9 @@
         "pages/feedback/feedback",
         "pages/user-help/user-help",
         "pages/help/help",
-        "pages/list/list"
+        "pages/list/list",
+        "pages/user-help-steps/user-help-steps",
+        "pages/develop-timeline/develop-timeline"
     ],
     "window": {
         "navigationBarBackgroundColor": "#919ffa",

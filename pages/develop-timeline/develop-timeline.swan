@@ -1,0 +1,26 @@
+<view class="container">
+
+    <view>
+        <smt-timeline
+            s-for="item, index in options2"
+            status="{{item.status}}"
+            desc="{{item.desc}}"
+            has-tail="{{item.hasTail}}"
+            icon-color="{{item.iconColor}}"
+            timeline-class="comp-timeline">
+            <view
+                class="comp-info-wrap"
+                s-for="descInfo in item.descInfo"
+            >
+                <view class="comp-info">
+                    {{descInfo.info}}
+                </view>
+                <view class="comp-title">
+                    {{descInfo.title}}
+                </view>
+            </view>
+        </smt-timeline>
+
+    </view>
+
+</view>

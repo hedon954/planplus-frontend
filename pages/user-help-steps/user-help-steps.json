@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "用户指引",
+    "usingComponents": {
+        "smt-steps": "@smt-ui/component/src/steps"
+    }
+}

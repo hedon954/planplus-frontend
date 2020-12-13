@@ -1,0 +1,24 @@
+.comp-timeline {
+    padding: 0 !important;
+}
+
+page{
+    background-color: white
+}
+
+.container{
+    transform: translateY(-100rpx)
+}
+
+.comp-info-wrap {
+    margin-bottom: 36.232rpx;
+}
+
+.comp-info-wrap:last-child {
+    margin-bottom: 0;
+}
+
+.comp-title {
+    margin-top: 10.87rpx;
+    color: #999;
+}
