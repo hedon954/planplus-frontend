@@ -49,3 +49,7 @@
         </smt-list>
     </view>
 </view>
+
+<view class="version-view">
+    v1.0.8
+</view>
