@@ -29,7 +29,7 @@ page {
     height: 103vh;
     transform: translateY(-3vh);
     background-size: cover;
-    background-image: url('../../images/login_background.png');
+    background-image: url('https://tva1.sinaimg.cn/large/0081Kckwgy1glmchek4imj30ku112qhs.jpg');
 }
 
 .login-form {
@@ -102,7 +102,7 @@ page {
     border-radius: 39.855rpx;
     width: 250rpx;
     margin-top: 25rpx;
-    transform: translateY(972rpx);
+    transform: translateY(1000rpx);
 }
 
 .login-submit.default {
