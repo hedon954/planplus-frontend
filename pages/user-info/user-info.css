@@ -185,3 +185,14 @@
     font-size: 33rpx;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.buttom-getbaiduinfo{
+    background-color: #919ffa;
+    border:  1rpx  solid #FFFFFF ;
+    color: #FFFFFF;
+    transform: translate(30rpx,30rpx);
+}
+
+.buttom-getbaiduinfo::after {
+    display: none;
+}

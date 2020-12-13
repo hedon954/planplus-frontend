@@ -256,40 +256,7 @@ Page({
         });
     },
 
-    /**
-     * 获取用户信息
-     */
-    getUserInfo(e) {
-        var jump = this.data.writeFinished
-        //如果是新用户，那就同步百度信息
-        if(app.data.isNewUser == 1){
-            swan.request({
-                url: 'https://www.hedon.wang/project/user/info',
-                method: 'PUT',
-                header:{
-                    'Authorization': 'bearer '+app.data.access_token
-                },
-                data:{
-                    userNickname: e.detail.userInfo.nickName,
-                    userAvatarUrl: e.detail.userInfo.avatarUrl
-                },
-                responseType: 'text',
-                success:res=>{
-                    console.log(res)
-                    if(res.data.code == 1000){
-                        console.log("同步用户百度信息成功")
 
-                    }
-
-                }
-            })
-        }
-        //成功的话就跳转
-        swan.switchTab({
-            url: '/pages/home/home'
-        });
-
-    },
 
     /**
      * 绑定手机号输入框

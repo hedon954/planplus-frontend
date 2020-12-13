@@ -397,9 +397,8 @@ Page({
     },
 
     //开始任务
-    start(e) {
+    startTask(e) {
         console.log('开始任务。。。')
-
         //弹出模态框，待用户确认操作
         swan.showModal({
             title: '温馨提示',
@@ -409,7 +408,7 @@ Page({
                 if(res.confirm) {
                     swan.request({
                         url: 'https://www.hedon.wang/project/task/start/' + this.data.taskId +
-                        "?fromId="+e.detail.formId,
+                        "?formId="+e.detail.formId,
                         method: 'PUT',
                         header: {
                             'Authorization': 'bearer ' + app.data.access_token

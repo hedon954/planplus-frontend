@@ -108,7 +108,7 @@
         report-type="subscribe"
         template-id="BD0044"
         subscribe-id="{{subScribeId}}"
-        bindsubmit="start"
+        bindsubmit="startTask"
         bindreset="formReset">
         <button class="start-end-btn" hidden="{{!visible}}">
             <smt-icon class="icon" name="play" color="#8785a2"></smt-icon>

@@ -1,6 +1,11 @@
 <view class="info-container">
     <view class="info-card" bind:tap="goToDetail">
-        <view class="text-box">
+        <!--如果没有同步百度信息，则先同步-->
+        <view s-if="{{userHasBaiduInfo==0?true:false}}" class="text-box">
+            <button class="buttom-getbaiduinfo" open-type="getUserInfo" bindgetuserinfo="synchronizeUserInfo">☞ 点此同步百度信息</button>
+        </view>
+        <!--显示用户基本信息-->
+        <view s-if="{{userHasBaiduInfo==1?true:false}}" class="text-box">
             <text class="username">{{userNickname}}</text>
             <view class="detail">
                 <text class="age-box">{{userAge}}</text>
@@ -37,7 +42,7 @@
         </smt-list>
         <smt-list
             title="退出登录"
-            imgSrc="/images/API_selected.png"
+            imgSrc="/images/logout.png"
             bind:tap="logout"
             disable="false"
             class='logout-item'>

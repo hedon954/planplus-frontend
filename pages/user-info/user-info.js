@@ -9,29 +9,30 @@ Page({
         userBirthday:"",
         userAvatarUrl:"",
         userGenderText:"未知",
+        userHasBaiduInfo : 0,
         userAge:"",
         commonUseOperationList: [
             {
                 title: '所有任务',
                 function: 'goToAllTask',
-                imgSrc: '/images/API_selected.png',
+                imgSrc: '/images/checklist.png',
             }
         ],
         otherUseOperationList: [
             {
                 title: '新手指南',
                 function: 'goToUserHelp',
-                imgSrc: '/images/API_selected.png',
+                imgSrc: '/images/guide.png',
             },
             {
                 title: '使用帮助',
                 function: 'goToHelpPage',
-                imgSrc: '/images/API_selected.png',
+                imgSrc: '/images/help.png',
             },
             {
-                title: '反馈',
+                title: '使用反馈',
                 function: 'goToFeedback',
-                imgSrc: '/images/API_selected.png',
+                imgSrc: '/images/feedback.png',
             },
         ],
     },
@@ -59,9 +60,11 @@ Page({
      * 跳转到详情页面
      */
     goToDetail:function(){
-        swan.navigateTo({
-            url: '../../pages/user-info-detail/user-info-detail'
-        });
+        if(this.data.userHasBaiduInfo == 1){
+            swan.navigateTo({
+                url: '../../pages/user-info-detail/user-info-detail'
+            });
+        }
     },
 
     /**
@@ -106,6 +109,7 @@ Page({
                         userAvatarUrl:res.data.data.userAvatarUrl,
                         userGender:res.data.data.userGender,
                         userAge:this.getAge(res.data.data.userBirthday.substring(0,10))+"岁",
+                        userHasBaiduInfo: res.data.data.userHasBaiduInfo
                     }
                 )
                 switch(this.data.userGender)
@@ -197,6 +201,29 @@ Page({
         //跳转到登录界面
         swan.reLaunch({
             url: '/pages/login/login'
+        })
+    },
+
+    /**
+     * 同步百度信息
+     */
+    synchronizeUserInfo(e) {
+        swan.request({
+            url: 'https://www.hedon.wang/project/user/info',
+            method: 'PUT',
+            header:{
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            data:{
+                userNickname: e.detail.userInfo.nickName,
+                userAvatarUrl: e.detail.userInfo.avatarUrl
+            },
+            responseType: 'text',
+            success:res=>{
+                if(res.data.code == 1000){
+                    this.getInfo()
+                }
+            }
         })
     },
 });

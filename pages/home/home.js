@@ -69,17 +69,11 @@ Page({
         console.log("isNewUser" + app.data.isNewUser)
         if(app.data.isNewUser == 1){
             swan.showModal({
-                // 提示的标题
                 title: '欢迎来到 PlanPlus',
-                // 提示的内容
                 content: '请问是否需要进入用户指引界面？',
-                // 是否显示取消按钮 。
                 showCancel: true,
-                // 取消按钮的文字，最多 4 个字符。
                 cancelText: '不需要',
-                // 确定按钮的文字，最多 4 个字符。
                 confirmText: '需要',
-                // 接口调用成功的回调函数
                 success: res => {
                     this.setUserToOld();
                     app.setIsNewUser(0);
