@@ -469,7 +469,6 @@ Page({
 
     // 获取时间差
     getTimeSpan: function(list, started) {
-        console.log("进来了。。。")
         let offset = new Date().getTimezoneOffset();
         let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素

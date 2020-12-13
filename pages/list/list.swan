@@ -1,7 +1,0 @@
-<view class='list'>
-    <view s-for="{{btns}}" class='text-content' bindtap="{{opts[index]}}">{{item}}</view>
-</view>
-
-<view class="logout" bindtap="logout">
-    退出登录
-</view>
