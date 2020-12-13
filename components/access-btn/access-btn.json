@@ -1,6 +1,0 @@
-{
-    "component": true,
-    "usingComponents": {
-        "smt-voice-recognizer": "@smt-ui/component/src/voice-recognizer"
-    }
-}

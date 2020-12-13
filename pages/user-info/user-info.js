@@ -9,11 +9,43 @@ Page({
         userBirthday:"",
         userAvatarUrl:"",
         userGenderText:"未知",
+        userHasBaiduInfo : 0,
         userAge:"",
-        btns: ['所有任务', '使用帮助', '反馈'],
-        opts: ['goToAllTask', 'goToHelpPage', 'goToFeedback'],
+        commonUseOperationList: [
+            {
+                title: '所有任务',
+                function: 'goToAllTask',
+                imgSrc: '/images/checklist.png',
+            }
+        ],
+        otherUseOperationList: [
+            {
+                title: '新手指南',
+                function: 'goToUserHelp',
+                imgSrc: '/images/guide.png',
+            },
+            {
+                title: '使用帮助',
+                function: 'goToHelpPage',
+                imgSrc: '/images/help.png',
+            },
+            {
+                title: '使用反馈',
+                function: 'goToFeedback',
+                imgSrc: '/images/feedback.png',
+            },
+        ],
     },
 
+
+    /**
+     * 跳转到图片界面
+     */
+    goToUserHelp: function() {
+        swan.navigateTo({
+            url: '../../pages/user-help/user-help'
+        });
+    },
 
     /**
      * 跳转到帮助页面
@@ -28,9 +60,11 @@ Page({
      * 跳转到详情页面
      */
     goToDetail:function(){
-        swan.navigateTo({
-            url: '../../pages/user-info-detail/user-info-detail'
-        });
+        if(this.data.userHasBaiduInfo == 1){
+            swan.navigateTo({
+                url: '../../pages/user-info-detail/user-info-detail'
+            });
+        }
     },
 
     /**
@@ -62,7 +96,6 @@ Page({
         //读取当前用户数据
         swan.request({
             // url: 'http://localhost:9527/project/user/info',
-            // url: 'http://182.61.131.18:9527/project/user/info',
             url: 'https://www.hedon.wang/project/user/info',
             method: 'GET',
             header:{
@@ -76,6 +109,7 @@ Page({
                         userAvatarUrl:res.data.data.userAvatarUrl,
                         userGender:res.data.data.userGender,
                         userAge:this.getAge(res.data.data.userBirthday.substring(0,10))+"岁",
+                        userHasBaiduInfo: res.data.data.userHasBaiduInfo
                     }
                 )
                 switch(this.data.userGender)
@@ -151,7 +185,6 @@ Page({
      * 页面加载时
      */
     onShow: function() {
-        // 监听页面显示的生命周期函数
         console.log("user-info onshow")
         if(app.data.infoChanged){
             this.getInfo();
@@ -159,12 +192,38 @@ Page({
         }
     },
 
+    /**
+     * 退出登录
+     */
     logout: function(){
         app.setAccessToken("");
         app.setInfoChanged(true);
         //跳转到登录界面
         swan.reLaunch({
             url: '/pages/login/login'
+        })
+    },
+
+    /**
+     * 同步百度信息
+     */
+    synchronizeUserInfo(e) {
+        swan.request({
+            url: 'https://www.hedon.wang/project/user/info',
+            method: 'PUT',
+            header:{
+                'Authorization': 'bearer '+app.data.access_token
+            },
+            data:{
+                userNickname: e.detail.userInfo.nickName,
+                userAvatarUrl: e.detail.userInfo.avatarUrl
+            },
+            responseType: 'text',
+            success:res=>{
+                if(res.data.code == 1000){
+                    this.getInfo()
+                }
+            }
         })
     },
 });

@@ -10,11 +10,11 @@
 
 .modal-dialog {
     width: 300rpx;
-    max-height: 380rpx;
-    padding-top: 40rpx;
+    max-height: 280rpx;
     border-radius: 40rpx;
     background-color: whitesmoke;
-    margin: 600rpx 360rpx;
+    margin-top: 700rpx;
+    margin-left: 360rpx;
     position: fixed;
     z-index: 9500;
 }

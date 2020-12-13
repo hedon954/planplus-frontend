@@ -1,34 +1,51 @@
 <view class="info-container">
-    <view class="info-card">
-        <view class="username-box">
+    <view class="info-card" bind:tap="goToDetail">
+        <!--如果没有同步百度信息，则先同步-->
+        <view s-if="{{userHasBaiduInfo==0?true:false}}" class="text-box">
+            <button class="buttom-getbaiduinfo" open-type="getUserInfo" bindgetuserinfo="synchronizeUserInfo">☞ 点此同步百度信息</button>
+        </view>
+        <!--显示用户基本信息-->
+        <view s-if="{{userHasBaiduInfo==1?true:false}}" class="text-box">
             <text class="username">{{userNickname}}</text>
-            <image src="{{userAvatarUrl == undefined ? '../../images/test_avatar.JPG' : userAvatarUrl}}"
+            <view class="detail">
+                <text class="age-box">{{userAge}}</text>
+                <text class="gender-box">{{userGenderText}}</text>
+            </view>
+        </view>
+        <view class="image-box">
+            <image src="{{userAvatarUrl}}"
                 class="avatar">
             </image>
         </view>
-        <view class="detail">
-            <text class="age-box">{{userAge}}</text>
-            <text class="gender-box">{{userGenderText}}</text>
-            <button class="update-botton" bind:tap="goToDetail">
-                <smt-icon name="comment-editor" color="#6D6E74"></smt-icon>
-            </button>
-
-        </view>
     </view>
-    <!-- <view>
-        <button class="my-button top-button" bind:tap="goToAllTask">所有任务</button>
-        <button class="my-button" bind:tap="goToHelpPage">使用帮助</button>
-        <button class="my-button " bind:tap="goToFeedback">反馈</button>
-    </view> -->
-
-</view>
-<!-- <view class="logout-view">
-    <button class="logout-button" bind:tap="logout">退出登录</button>
-</view> -->
-<view class='list'>
-    <view s-for="{{btns}}" class='text-content' bindtap="{{opts[index]}}">{{item}}</view>
 </view>
 
-<view class="logout" bindtap="logout">
-    退出登录
+<view class="list-container">
+    <view class="common-use-list">
+        <view class="top-description border-bottom">常用服务</view>
+        <smt-list
+            s-for="commonUseOperationList"
+            title="{{item.title}}"
+            imgSrc="{{item.imgSrc}}"
+            bind:tap="{{item.function}}"
+            disable="false">
+        </smt-list>
+    </view>
+    <view class="other-use-list">
+        <view class="top-description border-bottom">其它服务</view>
+        <smt-list
+            s-for="otherUseOperationList"
+            title="{{item.title}}"
+            imgSrc="{{item.imgSrc}}"
+            bind:tap="{{item.function}}"
+            disable="false">
+        </smt-list>
+        <smt-list
+            title="退出登录"
+            imgSrc="/images/logout.png"
+            bind:tap="logout"
+            disable="false"
+            class='logout-item'>
+        </smt-list>
+    </view>
 </view>

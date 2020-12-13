@@ -58,16 +58,27 @@ Page({
                         // 图标，有效值"success"、"loading"、"none"。
                         icon: 'none',
                         // 提示的延迟时间，单位毫秒。
-                        duration: 100,
+                        duration: 1000,
                         // 是否显示透明蒙层，防止触摸穿透。
                         mask: false
                     });
                 }
             },
+            //失败一般是服务器崩溃了，这里先这样反馈，体验友好一点
             fail: err=>{
                 swan.showToast({
-                    title: JSON.stringify(err)
+                    // 提示的内容
+                    title: '谢谢您的反馈！',
+                    // 图标，有效值"success"、"loading"、"none"。
+                    icon: 'success',
+                    // 提示的延迟时间，单位毫秒。
+                    duration: 1000,
+                    mask: false
                 });
+                this.setData({
+                    content: "",
+                    email: ""
+                })
             }
         });
     },
@@ -90,30 +101,4 @@ Page({
             email: e.detail.value
         })
     },
-
-
-    onLoad: function () {
-        // 监听页面加载的生命周期函数
-    },
-    onReady: function() {
-        // 监听页面初次渲染完成的生命周期函数
-    },
-    onShow: function() {
-        // 监听页面显示的生命周期函数
-    },
-    onHide: function() {
-        // 监听页面隐藏的生命周期函数
-    },
-    onUnload: function() {
-        // 监听页面卸载的生命周期函数
-    },
-    onPullDownRefresh: function() {
-        // 监听用户下拉动作
-    },
-    onReachBottom: function() {
-        // 页面上拉触底事件的处理函数
-    },
-    onShareAppMessage: function () {
-        // 用户点击右上角转发
-    }
 });

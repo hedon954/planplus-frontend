@@ -12,6 +12,9 @@ Component({
         },
         handleCancel() {
             this.triggerEvent('handleClose');
+        },
+        handleCloseModal(e) {
+            this.triggerEvent("handleCloseModal")
         }
     }
 });

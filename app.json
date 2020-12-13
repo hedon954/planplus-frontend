@@ -1,20 +1,15 @@
 {
     "pages": [
-
         "pages/login/login",
         "pages/home/home",
         "pages/user-info/user-info",
         "pages/baidu-login/baidu-login",
         "pages/modification/modification",
         "pages/user-info-detail/user-info-detail",
-        "pages/index/index",
         "pages/all-tasks/all-tasks",
         "pages/feedback/feedback",
-        "pages/pwd-changed/pwd-changed",
+        "pages/user-help/user-help",
         "pages/help/help",
-        "pages/test/test",
-        "pages/register/register",
-        "pages/forgot-password/forgot-password",
         "pages/list/list"
     ],
     "window": {

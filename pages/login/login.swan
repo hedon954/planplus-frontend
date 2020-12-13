@@ -6,24 +6,15 @@
         src="../../images/planplus.png"
         class="cover">
     </image>
-    <!-- 登录 -->
-    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="default" class="login-submit">
+    <!-- 登录百度账号 -->
+    <button s-if="{{!hasLoginBaidu && canIUseLoginButton}}"  open-type="login" bindlogin="loginBaidu"   type="default" class="login-baidu">
+        登录百度账号
+    </button>
+    <button s-if="{{!hasLoginBaidu && !canIUseLoginButton}}"  bindtap="loginBaidu"  type="default" class="login-baidu">
+        登录百度账号
+    </button>
+    <!-- 后台登录 -->
+    <button s-if="{{hasLoginBaidu}}"   type="default" class="login-submit">
         <view bind:tap="loginSubmit">登录</view>
     </button>
 </view>
-<!-- <view class="button-box">
-    注册按钮
-    <button type="default"
-        class="short-button left-button"
-        bind:tap="jumpToRegister">
-        快速注册
-    </button>
-    分割线
-    <label class="separator-label">|</label>
-    找回密码
-    <button type="default"
-        class="short-button right-button"
-        bind:tap="jumpToForgotPassword">
-        找回密码
-    </button>
-</view> -->

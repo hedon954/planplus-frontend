@@ -1,4 +1,4 @@
-const app = getApp();
+var app = getApp();
 
 Page({
     /**
@@ -69,23 +69,17 @@ Page({
         console.log("isNewUser" + app.data.isNewUser)
         if(app.data.isNewUser == 1){
             swan.showModal({
-                // 提示的标题
                 title: '欢迎来到 PlanPlus',
-                // 提示的内容
                 content: '请问是否需要进入用户指引界面？',
-                // 是否显示取消按钮 。
                 showCancel: true,
-                // 取消按钮的文字，最多 4 个字符。
                 cancelText: '不需要',
-                // 确定按钮的文字，最多 4 个字符。
                 confirmText: '需要',
-                // 接口调用成功的回调函数
                 success: res => {
                     this.setUserToOld();
                     app.setIsNewUser(0);
                     if(res.confirm){
                         swan.navigateTo({
-                            url: '/pages/help/help'
+                            url: '/pages/user-help/user-help'
                         });
                     }
                 },
@@ -128,10 +122,9 @@ Page({
             responseType: 'text',
             success: res => {
                 console.log(res);
-                console.log("ssssssssssss" + typeof res.data.code)
                 //已登录
-                if(res.data.code == '1000'){
-                    console.log("hhhhh"+res.data)
+                if(res.data.code == 1000){
+                    console.log("setUserToOld 发送成功")
                 }else{
                     console.log("setUserToOld 发送错误")
                 }
@@ -173,51 +166,6 @@ Page({
                     return;
                 }
             },
-        });
-
-        // 用户首次进入小程序，同步百度APP登录态
-        swan.login({
-            success: res => {
-                console.log('login success', res);
-
-                // 获取用户手机号或用户信息
-                // 待补
-
-                /**
-                 * 登陆成功后要发送请求到后端，
-                 * 利用这个仅有10s有效期的code去获取openId和sessionKey，
-                 * 因为发送信息需要用户的openId
-                 */
-                swan.request({
-                    url: 'https://www.hedon.wang/project/user/getUserOpenIdAndSessionKey?code='+res.code,
-                    method: 'POST',
-                    header:{
-                        'Content-Type': 'Application/x-www-form-urlencoded',
-                        'Authorization': 'bearer ' + app.data.access_token
-                    },
-                    responseType: 'text',
-                    success: res=>{
-                        console.log(res);
-                        swan.showModal({
-                            title: '成功',
-                            content: res
-                        });
-                        this.setData({
-                            hasLogin: 'yes'
-                        })
-                    },
-                    fail: res=>{
-                        console.log(res);
-                        swan.showModal({
-                            title: '失败',
-                            content: res
-                        });
-                    }
-                });
-            },
-            fail: err => {
-                console.log('login fail', err);
-            }
         });
     },
 
@@ -507,7 +455,7 @@ Page({
 
             //如果任务已经开始，就不进行倒计时
             if(started[i] == true) {
-                tmpList.push("00:00:00");
+                tmpList.push("");
                 continue;
             }
 
@@ -515,7 +463,14 @@ Page({
             let endTime = new Date(list[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
             let formatTime = this.timeFormat(time);
-            tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
+
+            //若倒计时为00：00：00，则不显示
+            if(formatTime.hh == '00' && formatTime.mm == '00' && formatTime.ss == '00') {
+                tmpList.push("");
+            } else {
+                tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
+            }
+
             // console.log("跳出循环。。。")
             maxTime = time > maxTime? time: maxTime;
         }
@@ -706,6 +661,17 @@ Page({
             return;
         }
 
+        swan.showToast({
+            // 提示的内容
+            title: '创建中...',
+            // 图标，有效值"success"、"loading"、"none"。
+            icon: 'loading',
+            // 提示的延迟时间，单位毫秒。
+            duration: 2000,
+            // 是否显示透明蒙层，防止触摸穿透。
+            mask: true
+        });
+
         console.log("formId = " + e.detail.formId)
         swan.request({
             url: 'https://www.hedon.wang/project/task/create',
@@ -884,4 +850,7 @@ Page({
             },
         });
     },
+
+
+
 });

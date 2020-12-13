@@ -8,7 +8,7 @@
     <view class="email-area">
         <view class="top-description border-bottom">您的邮箱</view>
         <view class="feedback-email">
-            <textarea class="textarea" placeholder="邮箱" maxlength="-1" bind:input="feedbackEmailInput" value="{= email =}"/>
+            <textarea class="textarea" placeholder="邮箱（可不填）" maxlength="-1" bind:input="feedbackEmailInput" value="{= email =}"/>
         </view>
     </view>
     <button class="button" bind:tap="feedback">发送</button>

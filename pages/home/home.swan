@@ -3,8 +3,11 @@
 <!-- 头部任务输入区域 -->
 <view class="header">
     <!-- 语音输入 -->
-    <button class="head-btn" bind:tap="voiceRecognize">
-        <image src="/images/microphone_24px.png" class="head-img"></image>
+    <button class="head-btn-left" bind:tap="voiceRecognize">
+        <!-- <image src="/images/microphone_24px.png" class="head-img"></image> -->
+        <view class="head-icon">
+            <smt-icon name="voice"></smt-icon>
+        </view>
     </button>
     <smt-voice-recognizer
         show-panel="{= showVoiceRecognizePanel =}"
@@ -13,7 +16,7 @@
     </smt-voice-recognizer>
 
     <!-- 多行文本框，创建任务按钮 -->
-    <textarea placeholder="明天下午3点去健身房健身(时间-地点-事件)" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
+    <textarea placeholder="格式：时间-地点-事件&#10;如：明天下午3点去健身房健身&#10;如：今晚9点到10点在图书馆自习" value="{{voiceRecognizeContent}}" bindinput="taskSentenceChange"/>
     <form
         report-submit="{{true}}"
         report-type="subscribe"
@@ -21,8 +24,11 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="createTask"
         bindreset="formReset">
-        <button formType="submit" class="head-btn">
-            <image src="/images/checkmark_24px.png" class="form-img"></image>
+        <button formType="submit" class="head-btn-right">
+            <!-- <image src="/images/checkmark_24px.png" class="form-img"></image> -->
+            <view class="head-icon">
+                <smt-icon name='add'></smt-icon>
+            <view>
         </button>
     </form>
 </view>
