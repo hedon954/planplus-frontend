@@ -170,6 +170,15 @@ Page({
                         endTimeStart: this.data.startTime,
                         endTimeDisplay: this.timeCal(this.data.startTime, 1)
                     });
+
+                    console.log('今天的测试。。。');
+                    console.log(today);
+                    console.log(this.data.startDate);
+                    if(this.data.startDate != today) {
+                        this.setData({
+                            startTimeStart: '00:00'
+                        });
+                    }
                 }
                 catch (error) {
                     console.log(error);
@@ -228,9 +237,12 @@ Page({
                 'startDate', e.detail.value
             );
             let today = myDate.toLocaleDateString().replace(/\//g, '-');
+            console.log(today);
+            console.log(e.detail.value);
             if(e.detail.value != today) {
                 this.setData('startTimeStart', '00:00');
             }
+            console.log(this.data.startTimeStart);
             this.setData({
                 endDateStart: this.data.startDate,
                 endDateDisplay: this.dateCal(this.data.startDate, 1),
