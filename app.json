@@ -3,32 +3,16 @@
         "pages/login/login",
         "pages/home/home",
         "pages/user-info/user-info",
-        "pages/analysis/analysis"
-    ],
-    "subPackages": [
-        {
-            "root": "home/pages",
-            "name": "homePackage",
-            "pages": [
-                "modification/modification",
-                "user-help-steps/user-help-steps"
-            ],
-            "independent": true
-        },
-        {
-            "root": "me/pages",
-            "name": "mePackage",
-            "pages": [
-                "user-info-detail/user-info-detail",
-                "all-tasks/all-tasks",
-                "feedback/feedback",
-                "user-help/user-help",
-                "help/help",
-                "list/list",
-                "develop-timeline/develop-timeline"
-            ],
-            "independent": true
-        }
+        "pages/analysis/analysis",
+        "pages/modification/modification",
+        "pages/user-help-steps/user-help-steps",
+        "pages/user-info-detail/user-info-detail",
+        "pages/all-tasks/all-tasks",
+        "pages/feedback/feedback",
+        "pages/user-help/user-help",
+        "pages/help/help",
+        "pages/list/list",
+        "pages/develop-timeline/develop-timeline"
     ],
     "window": {
         "navigationBarBackgroundColor": "#919ffa",

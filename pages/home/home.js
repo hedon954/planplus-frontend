@@ -83,7 +83,7 @@ Page({
                         this.setUserToOld();
                         app.setIsNewUser(0);
                         swan.navigateTo({
-                            url: '/home/pages/user-help-steps/user-help-steps'
+                            url: '/pages/user-help-steps/user-help-steps'
                         });
                     }
                     if(res.cancel){
@@ -625,7 +625,7 @@ Page({
                             if(res.cancel){
                                 //跳转到详情页
                                 swan.navigateTo({
-                                    url:'/home/pages/modification/modification?taskId='+this.data.taskId
+                                    url:'/pages/modification/modification?taskId='+this.data.taskId
                                 });
                             }
                         }
@@ -766,7 +766,7 @@ Page({
                             if(res.cancel){
                                 //跳转到详情页
                                 swan.navigateTo({
-                                    url:'/home/pages/modification/modification?taskId='+this.data.taskId
+                                    url:'/pages/modification/modification?taskId='+this.data.taskId
                                 });
                             }
                         }
@@ -802,7 +802,7 @@ Page({
         // console.log(cpn);
         app.setPreTab(this.data.activeName);
         swan.navigateTo({
-            url: `/home/pages/modification/modification?taskId=${e.currentTarget.id}`
+            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
         });
     },
 

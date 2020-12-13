@@ -117,7 +117,7 @@ Page({
         // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
         // console.log(cpn);
         swan.navigateTo({
-            url: `/home/pages/modification/modification?taskId=${e.currentTarget.id}`
+            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
         });
     },
 

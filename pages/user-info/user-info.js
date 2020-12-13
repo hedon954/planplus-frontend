@@ -48,7 +48,7 @@ Page({
      */
     goToUserHelp: function() {
         swan.navigateTo({
-            url: '/me/pages/user-help/user-help'
+            url: '/pages/user-help/user-help'
         });
     },
 
@@ -57,7 +57,7 @@ Page({
      */
     goToHelpPage:function(){
         swan.navigateTo({
-            url: '/me/pages/help/help'
+            url: '/pages/help/help'
         });
     },
 
@@ -67,14 +67,14 @@ Page({
     goToDetail:function(){
         if(this.data.userHasBaiduInfo == 1){
             swan.navigateTo({
-                url: '/me/pages/user-info-detail/user-info-detail'
+                url: '/pages/user-info-detail/user-info-detail'
             });
         }
     },
 
     goToDevelopTimeLine:function(){
         swan.navigateTo({
-            url: '/me/pages/develop-timeline/develop-timeline'
+            url: '/pages/develop-timeline/develop-timeline'
         })
     },
 
@@ -83,7 +83,7 @@ Page({
      */
     goToFeedback:function(){
         swan.navigateTo({
-            url:'/me/pages/feedback/feedback'
+            url:'/pages/feedback/feedback'
         });
     },
 
@@ -92,7 +92,7 @@ Page({
      */
     goToAllTask:function(){
         swan.navigateTo({
-            url:'/me/pages/all-tasks/all-tasks'
+            url:'/pages/all-tasks/all-tasks'
         });
     },
 

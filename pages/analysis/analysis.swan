@@ -23,9 +23,6 @@
             <swiper-item>
                 <chart id="line" option="{{ lineOption }}" style="width: 100%; height: 100%; display: block"></chart>
             </swiper-item>
-            <swiper-item>
-                <image class="image" src="/images/data-analysis.png"></image>
-            </swiper-item>
         </swiper>
     </view>
 </view>
