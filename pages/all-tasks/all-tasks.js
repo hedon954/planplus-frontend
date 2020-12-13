@@ -26,6 +26,14 @@ Page({
     },
     onShow: function() {
         // 监听页面显示的生命周期函数
+        swan.setPageInfo({
+            title: '任务总览——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,所有任务,任务列表,任务总览',
+            description: '该界面提供的是对所创建任务的一个总览功能，可以查看所有任务也可以查看所有的待办以及草稿箱',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
     },
     onHide: function() {
         // 监听页面隐藏的生命周期函数

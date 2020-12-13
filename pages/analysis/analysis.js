@@ -165,6 +165,14 @@ Page({
     },
     onShow: function() {
         // 监听页面显示的生命周期函数
+        swan.setPageInfo({
+            title: '分析统计页面——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,任务数量统计,任务质量统计,数据统计,数据分析',
+            description: '本应用所提供的数据统计功能主要在此页面中体现，其中包括对任务质量的统计和任务数量的统计，用户可以在本界面对自己近一周的任务创建和完成情况有一个大概的了解',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
     },
 
 });

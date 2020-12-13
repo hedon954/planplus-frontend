@@ -210,4 +210,17 @@ Page({
         });
 
     },
+
+    onShow:function(){
+        swan.setPageInfo({
+            title: '个人信息修改——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,个人信息,信息修改',
+            description: '在本界面可以查看个人信息的详细情况并对包括昵称、性别生日、等信息进行修改',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
+    }
+
+
 });

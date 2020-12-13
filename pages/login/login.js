@@ -303,5 +303,16 @@ Page({
             if (now.getTime() > exitTime)
             return;
         }
+    },
+
+    onShow:function(){
+        swan.setPageInfo({
+            title: '登录界面——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,登录,信息同步',
+            description: '本应用的登录界面',
+            releaseDate: '',
+            image: ['../../images/planplus.png'],
+            video: ''
+        });
     }
 });
