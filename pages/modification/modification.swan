@@ -1,5 +1,5 @@
 <!-- 用于显示操作按钮的自定义模态框 -->
-<operation-modal showOperationModal="{{showTaskOperationModal}}" formSubScribeId="{{subScribeId}}" btn-visible="{{visible}}" bind:handleDelay="delay" bind:handleDraft="draft" bind:handleDelete="delete" bind:handleCancel="closeOperationsModal"></operation-modal>
+<operation-modal showOperationModal="{{showTaskOperationModal}}" formSubScribeId="{{subScribeId}}" btn-visible="{{visible}}" bind:handleDelay="delay" bind:handleDraft="draft" bind:handleDelete="delete" bind:handleCancel="closeOperationsModal" bind:handleClose="closeOperationsModal"></operation-modal>
 <!-- 主视图内容 -->
 <view class="main-view">
     <view class="sub-view">
@@ -110,8 +110,9 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="startTask"
         bindreset="formReset">
-        <button class="start-end-btn" hidden="{{!visible}}">
-            <smt-icon class="icon" name="play" color="#8785a2"></smt-icon>
+        <button class="start-btn" formType="submit" hidden="{{!visible}}"
+            disabled="{{visible? false: true}}">
+            开始任务
         </button>
     </form>
 
@@ -123,11 +124,15 @@
         subscribe-id="{{subScribeId}}"
         bindsubmit="finish"
         bindreset="formReset">
-        <button class="start-end-button" formType="submit" hidden="{{!Visible}}">
-            <smt-icon class="icon" name="stop" color="#8785a2"></smt-icon>
+        <button class="end-btn" formType="submit" hidden="{{!endBtnVisible}}"
+            disabled="{{endBtnVisible? false: true}}">
+            结束任务
         </button>
     </form>
 </view>
+
+<!-- 用于选择任务推迟时间的自定义模态框 -->
+<delay-modal showDelayModal="{{showTaskDelayModal}}" bind:handleDelay="delayConfirm" bind:handleClose="closeModal" bind:handleCloseModal="closeModal"></delay-modal>
 
 
 <!-- 操作选项按钮 -->
@@ -136,8 +141,3 @@
         <smt-icon name="settings"></smt-icon>
     </button>
 </view>
-
-
-<!-- 用于选择任务推迟时间的自定义模态框 -->
-<delay-modal showDelayModal="{{showTaskDelayModal}}" bind:handleDelay="delayConfirm" bind:handleClose="closeModal"></delay-modal>
-

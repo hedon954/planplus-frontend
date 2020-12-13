@@ -1,4 +1,4 @@
-<view class="modal-mask" s-if="showDelayModal"></view>
+<view class="modal-mask" s-if="showDelayModal" bindtap="handleCloseModal"></view>
 <view class="modal-dialog" s-if="showDelayModal">
     <view class="title">
         <label>请选择推迟时间</label><br>

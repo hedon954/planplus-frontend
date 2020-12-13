@@ -1,4 +1,4 @@
-<view class="modal-mask" s-if="showOperationModal"></view>
+<view class="modal-mask" s-if="showOperationModal" bindtap="handleClose"></view>
 <view class="modal-dialog" s-if="showOperationModal">
     <!-- 推迟任务 -->
     <form

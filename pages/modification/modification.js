@@ -476,10 +476,10 @@ Page({
                                 app.setTaskChanged(true);
                                 swan.showToast({
                                     // 提示的内容
-                                    title: '任务已结束',
+                                    title: '恭喜你完成任务！',
                                     icon: 'success',
                                     image: '',
-                                    duration: 1000,
+                                    duration: 2000,
                                 });
 
                                 //任务已结束，禁止编辑功能
@@ -652,6 +652,9 @@ Page({
 
     //关闭操作选项模态框
     closeOperationsModal() {
-        this.setData('showTaskOperationModal', false);
+        console.log("closeOperationsModal")
+        if(this.data.showTaskOperationModal==true){
+            this.setData('showTaskOperationModal', false);
+        }
     },
 });
