@@ -196,3 +196,10 @@
 .buttom-getbaiduinfo::after {
     display: none;
 }
+
+.version-view {
+    margin-top: 80rpx;
+    text-align: center;
+    font-size: medium;
+    color: rgb(173, 173, 173);
+}

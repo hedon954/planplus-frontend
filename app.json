@@ -3,7 +3,7 @@
         "pages/login/login",
         "pages/home/home",
         "pages/user-info/user-info",
-        "pages/baidu-login/baidu-login",
+        "pages/analysis/analysis",
         "pages/modification/modification",
         "pages/user-info-detail/user-info-detail",
         "pages/all-tasks/all-tasks",
@@ -38,7 +38,7 @@
                 "text": "首页"
             },
             {
-                "pagePath": "pages/baidu-login/baidu-login",
+                "pagePath": "pages/analysis/analysis",
                 "iconPath": "/images/API_normal.png",
                 "selectedIconPath": "/images/API_selected.png",
                 "text": "统计"

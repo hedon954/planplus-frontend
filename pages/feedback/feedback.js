@@ -101,4 +101,15 @@ Page({
             email: e.detail.value
         })
     },
+
+    onShow:function(){
+        swan.setPageInfo({
+            title: '反馈界面——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,使用反馈,反馈意见',
+            description: '反馈界面主要是用于让用户反馈在使用过程中所遇到的一些问题，也可以对本应用提出一些宝贵的建议',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
+    }
 });

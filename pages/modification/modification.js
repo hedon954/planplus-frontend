@@ -182,6 +182,15 @@ Page({
         this.setData({
             subScribeId: app.data.subScribeId
         })
+
+        swan.setPageInfo({
+            title: '任务修改界面——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,修改任务,待办详情,开始任务,结束任务,延迟任务,',
+            description: '该界面是小程序的主任务修改界面，可以对已创建任务进行修改、删除等操作，开始和结束任务的功能也在本界面实现',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
     },
 
     //日期加减

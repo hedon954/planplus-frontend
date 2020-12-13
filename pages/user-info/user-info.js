@@ -201,6 +201,15 @@ Page({
             this.getInfo();
             app.setInfoChanged(false);
         }
+
+        swan.setPageInfo({
+            title: '我的页面——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,个人信息,使用帮助,任务总览,使用反馈,',
+            description: '该界面提供了个人信息的展示，以及一些拓展功能的跳转',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
     },
 
     /**

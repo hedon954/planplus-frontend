@@ -99,6 +99,15 @@ Page({
      * 页面每次展示都要执行的函数
      */
     onShow: function() {
+        swan.setPageInfo({
+            title: '主界面——PlanPlus时间管理大师',
+            keywords: 'PlanPlus,时间管理,待办,创建任务,查看待办,主界面',
+            description: '该界面是小程序的主要操作界面，该页面的功能包括任务的创建、今日明日任务的查询，还可以对所有的待办事项进行查看',
+            releaseDate: '',
+            image: '',
+            video: ''
+        });
+
         this.setData({
             // activeName: 'today',
             // isToday: true,
