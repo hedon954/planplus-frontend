@@ -52,13 +52,17 @@
         <task-detail
         s-for="tasks"
         id="{{item.taskId}}"
+        formSubScribeId="{{subScribeId}}"
+
         content="{{item.taskContent}}"
         time="{{item.taskStartTime}}"
         place="{{item.taskPlace}}"
         countDownTime="{{countDownList[index]}}"
         isToday="{{isToday}}"
+        isStart="{{statusList[index]}}"
+        bind:handleTap="jumpToDetail"
+        bind:handleStartEnd="startOrEnd"
         class="{{activeName}}"
-        bindtap="jumpToDetail"
         delStyle="{{deleteStyleList[index]}}">
         </task-detail>
     </view>

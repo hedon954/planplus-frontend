@@ -1,8 +1,23 @@
 <view class="container">
-    <view class="task-content">
+    <view class="task-content" bindtap="handleTap">
         <label style="{{delStyle}}">内容：{{content}}</label> <br>
         <label style="{{delStyle}}">时间：{{time}}</label> <br>
         <label style="{{delStyle}}">地点：{{place}}</label> <br>
     </view>
-    <label style="{{delStyle}}" class="count-down" s-if="isToday">{{countDownTime}}</label>
+    <view class="right-part">
+        <view bindtap="handleTap">
+            <label style="{{delStyle}}" class="count-down" s-if="isToday">{{countDownTime}}</label>
+        </view>
+        <form
+            report-submit="{{true}}"
+            report-type="subscribe"
+            template-id="BD0044"
+            subscribe-id="{{formSubScribeId}}"
+            bindsubmit="handleStartEnd"
+            bindreset="formReset">
+            <button formType="submit" class="btn" hidden="{{!isToday}}">
+                {{isStart==0?"开始任务": (isStart==1?"结束任务": "√")}}
+            </button>
+        </form>
+    </view>
 </view>

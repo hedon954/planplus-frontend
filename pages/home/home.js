@@ -50,7 +50,12 @@ Page({
          * 标记各任务是否已经结束
          */
         hasStarted: [],
-        isNewUser: 1
+        isNewUser: 1,
+
+        /**
+         * 存放每个任务的状态列表
+         */
+        statusList: [],
     },
 
     /**
@@ -216,10 +221,12 @@ Page({
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
                     var delStyleList = []; //临时存放删除线样式
                     var hasStartedList = []; //临时存放是否结束标志
+                    var statusTmpList = []; //临时存放任务状态
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 16);
 
+                        statusTmpList.push(response[i]['taskStatus']);
 
                         //判断是否为待办任务，若是，则显示日期
                         if(this.data.activeName == 'todo') {
@@ -257,12 +264,14 @@ Page({
                         } else {
                             delStyleList.push('');
                         }
+
                     }
                     this.setData({
                         tasks: response,
                         // endTimeList: startTimeList,
                         deleteStyleList: delStyleList,
-                        hasStarted: hasStartedList
+                        hasStarted: hasStartedList,
+                        statusList: statusTmpList
                     });
 
                     console.log('hhafhafhaihfiahfiahf'+this.data.isToday);
@@ -327,10 +336,12 @@ Page({
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
                     var delStyleList = []; //临时存放删除线样式
                     var hasStartedList = []; //临时存放是否结束标志
+                    var statusTmpList = []; //临时存放任务状态
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 16);
 
+                        statusTmpList.push(response[i]['taskStatus']);
 
                         console.log('新加的玩意儿：'+this.data.activeName);
                         //判断是否为待办任务，若是，则显示日期
@@ -375,7 +386,8 @@ Page({
                         tasks: response,
                         // endTimeList: startTimeList,
                         deleteStyleList: delStyleList,
-                        hasStarted: hasStartedList
+                        hasStarted: hasStartedList,
+                        statusList: statusTmpList
                     });
 
                     console.log('hhafhafhaihfiahfiahf'+this.data.isToday);
@@ -418,10 +430,13 @@ Page({
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
                     var delStyleList = []; //临时存放删除线样式
                     var hasStartedList = []; //临时存放是否结束标志
+                    var statusTmpList = []; //临时存放任务状态
                     for(var i = 0; i < response.length; i++) {
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 16);
                         response[i]['taskStartTime'] = startTimeString;
+
+                        statusTmpList.push(response[i]['taskStatus']);
 
                         //判断任务开始时间和结束时间是否一致
                         if(startTimeString != response[i]['taskPredictedFinishTime'].substring(11, 16)) {
@@ -450,7 +465,8 @@ Page({
                         tasks: response,
                         endTimeList: startTimeList,
                         deleteStyleList: delStyleList,
-                        hasStarted: hasStartedList
+                        hasStarted: hasStartedList,
+                        statusList: statusTmpList
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
@@ -795,6 +811,7 @@ Page({
     //跳转至详情页
     jumpToDetail: function(e) {
         console.log("跳转至详情页");
+        console.log(e);
         let taskId = e.currentTarget.id;
         console.log(taskId);
         // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
@@ -874,5 +891,117 @@ Page({
     },
 
 
+    startOrEnd: function(e) {
+        console.log("组件按钮被点击了。。。");
+        var taskId = e.currentTarget.id;
+        var formId = e.e1.detail.formId;
+        var index = 0; //记录点击的任务序号
+        var statusTmpList = this.data.statusList;
+        var startedTmpList = this.data.hasStarted;
+        var delStyleTmpList = this.data.deleteStyleList;
+        for(var i = 0; i < this.data.tasks.length; i++) {
+            if(this.data.tasks[i]['taskId'] == taskId) {
+                taskStatus = this.data.tasks[i]['taskStatus'];
+                index = i;
+                break;
+            }
+        }
+
+        var taskStatus = this.data.statusList[index];
+        console.log("formId:" + formId);
+        console.log("taskId:" + taskId);
+        console.log(index + " taskStatus:" + taskStatus);
+
+        if(taskStatus == 0) {
+            console.log("准备开始任务");
+            swan.showModal({
+                title: '温馨提示',
+                content: '您即将开始该任务',
+                success: res => {
+                    //若点击确定，则开始任务
+                    if(res.confirm) {
+                        swan.request({
+                            url: 'https://www.hedon.wang/project/task/start/' + taskId +
+                            "?formId="+formId,
+                            method: 'PUT',
+                            header: {
+                                'Authorization': 'bearer ' + app.data.access_token
+                            },
+                            success: res => {
+                                try {
+                                    console.log('任务已开始。。。');
+                                    swan.showToast({
+                                        // 提示的内容
+                                        title: '任务已开始',
+                                        icon: 'success',
+                                        image: '',
+                                        duration: 1000,
+                                    });
+
+                                    statusTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? 1: 2;
+                                    taskStatus = startedTmpList[index];
+                                    delStyleTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? "": "text-decoration:line-through";
+                                    startedTmpList[index] = true;
+                                    console.log(statusTmpList[index]);
+                                    this.setData({
+                                        statusList: statusTmpList,
+                                        hasStarted: startedTmpList,
+                                        deleteStyleList: delStyleTmpList
+                                    });
+                                    console.log("复制后"+this.data.statusList[index]);
+                                }
+                                catch (error) {
+                                    console.log(error);
+                                }
+                            },
+                        });
+                    }
+                },
+            });
+
+        } else if(taskStatus == 1) {
+
+            console.log('结束任务。。。');
+            //弹出模态框，待用户确认操作
+            swan.showModal({
+                title: '温馨提示',
+                content: '您即将结束该任务',
+                success: res => {
+                    //若点击确定，则结束任务
+                    if(res.confirm) {
+                        swan.request({
+                            url: 'https://www.hedon.wang/project/task/finish/' + taskId +
+                            "?fromId="+formId,
+                            method: 'PUT',
+                            header: {
+                                'Authorization': 'bearer ' + app.data.access_token
+                            },
+                            success: res => {
+                                try {
+                                    console.log('任务已结束。。。');
+                                    statusTmpList[index] = 2;
+                                    delStyleTmpList[index] = "text-decoration:line-through";
+                                    this.setData({
+                                        statusList: statusTmpList,
+                                        deleteStyleList: delStyleTmpList
+                                    });
+                                    swan.showToast({
+                                        // 提示的内容
+                                        title: '恭喜你完成任务！',
+                                        icon: 'success',
+                                        image: '',
+                                        duration: 2000,
+                                    });
+                                }
+                                catch (error) {
+                                    console.log(error);
+                                }
+                            },
+                        });
+                    }
+                },
+            });
+        }
+    }
 
 });
