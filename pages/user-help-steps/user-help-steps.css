@@ -12,7 +12,16 @@
     margin-left: 0 ;
 }
 
-.step-btn-cls-left {
+.btn-view{
+    display: flex;
+    justify-content: center;
+}
+.btn-view button{
+    margin: 10rpx  20rpx  10rpx 20rpx;
+
+}
+
+/* .step-btn-cls-left {
     background-color: #919ffa ;
     width: 30%;
     color: #fff;
@@ -21,11 +30,18 @@
 .step-btn-cls-right {
     background-color: #919ffa ;
     width: 30%;
-    /* transform: translate(390rpx, -116rpx); */
     margin-top: -116rpx;
     margin-left: 450rpx;
     color: #fff;
 },
+
+.step-btn-cls-jump {
+    background-color: #919ffa ;
+    width: 20%;
+    margin-top: -116rpx;
+    margin-left: 280rpx;
+    color: #fff;
+}, */
 
 .image-area{
     height: 70vh
@@ -150,6 +166,7 @@ Page {
     width: .23rem;
     background-image: linear-gradient(-90deg, #F5F5F5 0%, #D5D5D5 100%);
 }
+
 
 /* 结果文字 */
 .result-area {

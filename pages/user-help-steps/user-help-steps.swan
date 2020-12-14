@@ -17,19 +17,29 @@
             >
             </smt-steps>
         </view>
-        <button
-            bindtap="changeActiveDown"
-            class="step-btn-cls-left"
-            hover-stop-propagation="true"
-            type="primary">
-            上一步
-        </button>
-        <button
-            bindtap="changeActiveUp"
-            class="step-btn-cls-right"
-            hover-stop-propagation="true"
-            type="primary">
-            下一步
-        </button>
+        <view class="btn-view">
+            <button
+                bindtap="changeActiveDown"
+                class="step-btn-cls-left"
+                hover-stop-propagation="true"
+                type="primary">
+                上一步
+            </button>
+            <button
+                bindtap="jumpToHome"
+                class="step-btn-cls-jump"
+                hover-stop-propagation="true"
+                type="primary">
+                跳过
+            </button>
+            <button
+                bindtap="changeActiveUp"
+                class="step-btn-cls-right"
+                hover-stop-propagation="true"
+                type="primary">
+                下一步
+            </button>
+        </view>
+
     </view>
 </view>

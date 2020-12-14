@@ -102,7 +102,7 @@ page {
     border-radius: 39.855rpx;
     width: 250rpx;
     margin-top: 25rpx;
-    transform: translateY(1000rpx);
+    transform: translateY(800rpx);
 }
 
 .login-submit.default {

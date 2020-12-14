@@ -49,6 +49,9 @@ Page({ // eslint-disable-line
         }
         else {
             this.showToast("恭喜您完成用户指引~");
+            swan.navigateBack({
+
+            })
         }
     },
 
@@ -66,5 +69,11 @@ Page({ // eslint-disable-line
         else {
             this.showToast("前面没有啦~")
         }
+    },
+
+    jumpToHome(){
+        swan.navigateBack({
+
+        })
     }
 });
