@@ -23,7 +23,14 @@ Component({
         delStyle: {
             type: String,
             value: ''
-        }
+        },
+        isStart: {
+            type: Number,
+        },
+        formSubScribeId: {
+            type: String,
+            value: ''
+        },
     },
 
     data: {}, // 私有数据，可用于模版渲染
@@ -34,10 +41,11 @@ Component({
     detached: function () {},
 
     methods: {
-        onTap: function () {
-            this.setData({
-                // 更新属性和数据的方法与更新页面数据的方法类似
-            });
+        handleTap(e) {
+            this.triggerEvent("handleTap");
+        },
+        handleStartEnd(e1,e2) {
+            this.triggerEvent("handleStartEnd", {e1, e2});
         }
     }
 });

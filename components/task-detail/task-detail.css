@@ -10,13 +10,18 @@
 .task-content {
     width: 60vw;
 }
-label {
-    font-size: 28rpx;
-}
 .count-down {
-    padding-left: 50rpx;
-    margin-top: 40rpx;
+    margin-top: 30rpx;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 64rpx;
+    font-size: 54rpx;
     transform: translate(-10rpx,-10rpx);
+}
+
+.right-part {
+    width: 30vw;
+}
+
+.btn {
+    font-size: medium;
+    padding: 0rpx;
 }
