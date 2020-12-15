@@ -41,31 +41,34 @@
         <!-- 标题 -->
         <label>任务列表</label>
         <!-- 切换按钮 -->
-        <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
+        <tabs tabs-active-text-color="#f4f4f4" tabs-underline-color="#ffffff" active-name={{activeName}} bindtabchange="getTasks" tabs-inactive-text-color="#f4f4f4" tabs-background-color="#9db4f3">
             <tab-item class="tab1" name="today" label="今日" />
             <tab-item class="tab2" name="tomorrow" label="明日" />
             <tab-item class="tab3" name="todo" label="待办" />
         </tabs>
     </view>
-    <!-- 任务列表 -->
-    <view class="list">
-        <task-detail
-        s-for="tasks"
-        id="{{item.taskId}}"
-        formSubScribeId="{{subScribeId}}"
-        content="{{item.taskContent}}"
-        time="{{item.taskStartTime}}"
-        place="{{item.taskPlace}}"
-        countDownTime="{{countDownList[index]}}"
-        isToday="{{isToday}}"
-        isStart="{{statusList[index]}}"
-        bind:handleTap="jumpToDetail"
-        bind:handleStartEnd="startOrEnd"
-        bind:handleDelete="delete"
-        class="{{activeName}}"
-        delStyle="{{deleteStyleList[index]}}">
-        </task-detail>
+    <view class="taskList">
+        <!-- 任务列表 -->
+        <view class="list">
+            <task-detail
+            s-for="tasks"
+            id="{{item.taskId}}"
+            formSubScribeId="{{subScribeId}}"
+            content="{{item.taskContent}}"
+            time="{{item.taskStartTime}}"
+            place="{{item.taskPlace}}"
+            countDownTime="{{countDownList[index]}}"
+            isToday="{{isToday}}"
+            isStart="{{statusList[index]}}"
+            bind:handleTap="jumpToDetail"
+            bind:handleStartEnd="startOrEnd"
+            bind:handleDelete="delete"
+            class="{{activeName}}"
+            delStyle="{{deleteStyleList[index]}}">
+            </task-detail>
+        </view>
     </view>
+
 </view>
 
 

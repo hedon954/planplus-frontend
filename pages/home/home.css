@@ -63,8 +63,9 @@
     overflow: hidden;
 }
 .title label {
-    margin: 10rpx 220rpx 10rpx 20rpx;
+    margin: 12rpx 220rpx 10rpx 20rpx;
     font-size: small;
+    color: #f3f5fc;
     text-align: left;
     width: 200rpx;
 }
@@ -78,4 +79,14 @@
 .title tab-item {
     background-color: #9db4f3;
     font-size: 6.039rpx;
+}
+
+.title tab-item::after{
+    display: none;
+}
+
+.taskList{
+    background-color: #e6e6e6;
+    padding-top: 5rpx;
+    min-height: 75vh;
 }

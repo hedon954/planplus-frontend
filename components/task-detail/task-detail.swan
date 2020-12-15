@@ -12,6 +12,9 @@
     </view>
     <view class="right-part">
         <view class="btn-view">
+            <button class="{{isToday?'btn':'tomorrowBtn'}}" bindtap="handleDelete">
+                <image src="/images/home_delete.png"></image>
+            </button>
             <form
                 report-submit="{{true}}"
                 report-type="subscribe"
@@ -24,9 +27,6 @@
                     <!-- {{isStart==0?"开始任务": (isStart==1?"结束任务": "√")}} -->
                 </button>
             </form>
-            <button class="btn" bindtap="handleDelete">
-                <image src="/images/home_delete.png"></image>
-            </button>
         </view>
         <view bindtap="handleTap">
             <label style="{{delStyle}}" class="count-down" s-if="isToday">{{countDownTime}}</label>

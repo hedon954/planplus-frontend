@@ -1,11 +1,11 @@
 .container {
     background-color: white;
-    margin: 20rpx;
+    margin: 20rpx 20rpx 30rpx 20rpx;
     padding: 20rpx;
     border-radius: 10rpx;
     display: flex;
     /* box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(0, 0, 0, 0.349); */
-    box-shadow: 3px 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 6px 2px rgba(44, 42, 42, 0.1);
 }
 .task-content {
     width: 60vw;
@@ -46,9 +46,20 @@ image {
 .btn {
     background-color: transparent;
     padding: 1rpx;
-    margin-right: 25rpx;
+    margin-left: 30rpx;
 }
 
 .btn::after {
+    border: 0;
+}
+
+.tomorrowBtn{
+    background-color: transparent;
+    padding: 1rpx;
+    margin-left: 30rpx;
+    transform: translate(100rpx,-40rpx);
+}
+
+.tomorrowBtn::after {
     border: 0;
 }
