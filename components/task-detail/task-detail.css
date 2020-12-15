@@ -9,19 +9,46 @@
 }
 .task-content {
     width: 60vw;
+    font-size: 30rpx;
 }
+
+.task-content view {
+    margin-bottom: 10rpx;
+}
+
 .count-down {
-    margin-top: 30rpx;
+    /* margin-top: 30rpx; */
+    margin-bottom: 20rpx;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 54rpx;
     transform: translate(-10rpx,-10rpx);
+    color: #f68686;
 }
 
 .right-part {
     width: 30vw;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.btn-view {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 70rpx;
+    padding-top: 15rpx;
+}
+
+image {
+    width: 60rpx;
+    height: 60rpx;
 }
 
 .btn {
-    font-size: medium;
-    padding: 0rpx;
+    background-color: transparent;
+    padding: 1rpx;
+    margin-right: 25rpx;
+}
+
+.btn::after {
+    border: 0;
 }

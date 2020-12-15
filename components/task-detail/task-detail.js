@@ -46,6 +46,9 @@ Component({
         },
         handleStartEnd(e1,e2) {
             this.triggerEvent("handleStartEnd", {e1, e2});
+        },
+        handleDelete(e) {
+            this.triggerEvent("handleDelete");
         }
     }
 });

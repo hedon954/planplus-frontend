@@ -891,6 +891,7 @@ Page({
     },
 
 
+    //开始或结束任务
     startOrEnd: function(e) {
         console.log("组件按钮被点击了。。。");
         var taskId = e.currentTarget.id;
@@ -971,7 +972,7 @@ Page({
                     if(res.confirm) {
                         swan.request({
                             url: 'https://www.hedon.wang/project/task/finish/' + taskId +
-                            "?fromId="+formId,
+                            "?formId="+formId,
                             method: 'PUT',
                             header: {
                                 'Authorization': 'bearer ' + app.data.access_token
@@ -1002,6 +1003,44 @@ Page({
                 },
             });
         }
-    }
+    },
+
+    //删除任务
+    delete: function(e) {
+        console.log("删除任务：" + this.data.activeName);
+        var taskId = e.currentTarget.id;
+        //弹出模态框，待用户确认操作
+        swan.showModal({
+            title: '温馨提示',
+            content: '您即将删除该任务',
+            success: res => {
+                //点击确定后，删除任务
+                if(res.confirm) {
+                    swan.request({
+                        url: 'https://www.hedon.wang/project/task/delete/' + taskId,
+                        method: 'DELETE',
+                        header: {
+                            'Authorization': 'bearer ' + app.data.access_token
+                        },
+                        success: res => {
+                            try {
+                                swan.showToast({
+                                    title: '任务已删除',
+                                    icon: 'success',
+                                    duration: 1000,
+                                });
+                                this.getTasksByParam(this.data.activeName);
+                            }
+                            catch (error) {
+                                console.log(error);
+                            }
+                        },
+                    });
+                }
+            },
+        });
+
+
+    },
 
 });

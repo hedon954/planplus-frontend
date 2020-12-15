@@ -53,7 +53,6 @@
         s-for="tasks"
         id="{{item.taskId}}"
         formSubScribeId="{{subScribeId}}"
-
         content="{{item.taskContent}}"
         time="{{item.taskStartTime}}"
         place="{{item.taskPlace}}"
@@ -62,6 +61,7 @@
         isStart="{{statusList[index]}}"
         bind:handleTap="jumpToDetail"
         bind:handleStartEnd="startOrEnd"
+        bind:handleDelete="delete"
         class="{{activeName}}"
         delStyle="{{deleteStyleList[index]}}">
         </task-detail>

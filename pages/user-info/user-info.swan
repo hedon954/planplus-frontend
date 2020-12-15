@@ -1,3 +1,4 @@
+<scroll-view>
 <view class="info-container">
     <view class="info-card" bind:tap="goToDetail">
         <!--如果没有同步百度信息，则先同步-->
@@ -53,3 +54,4 @@
 <view class="version-view">
     v1.0.11
 </view>
+</scroll-view>

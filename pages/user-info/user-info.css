@@ -8,7 +8,7 @@
 
 .info-card{
     width: 100vw;
-    height:260rpx;;
+    height:260rpx;
     background-color: #919ffa;
     border-radius: 50rpx;
     overflow: hidden;
@@ -24,7 +24,7 @@
 }
 
 .detail{
-    margin-left: 75rpx;
+    margin-left: 60rpx;
     margin-top: 30rpx;
     display: flex;
     align-items: center;
@@ -49,10 +49,11 @@
 }
 
 .username{
-    font-size: 48rpx;
+    font-size: 40rpx;
     line-height: 52rpx;
     padding: 16.304rpx;
     margin-left: 48.309rpx;
+    white-space: nowrap;
 }
 
 .image-box {

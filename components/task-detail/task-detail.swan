@@ -1,23 +1,35 @@
 <view class="container">
     <view class="task-content" bindtap="handleTap">
-        <label style="{{delStyle}}">内容：{{content}}</label> <br>
-        <label style="{{delStyle}}">时间：{{time}}</label> <br>
-        <label style="{{delStyle}}">地点：{{place}}</label> <br>
+        <view>
+            <label style="{{delStyle}}">内容：{{content}}</label>
+        </view>
+        <view>
+            <label style="{{delStyle}}">时间：{{time}}</label>
+        </view>
+        <view>
+            <label style="{{delStyle}}">地点：{{place}}</label>
+        </view>
     </view>
     <view class="right-part">
+        <view class="btn-view">
+            <form
+                report-submit="{{true}}"
+                report-type="subscribe"
+                template-id="BD0044"
+                subscribe-id="{{formSubScribeId}}"
+                bindsubmit="handleStartEnd"
+                bindreset="formReset">
+                <button formType="submit" class="btn" hidden="{{!isToday}}">
+                    <image src="{{isStart==0?'/images/home_start.png': (isStart==1?'/images/home_end.png': '/images/home_isFinished.png')}}">
+                    <!-- {{isStart==0?"开始任务": (isStart==1?"结束任务": "√")}} -->
+                </button>
+            </form>
+            <button class="btn" bindtap="handleDelete">
+                <image src="/images/home_delete.png"></image>
+            </button>
+        </view>
         <view bindtap="handleTap">
             <label style="{{delStyle}}" class="count-down" s-if="isToday">{{countDownTime}}</label>
         </view>
-        <form
-            report-submit="{{true}}"
-            report-type="subscribe"
-            template-id="BD0044"
-            subscribe-id="{{formSubScribeId}}"
-            bindsubmit="handleStartEnd"
-            bindreset="formReset">
-            <button formType="submit" class="btn" hidden="{{!isToday}}">
-                {{isStart==0?"开始任务": (isStart==1?"结束任务": "√")}}
-            </button>
-        </form>
     </view>
 </view>
