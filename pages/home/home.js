@@ -74,6 +74,19 @@ Page({
     },
 
     onReady: function(){
+        //检查是否有新版本
+        const updateManager = swan.getUpdateManager();
+        updateManager.onCheckForUpdate(res=>{
+            // 请求完新版本信息的回调
+            if (res.hasUpdate) {
+                swan.showModal({
+                    title: '更新提醒',
+                    content: '最新版已上线啦！\r\n点击右上角的三个点重启小程序就可以更新~',
+                    showCancel: false,
+                    confirmText: '确定',
+                });
+            }
+        })
         //检查是否为新用户
         console.log("isNewUser" + app.data.isNewUser)
         if(app.data.isNewUser == 1){
@@ -549,9 +562,7 @@ Page({
      * 通过一句话创建任务
      */
     createTask: function(e){
-
-        console.log("订阅结果：" + e.detail.message);
-
+        //请求授权订阅
         if(e.detail.message != 'success' &&
            e.detail.message != '调用成功' &&
            e.detail.message != 'succ'){
@@ -563,11 +574,10 @@ Page({
             });
             return;
         }
-
         console.log("formId = " + e.detail.formId)
+        //发送请求
         swan.request({
             url: 'https://www.hedon.wang/project/task/createBySentence',
-            // url: 'http://localhost:9527/project/task/createBySentence',
             method: 'POST',
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
