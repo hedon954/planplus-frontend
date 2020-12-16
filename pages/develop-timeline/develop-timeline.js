@@ -5,7 +5,7 @@ Page({
                 status: 'success',
                 desc: '第一阶段: 基础版本 v1.0.x',
                 hasTail: true,
-                iconColor: '#2772fb',
+                iconColor: '#0ea415',
                 descInfo: [
                     {
                         info: '搭建后端微服务架构',
