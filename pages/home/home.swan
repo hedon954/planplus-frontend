@@ -51,6 +51,7 @@
         <!-- 任务列表 -->
         <view class="list">
             <task-detail
+            data-id="{{item.taskId}}"
             s-for="tasks"
             id="{{item.taskId}}"
             formSubScribeId="{{subScribeId}}"

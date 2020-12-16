@@ -23,7 +23,8 @@
             countDownTime="{{countDownList[index]}}"
             isToday="{{isToday}}"
             class="{{activeName}}"
-            bindtap="jumpToDetail">
+            bind:handleTap="jumpToDetail"
+            bind:handleDelete="delete">
             </task-detail>
         </view>
     </view>

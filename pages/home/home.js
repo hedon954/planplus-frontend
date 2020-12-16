@@ -222,7 +222,7 @@ Page({
     /**
      * 按输入参数获取任务
      */
-    getTasksByParam: function(param) {
+     getTasksByParam: function(param) {
         console.log('进入函数'+param);
         this.setData('isToday', (param == 'today' )? true: false);
         console.log(this.data.isToday);
@@ -233,10 +233,11 @@ Page({
                 'Authorization': 'bearer ' + app.data.access_token
             },
             success: res => {
-                try {
+                if(res.data.code == 1000){
                     var response = res.data.data;
-                    //防止引用被修改
-                    response = JSON.parse(JSON.stringify(response));
+
+                    console.log("负责前： response: " + JSON.stringify(response) )
+
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
                     var startRealTimeList = []; //临时存放定时器开始时间，即任务实际开始时间
@@ -295,18 +296,27 @@ Page({
                             fontColorList.push("color: #f68686");
                             startRealTimeList.push("");
                         }
-
                     }
+
+                    this.setData({
+                        tasks: null,
+                        deleteStyleList: null,
+                        fontStyleList: null,
+                        hasStarted: null,
+                        statusList: null
+                    });
+
                     this.setData({
                         tasks: response,
-                        // endTimeList: startTimeList,
                         deleteStyleList: delStyleList,
                         fontStyleList: fontColorList,
                         hasStarted: hasStartedList,
                         statusList: statusTmpList
                     });
 
-                    console.log('hhafhafhaihfiahfiahf'+this.data.isToday);
+                    console.log("赋值后 response: " + JSON.stringify(response) )
+                    console.log("赋值后：tasks：" + JSON.stringify(this.data.tasks))
+
                     if(this.data.isToday==true) {
                         this.setData({
                             endTimeList: startTimeList,
@@ -320,21 +330,6 @@ Page({
                         }, 1000);
                     }
 
-                    console.log("===============================================");
-                    console.log("tasks:" + this.data.tasks.length + "===" + this.data.tasks);
-                    console.log("statusList:" + this.data.statusList.length + "===" + this.data.statusList);
-                    console.log("endTimeList:" + this.data.endTimeList.length + "===" + this.data.endTimeList);
-                    console.log("realStartTimeList:" + this.data.realStartTimeList.length + "===" + this.data.realStartTimeList);
-                    console.log("countDownList:" + this.data.countDownList.length + "===" + this.data.countDownList);
-                    console.log("deleteStyleList:" + this.data.deleteStyleList.length + "===" + this.data.deleteStyleList);
-                    console.log("fontStyleList:" + this.data.fontStyleList.length + "===" + this.data.fontStyleList);
-                    console.log("hasStarted:" + this.data.hasStarted.length + "===" + this.data.hasStarted);
-                    console.log("countList:" + this.data.countList.length + "===" + this.data.countList);
-                    console.log("===============================================");
-
-                }
-                catch (error) {
-                    console.log(error);
                 }
             }
         });
@@ -543,8 +538,6 @@ Page({
     // 获取时间差
     getTimeSpan: function(endTimeList, realStartTimeList, started, status) {
 
-        console.log("获取时间差：。。。。。。。。。。。。。。。。。。。。。。。");
-
         let offset = new Date().getTimezoneOffset();
         let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
@@ -735,135 +728,6 @@ Page({
         });
     },
 
-    //创建任务，显示模态框，确认任务信息；已废弃
-    verifyTask: function(e) {
-
-        //判断任务内容和任务开始时间是否为空
-        if(this.data.taskContent == null || this.data.taskContent == ''
-        || this.data.taskStartTime == null || this.data.taskStartTime == '') {
-            swan.showToast({
-                title: '缺少任务内容或开始时间',
-                icon: 'none',
-                image: '',
-                duration: 2400,
-            });
-            return;
-        }
-
-        //判断任务开始时间和结束时间是否有效
-        if(!this.timeValid(this.data.taskStartTime, this.data.taskPredictedFinishTime)) {
-            swan.showToast({
-                title: '任务开始时间需早于结束时间',
-                icon: 'none',
-                duration: 2400,
-            });
-            return;
-        }
-
-
-        console.log("订阅结果：" + e.detail.message);
-
-        if(e.detail.message != 'success' &&
-           e.detail.message != '调用成功' &&
-           e.detail.message != 'succ'){
-            swan.showToast({
-                // 提示的内容
-                title: '任务创建失败，请授权通知功能',
-                // 图标，有效值"success"、"loading"、"none"。
-                icon: 'none',
-            });
-            return;
-        }
-
-        swan.showToast({
-            title: '创建中...',
-            icon: 'loading',
-            duration: 2000,
-            mask: true
-        });
-
-        console.log("formId = " + e.detail.formId)
-        swan.request({
-            url: 'https://www.hedon.wang/project/task/create',
-            method: 'POST',
-            header: {
-                'Authorization': 'bearer ' + app.data.access_token
-            },
-            data: {
-                taskFormId: e.detail.formId,
-                taskContent: this.data.taskContent,
-                taskPlace: this.data.taskPlace,
-                taskRate: this.data.taskRate,
-                taskStartTime: this.data.taskStartTime,
-                taskPredictedFinishTime: this.data.taskPredictedFinishTime,
-                taskAdvanceRemindTime: this.data.taskAdvanceRemindTime
-            },
-            success: res => {
-                //创建成功
-                if(res.data.code == '1000'){
-                    console.log("res = " + res.data.data.taskId);
-                    //刷新订阅ID，防止每次的 formID 都一样
-                    app.setSubScribeId(res.data.data.subScribeId);
-                    this.setData({
-                        subScribeId: app.data.subScribeId
-                    });
-                    console.log("app's subScribeId = " + app.data.subScribeId);
-                    console.log("home's subScribeId = " + this.data.subScribeId);
-                    //获取剩余时间
-                    let timeLeft = this.getTimeLeft(res.data.data.taskRemindTime);
-                    //初始化参数
-                    this.setData({
-                        taskId: res.data.data.taskId,
-                        taskRemindStr: `将在${timeLeft}后提醒你${this.data.taskContent}\r\n`,
-                        taskRemarkStr: `[备注]在${this.data.taskPlace},${this.data.taskStartTime.substring(0,10) +' ' +this.data.taskStartTime.substring(11,16)}\r\n`,
-                        predictedConsumedTimeStr: '',
-                        conflictTaskStr: ''
-                    });
-                    //预测耗时
-                    if(this.data.hasPredicedTime){
-                        this.setData({
-                            predictedConsumedTimeStr: '预计耗时：' + '2h' + '\r\n'
-                        })
-                    };
-                    //时间冲突
-                    if(this.data.timeConflict){
-                        this.setData({
-                            conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
-                        })
-                    }
-                    //显示模态框进行提示
-                    swan.showModal({
-                        title: '创建成功',
-                        content:
-                        // '将在'+'30分钟'+'后提醒你'+'吃饭'+'\r\n'
-                        this.data.taskRemindStr
-                        // +'[备注]在'+'银泰'+'20:00'+'\r\n'
-                        + this.data.taskRemarkStr
-                        // +'预计耗时：'+'30min'+'\r\n'
-                        + this.data.predictedConsumedTimeStr
-                        // +'小程序检测出您在该时间段内有'+'学习'+'任务',
-                        + this.data.conflictTaskStr,
-                        showCancel: true,
-                        cancelText: '修改',
-                        cancelColor: '#ff0000',
-                        confirmText: '确定',
-                        success: res=>{
-                            //重新读取所有任务
-                            this.getTodayTasks()
-                            if(res.cancel){
-                                //跳转到详情页
-                                swan.navigateTo({
-                                    url:'/pages/modification/modification?taskId='+this.data.taskId
-                                });
-                            }
-                        }
-                    });
-                }
-
-            }
-        });
-    },
-
     //检验开始时间和结束时间是否有效
     timeValid: function(time1, time2) {
         var oDate1 = new Date(time1);
@@ -965,15 +829,12 @@ Page({
 
     //开始或结束任务
     startOrEnd: function(e) {
+
         console.log("组件按钮被点击了。。。");
         var taskId = e.currentTarget.id;
         var formId = e.e1.detail.formId;
         var index = 0; //记录点击的任务序号
-        var statusTmpList = this.data.statusList;
-        var startedTmpList = this.data.hasStarted;
-        var delStyleTmpList = this.data.deleteStyleList;
-        var fontColorList = this.data.fontStyleList;
-        // var startRealTimeList = this.data.realStartTimeList;
+        var taskStatus;
         for(var i = 0; i < this.data.tasks.length; i++) {
             if(this.data.tasks[i]['taskId'] == taskId) {
                 taskStatus = this.data.tasks[i]['taskStatus'];
@@ -982,10 +843,11 @@ Page({
             }
         }
 
-        var taskStatus = this.data.statusList[index];
+        // taskStatus = this.data.statusList[index];
         console.log("formId:" + formId);
         console.log("taskId:" + taskId);
         console.log(index + " taskStatus:" + taskStatus);
+
 
         if(taskStatus == 0) {
             console.log("准备开始任务");
@@ -1015,23 +877,6 @@ Page({
                                         icon: 'success',
                                         duration: 1000,
                                     });
-                                    this.getTasksByParam(this.data.activeName);
-                                    return;
-
-                                    // statusTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? 1: 2;
-                                    // taskStatus = startedTmpList[index];
-                                    // delStyleTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? "": "text-decoration:line-through";
-                                    // fontColorList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? "#ababab": "#f68686";
-
-                                    // startedTmpList[index] = true;
-                                    // console.log(statusTmpList[index]);
-                                    // this.setData({
-                                    //     statusList: statusTmpList,
-                                    //     hasStarted: startedTmpList,
-                                    //     deleteStyleList: delStyleTmpList,
-                                    //     fontStyleList: fontColorList
-                                    // });
-                                    // console.log("复制后"+this.data.statusList[index]);
                                 } else {
                                     swan.showToast({
                                         title: '请重试',
@@ -1046,6 +891,9 @@ Page({
                                     icon: 'none',
                                     duration: 1000,
                                 });
+                            },
+                            complete: res =>{
+                                this.getTasksByParam(this.data.activeName);
                             }
                         });
                     }
@@ -1071,15 +919,6 @@ Page({
                             },
                             success: res => {
                                 if(res.data.code == 1000) {
-
-                                    // console.log('任务已结束。。。');
-                                    // statusTmpList[index] = 2;
-                                    // delStyleTmpList[index] = "text-decoration:line-through";
-                                    // this.setData({
-                                    //     statusList: statusTmpList,
-                                    //     deleteStyleList: delStyleTmpList
-                                    // });
-
                                     //刷新订阅ID，防止每次的 formID 都一样
                                     app.setSubScribeId(res.data.data.subScribeId);
                                     this.setData({
@@ -1093,11 +932,6 @@ Page({
                                         image: '',
                                         duration: 2000,
                                     });
-
-                                    this.getTasksByParam(this.data.activeName);
-
-                                    return;
-
                                 } else{
                                     swan.showToast({
                                         title: '删除失败',
@@ -1112,6 +946,9 @@ Page({
                                     icon: 'none',
                                     duration: 1000,
                                 });
+                            },
+                            complete: res =>{
+                                this.getTasksByParam(this.data.activeName);
                             }
                         });
                     }
@@ -1122,8 +959,10 @@ Page({
 
     //删除任务
     delete: function(e) {
+        console.log("删除任务：" + JSON.stringify(e))
         console.log("删除任务：" + this.data.activeName);
-        var taskId = e.currentTarget.id;
+        var taskId = e.target.id;
+        console.log("要删除的id：" + taskId)
         //弹出模态框，待用户确认操作
         swan.showModal({
             title: '温馨提示',
@@ -1144,7 +983,6 @@ Page({
                                     icon: 'success',
                                     duration: 1000,
                                 });
-                                this.getTasksByParam(this.data.activeName);
                             }else{
                                 swan.showToast({
                                     title: '删除失败',
@@ -1159,6 +997,9 @@ Page({
                                 icon: 'none',
                                 duration: 1000,
                             });
+                        },
+                        complete: res =>{
+                            this.getTasksByParam(this.data.activeName);
                         }
                     });
                 }
