@@ -11,9 +11,11 @@ Page({
         activeName: '', //当前选中的tab-item名称
         isToday: true,
         endTimeList: [], //定时器结束时间——即各任务开始时间
+        realStartTimeList: [], //定时器开始时间——即各任务实际开始时间
         countDownList: [], //倒计时时间
         maxTimeLeft: 0, //各个任务中倒计时剩余的最大值
         deleteStyleList: [], //删除线样式
+        fontStyleList: [], //计时字体颜色样式
         /**
          * 单个任务属性
          */
@@ -53,9 +55,14 @@ Page({
         isNewUser: 1,
 
         /**
-         * 存放每个任务的状态列表
+         * 存放每个任务的状态，用于切换开始/结束/完成按钮以及倒计时/计时
          */
         statusList: [],
+
+        /**
+         * 计时列表，记录任务已开始时间，仅针对正在进行中的任务
+         */
+        countList: [],
     },
 
     /**
@@ -232,7 +239,9 @@ Page({
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var startRealTimeList = []; //临时存放定时器开始时间，即任务实际开始时间
                     var delStyleList = []; //临时存放删除线样式
+                    var fontColorList = []; //临时存放计时颜色
                     var hasStartedList = []; //临时存放是否结束标志
                     var statusTmpList = []; //临时存放任务状态
                     for(var i = 0; i < response.length; i++) {
@@ -278,11 +287,21 @@ Page({
                             delStyleList.push('');
                         }
 
+                        //为进行中任务计时添加颜色
+                        if(response[i]['taskStatus'] == 1) {
+                            fontColorList.push("color: #ababab");
+                            startRealTimeList.push(response[i]['taskRealStartTime'].substring(0, 19));
+                        } else {
+                            fontColorList.push("color: #f68686");
+                            startRealTimeList.push("");
+                        }
+
                     }
                     this.setData({
                         tasks: response,
                         // endTimeList: startTimeList,
                         deleteStyleList: delStyleList,
+                        fontStyleList: fontColorList,
                         hasStarted: hasStartedList,
                         statusList: statusTmpList
                     });
@@ -291,14 +310,27 @@ Page({
                     if(this.data.isToday==true) {
                         this.setData({
                             endTimeList: startTimeList,
+                            realStartTimeList: startRealTimeList
                         });
                         //每隔一秒刷新倒计时，直至所有倒计时都为0
                         this.interval = setInterval(() => {
-                            if(this.getTimeSpan(this.data.endTimeList, this.data.hasStarted) <= 0) {
+                            if(this.getTimeSpan(this.data.endTimeList, this.data.realStartTimeList, this.data.hasStarted, this.data.statusList) <= 0 && !this.data.statusList.includes(1)) {
                                 this.interval && clearInterval(this.interval);
                             }
                         }, 1000);
                     }
+
+                    console.log("===============================================");
+                    console.log("tasks:" + this.data.tasks.length + "===" + this.data.tasks);
+                    console.log("statusList:" + this.data.statusList.length + "===" + this.data.statusList);
+                    console.log("endTimeList:" + this.data.endTimeList.length + "===" + this.data.endTimeList);
+                    console.log("realStartTimeList:" + this.data.realStartTimeList.length + "===" + this.data.realStartTimeList);
+                    console.log("countDownList:" + this.data.countDownList.length + "===" + this.data.countDownList);
+                    console.log("deleteStyleList:" + this.data.deleteStyleList.length + "===" + this.data.deleteStyleList);
+                    console.log("fontStyleList:" + this.data.fontStyleList.length + "===" + this.data.fontStyleList);
+                    console.log("hasStarted:" + this.data.hasStarted.length + "===" + this.data.hasStarted);
+                    console.log("countList:" + this.data.countList.length + "===" + this.data.countList);
+                    console.log("===============================================");
 
                 }
                 catch (error) {
@@ -325,21 +357,7 @@ Page({
             header: {
                 'Authorization': 'bearer ' + app.data.access_token
             },
-            // success: res => {
-            //     try {
-            //         var response = res.data.data;
-            //         for(var i = 0; i < response.length; i++) {
-            //             response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(11, 16);
-            //         }
-            //         this.setData({
-            //             activeName: e.detail.name,
-            //             tasks: response
-            //         });
-            //     }
-            //     catch (error) {
-            //         console.log(error);
-            //     }
-            // }
+
             success: res => {
                 try {
                     var response = res.data.data;
@@ -347,7 +365,9 @@ Page({
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var startRealTimeList = []; //临时存放定时器开始时间，即任务实际开始时间
                     var delStyleList = []; //临时存放删除线样式
+                    var fontColorList = []; //临时存放计时颜色
                     var hasStartedList = []; //临时存放是否结束标志
                     var statusTmpList = []; //临时存放任务状态
                     for(var i = 0; i < response.length; i++) {
@@ -394,11 +414,21 @@ Page({
                         } else {
                             delStyleList.push('');
                         }
+
+                        //为进行中任务计时添加颜色
+                        if(response[i]['taskStatus'] == 1) {
+                            fontColorList.push("color: #ababab");
+                            startRealTimeList.push(response[i]['taskRealStartTime'].substring(0, 19));
+                        } else {
+                            fontColorList.push("color: #f68686");
+                            startRealTimeList.push("");
+                        }
                     }
                     this.setData({
                         tasks: response,
                         // endTimeList: startTimeList,
                         deleteStyleList: delStyleList,
+                        fontStyleList: fontColorList,
                         hasStarted: hasStartedList,
                         statusList: statusTmpList
                     });
@@ -407,10 +437,11 @@ Page({
                     if(this.data.isToday) {
                         this.setData({
                             endTimeList: startTimeList,
+                            realStartTimeList: startRealTimeList
                         });
                         //每隔一秒刷新倒计时，直至所有倒计时都为0
                         this.interval = setInterval(() => {
-                            if(this.getTimeSpan(this.data.endTimeList, this.data.hasStarted) <= 0) {
+                            if(this.getTimeSpan(this.data.endTimeList, this.data.realStartTimeList, this.data.hasStarted, this.data.statusList) <= 0 && !this.data.statusList.includes(1)) {
                                 this.interval && clearInterval(this.interval);
                             }
                         }, 1000);
@@ -441,7 +472,9 @@ Page({
                     response = JSON.parse(JSON.stringify(response));
                     var startTimeString = '';
                     var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
+                    var startRealTimeList = []; //临时存放定时器开始时间，即任务实际开始时间
                     var delStyleList = []; //临时存放删除线样式
+                    var fontColorList = []; //临时存放计时颜色
                     var hasStartedList = []; //临时存放是否结束标志
                     var statusTmpList = []; //临时存放任务状态
                     for(var i = 0; i < response.length; i++) {
@@ -473,18 +506,29 @@ Page({
                         } else {
                             delStyleList.push('');
                         }
+
+                        //为进行中任务计时添加颜色
+                        if(response[i]['taskStatus'] == 1) {
+                            fontColorList.push("color: #ababab");
+                            startRealTimeList.push(response[i]['taskRealStartTime'].substring(0, 19));
+                        } else {
+                            fontColorList.push("color: #f68686")
+                            startRealTimeList.push("");
+                        }
                     }
                     this.setData({
                         tasks: response,
                         endTimeList: startTimeList,
+                        realStartTimeList: startRealTimeList,
                         deleteStyleList: delStyleList,
+                        fontStyleList: fontColorList,
                         hasStarted: hasStartedList,
                         statusList: statusTmpList
                     });
 
                     //每隔一秒刷新倒计时，直至所有倒计时都为0
                     this.interval = setInterval(() => {
-                        if(this.getTimeSpan(this.data.endTimeList, this.data.hasStarted) <= 0) {
+                        if(this.getTimeSpan(this.data.endTimeList, this.data.realStartTimeList, this.data.hasStarted, this.data.statusList) <= 0 && !this.data.statusList.includes(1)) {
                             this.interval && clearInterval(this.interval);
                         }
                     }, 1000);
@@ -497,21 +541,40 @@ Page({
     },
 
     // 获取时间差
-    getTimeSpan: function(list, started) {
+    getTimeSpan: function(endTimeList, realStartTimeList, started, status) {
+
+        console.log("获取时间差：。。。。。。。。。。。。。。。。。。。。。。。");
+
         let offset = new Date().getTimezoneOffset();
         let nowTime = new Date().getTime() + offset * 60 * 1000;//现在时间（时间戳）
         let tmpList = []; //临时存放倒计时列表中的各个元素
+        let countTmpList = []; //临时存放计时列表中的各个元素
         let maxTime = 0;
-        for(var i = 0; i < list.length; i++) {
+        for(var i = 0; i < endTimeList.length; i++) {
 
             //如果任务已经开始，就不进行倒计时
-            if(started[i] == true) {
+            if(started[i] == true && status[i] != 1) {
                 tmpList.push("");
+                countTmpList.push("");
+                // console.log("不计时。。。")
+                continue;
+            } else if(started[i] == true && status[i] == 1) {
+                tmpList.push("");
+
+                // console.log("准备计算已开始时间。。，");
+
+                //计算任务已开始时间
+                let startTime = new Date(realStartTimeList[i]).getTime() + offset * 60 * 1000;//开始时间（时间戳）
+                let time = nowTime - startTime;//已开始时间，以毫秒为单位
+                let formatTime = this.timeFormat(time);
+
+                countTmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
+
                 continue;
             }
 
             // console.log("进入循环。。。")
-            let endTime = new Date(list[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
+            let endTime = new Date(endTimeList[i]).getTime() + offset * 60 * 1000;//结束时间（时间戳）
             let time = endTime - nowTime;//剩余时间，以毫秒为单位
             let formatTime = this.timeFormat(time);
 
@@ -522,12 +585,16 @@ Page({
                 tmpList.push(formatTime.hh + ':' + formatTime.mm + ':' + formatTime.ss);
             }
 
+            countTmpList.push("");
+            // console.log("=================================================");
+
             // console.log("跳出循环。。。")
             maxTime = time > maxTime? time: maxTime;
         }
         // console.log("结束循环。。。")
         this.setData({
-            countDownList: tmpList
+            countDownList: tmpList,
+            countList: countTmpList
         });
         return maxTime;
     },
@@ -567,9 +634,7 @@ Page({
            e.detail.message != '调用成功' &&
            e.detail.message != 'succ'){
             swan.showToast({
-                // 提示的内容
-                title: '任务创建失败，请授权通知功能',
-                // 图标，有效值"success"、"loading"、"none"。
+                title: '请授权！',
                 icon: 'none',
             });
             return;
@@ -587,6 +652,7 @@ Page({
                 taskInfo:this.data.voiceRecognizeContent
             },
             success: res => {
+                console.log("创建完任务之后："+res.data.data);
                 //创建成功
                 if(res.data.code == '1000'){
                     //任务信息体
@@ -605,20 +671,20 @@ Page({
                     this.setData({
                         taskId: didaTask.taskId,
                         taskRemindStr: `将在${timeLeft}后提醒你${didaTask.taskContent}\r\n`,
-                        taskRemarkStr: `[备注]在${didaTask.taskPlace},${didaTask.taskStartTime.substring(0,10) +' ' +didaTask.taskStartTime.substring(11,16)}\r\n`,
+                        taskRemarkStr: `[地点]${didaTask.taskPlace}\r\n`,
                         predictedConsumedTimeStr: '',
                         conflictTaskStr: ''
                     });
                     //预测耗时
-                    if(this.data.hasPredicedTime){
+                    if(res.data.data.hasPredicted == 1){
                         this.setData({
-                            predictedConsumedTimeStr: '预计耗时：' + '2h' + '\r\n'
+                            predictedConsumedTimeStr: '================\r\n预计耗时：' + res.data.data.timeConsuming + '（参考）\r\n'
                         })
                     };
                     //时间冲突
-                    if(this.data.timeConflict){
+                    if(res.data.data.hasConflict == 1){
                         this.setData({
-                            conflictTaskStr: '小程序检测出您在该时间段内有任务\r\n'
+                            conflictTaskStr: '=================\r\n检测出该时间段内有以下任务：\r\n' + res.data.data.conflictTasks + '\r\n'
                         })
                     }
 
@@ -658,7 +724,7 @@ Page({
                 }else{
                     swan.showModal({
                         title: '创建失败',
-                        content: res.data.message,
+                        content: res.data.message +".",
                         showCancel: false,
                         confirmText: '确定',
                         confirmColor: '#',
@@ -710,13 +776,9 @@ Page({
         }
 
         swan.showToast({
-            // 提示的内容
             title: '创建中...',
-            // 图标，有效值"success"、"loading"、"none"。
             icon: 'loading',
-            // 提示的延迟时间，单位毫秒。
             duration: 2000,
-            // 是否显示透明蒙层，防止触摸穿透。
             mask: true
         });
 
@@ -739,12 +801,12 @@ Page({
             success: res => {
                 //创建成功
                 if(res.data.code == '1000'){
-                    console.log("res = " + res.data.data.taskId)
+                    console.log("res = " + res.data.data.taskId);
                     //刷新订阅ID，防止每次的 formID 都一样
-                    app.setSubScribeId(res.data.data.subScribeId)
+                    app.setSubScribeId(res.data.data.subScribeId);
                     this.setData({
                         subScribeId: app.data.subScribeId
-                    })
+                    });
                     console.log("app's subScribeId = " + app.data.subScribeId);
                     console.log("home's subScribeId = " + this.data.subScribeId);
                     //获取剩余时间
@@ -910,6 +972,8 @@ Page({
         var statusTmpList = this.data.statusList;
         var startedTmpList = this.data.hasStarted;
         var delStyleTmpList = this.data.deleteStyleList;
+        var fontColorList = this.data.fontStyleList;
+        // var startRealTimeList = this.data.realStartTimeList;
         for(var i = 0; i < this.data.tasks.length; i++) {
             if(this.data.tasks[i]['taskId'] == taskId) {
                 taskStatus = this.data.tasks[i]['taskStatus'];
@@ -939,32 +1003,50 @@ Page({
                                 'Authorization': 'bearer ' + app.data.access_token
                             },
                             success: res => {
-                                try {
+                                if(res.data.code == 1000) {
                                     console.log('任务已开始。。。');
+                                    //刷新订阅ID，防止每次的 formID 都一样
+                                    app.setSubScribeId(res.data.data.subScribeId)
+                                    this.setData({
+                                        subScribeId: app.data.subScribeId
+                                    })
                                     swan.showToast({
-                                        // 提示的内容
-                                        title: '任务已开始',
+                                        title: '奥利给！',
                                         icon: 'success',
-                                        image: '',
                                         duration: 1000,
                                     });
+                                    this.getTasksByParam(this.data.activeName);
+                                    return;
 
-                                    statusTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? 1: 2;
-                                    taskStatus = startedTmpList[index];
-                                    delStyleTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? "": "text-decoration:line-through";
-                                    startedTmpList[index] = true;
-                                    console.log(statusTmpList[index]);
-                                    this.setData({
-                                        statusList: statusTmpList,
-                                        hasStarted: startedTmpList,
-                                        deleteStyleList: delStyleTmpList
+                                    // statusTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? 1: 2;
+                                    // taskStatus = startedTmpList[index];
+                                    // delStyleTmpList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? "": "text-decoration:line-through";
+                                    // fontColorList[index] = (this.data.tasks[index]['taskStartTime'].length==11)? "#ababab": "#f68686";
+
+                                    // startedTmpList[index] = true;
+                                    // console.log(statusTmpList[index]);
+                                    // this.setData({
+                                    //     statusList: statusTmpList,
+                                    //     hasStarted: startedTmpList,
+                                    //     deleteStyleList: delStyleTmpList,
+                                    //     fontStyleList: fontColorList
+                                    // });
+                                    // console.log("复制后"+this.data.statusList[index]);
+                                } else {
+                                    swan.showToast({
+                                        title: '请重试',
+                                        icon: 'none',
+                                        duration: 1000,
                                     });
-                                    console.log("复制后"+this.data.statusList[index]);
-                                }
-                                catch (error) {
-                                    console.log(error);
                                 }
                             },
+                            fail: res => {
+                                swan.showToast({
+                                    title: res,
+                                    icon: 'none',
+                                    duration: 1000,
+                                });
+                            }
                         });
                     }
                 },
@@ -988,26 +1070,49 @@ Page({
                                 'Authorization': 'bearer ' + app.data.access_token
                             },
                             success: res => {
-                                try {
-                                    console.log('任务已结束。。。');
-                                    statusTmpList[index] = 2;
-                                    delStyleTmpList[index] = "text-decoration:line-through";
+                                if(res.data.code == 1000) {
+
+                                    // console.log('任务已结束。。。');
+                                    // statusTmpList[index] = 2;
+                                    // delStyleTmpList[index] = "text-decoration:line-through";
+                                    // this.setData({
+                                    //     statusList: statusTmpList,
+                                    //     deleteStyleList: delStyleTmpList
+                                    // });
+
+                                    //刷新订阅ID，防止每次的 formID 都一样
+                                    app.setSubScribeId(res.data.data.subScribeId);
                                     this.setData({
-                                        statusList: statusTmpList,
-                                        deleteStyleList: delStyleTmpList
+                                        subScribeId: app.data.subScribeId
                                     });
+
                                     swan.showToast({
                                         // 提示的内容
-                                        title: '恭喜你完成任务！',
+                                        title: '恭喜你！',
                                         icon: 'success',
                                         image: '',
                                         duration: 2000,
                                     });
-                                }
-                                catch (error) {
-                                    console.log(error);
+
+                                    this.getTasksByParam(this.data.activeName);
+
+                                    return;
+
+                                } else{
+                                    swan.showToast({
+                                        title: '删除失败',
+                                        icon: 'none',
+                                        duration: 1000,
+                                    });
                                 }
                             },
+                            fail: res => {
+                                swan.showToast({
+                                    title: res,
+                                    icon: 'none',
+                                    duration: 1000,
+                                });
+                            }
                         });
                     }
                 },
@@ -1033,24 +1138,31 @@ Page({
                             'Authorization': 'bearer ' + app.data.access_token
                         },
                         success: res => {
-                            try {
+                            if(res.data.code == 1000) {
                                 swan.showToast({
-                                    title: '任务已删除',
+                                    title: '已删除',
                                     icon: 'success',
                                     duration: 1000,
                                 });
                                 this.getTasksByParam(this.data.activeName);
-                            }
-                            catch (error) {
-                                console.log(error);
+                            }else{
+                                swan.showToast({
+                                    title: '删除失败',
+                                    icon: 'none',
+                                    duration: 1000,
+                                });
                             }
                         },
+                        fail: res =>{
+                            swan.showToast({
+                                title: res,
+                                icon: 'none',
+                                duration: 1000,
+                            });
+                        }
                     });
                 }
             },
         });
-
-
     },
-
 });

@@ -31,6 +31,10 @@ Component({
             type: String,
             value: ''
         },
+        countFontColor: {
+            type: String,
+            value: ''
+        },
     },
 
     data: {}, // 私有数据，可用于模版渲染
