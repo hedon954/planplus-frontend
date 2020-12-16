@@ -11,15 +11,15 @@
     },
     "projectname": "planplus",
     "publish": {
-        "version": "1.0.11"
+        "version": "1.0.12"
     },
     "setting": {
         "urlCheck": false
     },
     "swan": {
         "baiduboxapp": {
-            "extensionJsVersion": "1.15.3",
-            "swanJsVersion": "3.200.116"
+            "swanJsVersion": "3.200.116",
+            "extensionJsVersion": "1.15.3"
         }
     }
 }
