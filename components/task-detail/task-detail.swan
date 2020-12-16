@@ -29,7 +29,7 @@
             </form>
         </view>
         <view bindtap="handleTap">
-            <label style="{{delStyle}}" class="count-down" s-if="isToday">{{countDownTime}}</label>
+            <label style="{{countFontColor}}" class="count-down" s-if="isToday">{{countDownTime}}</label>
         </view>
     </view>
 </view>

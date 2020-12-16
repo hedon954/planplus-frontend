@@ -438,6 +438,10 @@ Page({
                             try {
                                 console.log('任务已开始。。。');
                                 app.setTaskChanged(true);
+                                app.setSubScribeId(res.data.data.subScribeId);
+                                this.setData({
+                                    subScribeId: app.data.subScribeId
+                                });
                                 swan.showToast({
                                     // 提示的内容
                                     title: '任务已开始',
@@ -495,6 +499,10 @@ Page({
                                 console.log('任务已结束。。。');
                                 console.log(res);
                                 app.setTaskChanged(true);
+                                app.setSubScribeId(res.data.data.subScribeId);
+                                this.setData({
+                                    subScribeId: app.data.subScribeId
+                                });
                                 swan.showToast({
                                     // 提示的内容
                                     title: '恭喜你完成任务！',
