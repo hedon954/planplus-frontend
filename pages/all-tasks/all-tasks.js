@@ -97,9 +97,9 @@ Page({
                     for(var i = 0; i < response.length; i++) {
                         response[i]['taskStartTime'] = response[i]['taskStartTime'].substring(0, 10) +" "+response[i]['taskStartTime'].substring(11, 16);
                     };
-                    this.setData({
-                        tasks: null
-                    });
+                    // this.setData({
+                    //     tasks: null
+                    // });
                     this.setData({
                         tasks: response
                     });
@@ -139,67 +139,11 @@ Page({
         });
     },
 
-    //跳转至详情页
-    jumpToDetail: function(e) {
-        console.log("跳转至详情页");
-        let taskId = e.currentTarget.id;
-        console.log(taskId);
-        // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
-        // console.log(cpn);
-        swan.navigateTo({
-            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
-        });
-    },
 
 
-    //删除任务
-    delete: function(e) {
-        console.log("删除任务：" + JSON.stringify(e))
-        console.log("删除任务：" + this.data.activeName);
-        var taskId = e.target.id;
-        console.log("要删除的id：" + taskId)
-        //弹出模态框，待用户确认操作
-        swan.showModal({
-            title: '温馨提示',
-            content: '您即将删除该任务',
-            success: res => {
-                //点击确定后，删除任务
-                if(res.confirm) {
-                    swan.request({
-                        url: 'https://www.hedon.wang/project/task/delete/' + taskId,
-                        method: 'DELETE',
-                        header: {
-                            'Authorization': 'bearer ' + app.data.access_token
-                        },
-                        success: res => {
-                            if(res.data.code == 1000) {
-                                swan.showToast({
-                                    title: '已删除',
-                                    icon: 'success',
-                                    duration: 1000,
-                                });
-                            }else{
-                                swan.showToast({
-                                    title: '删除失败',
-                                    icon: 'none',
-                                    duration: 1000,
-                                });
-                            }
-                        },
-                        fail: res =>{
-                            swan.showToast({
-                                title: res,
-                                icon: 'none',
-                                duration: 1000,
-                            });
-                        },
-                        complete: res =>{
-                            this.getTasksByActiveName(this.data.activeName);
-                        }
-                    });
-                }
-            },
-        });
+    //重新读取列表
+    updateList: function(e) {
+        this.getTasksByActiveName(this.data.activeName);
     },
 
 });

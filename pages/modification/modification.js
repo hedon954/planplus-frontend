@@ -71,10 +71,6 @@ Page({
         endBtnVisible: true, //结束按钮是否可见
     },
     onLoad(options) {
-        console.log(options);
-        console.log(options.taskId);
-        // console.log(myDate.getFullYear() + '-' + myDate.getMonth() + '-' + myDate.getDate());
-        // console.log(myDate.getHours() + ':' + myDate.getMinutes());
         this.setData({
             taskId: options.taskId,
             showTaskDelayModal: false

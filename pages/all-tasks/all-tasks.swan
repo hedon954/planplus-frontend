@@ -15,6 +15,7 @@
         <!-- 任务列表 -->
         <view class="list">
             <task-detail
+            taskId="{{item.taskId}}"
             s-for="tasks"
             id="{{item.taskId}}"
             content="{{item.taskContent}}"
@@ -23,8 +24,8 @@
             countDownTime="{{countDownList[index]}}"
             isToday="{{isToday}}"
             class="{{activeName}}"
-            bind:handleTap="jumpToDetail"
-            bind:handleDelete="delete">
+            bind:handleDelete="updateList"
+            activeName="{{activeName}}">
             </task-detail>
         </view>
     </view>

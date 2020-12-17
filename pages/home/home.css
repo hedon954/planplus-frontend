@@ -88,5 +88,6 @@
 .taskList{
     background-color: #e6e6e6;
     padding-top: 5rpx;
+    padding-bottom: 5rpx;
     min-height: 75vh;
 }

@@ -222,7 +222,7 @@ Page({
     /**
      * 按输入参数获取任务
      */
-     getTasksByParam: function(param) {
+    getTasksByParam: function(param) {
         console.log('进入函数'+param);
         this.setData('isToday', (param == 'today' )? true: false);
         console.log(this.data.isToday);
@@ -236,19 +236,19 @@ Page({
                 if(res.data.code == 1000){
                     var response = res.data.data;
 
-                    console.log("负责前： response: " + JSON.stringify(response) )
 
                     var startTimeString = '';
-                    var startTimeList = []; //临时存放定时器结束时间，即任务开始时间
-                    var startRealTimeList = []; //临时存放定时器开始时间，即任务实际开始时间
-                    var delStyleList = []; //临时存放删除线样式
-                    var fontColorList = []; //临时存放计时颜色
-                    var hasStartedList = []; //临时存放是否结束标志
-                    var statusTmpList = []; //临时存放任务状态
+                    var startTimeList = [];         //临时存放定时器结束时间，即任务开始时间
+                    var startRealTimeList = [];     //临时存放定时器开始时间，即任务实际开始时间
+                    var delStyleList = [];          //临时存放删除线样式
+                    var fontColorList = [];         //临时存放计时颜色
+                    var hasStartedList = [];        //临时存放是否结束标志
+                    var statusTmpList = [];         //临时存放任务状态
+
                     for(var i = 0; i < response.length; i++) {
+
                         startTimeList.push(response[i]['taskStartTime'].substring(0, 19));
                         startTimeString = response[i]['taskStartTime'].substring(11, 16);
-
                         statusTmpList.push(response[i]['taskStatus']);
 
                         //判断是否为待办任务，若是，则显示日期
@@ -299,14 +299,6 @@ Page({
                     }
 
                     this.setData({
-                        tasks: null,
-                        deleteStyleList: null,
-                        fontStyleList: null,
-                        hasStarted: null,
-                        statusList: null
-                    });
-
-                    this.setData({
                         tasks: response,
                         deleteStyleList: delStyleList,
                         fontStyleList: fontColorList,
@@ -314,8 +306,6 @@ Page({
                         statusList: statusTmpList
                     });
 
-                    console.log("赋值后 response: " + JSON.stringify(response) )
-                    console.log("赋值后：tasks：" + JSON.stringify(this.data.tasks))
 
                     if(this.data.isToday==true) {
                         this.setData({
@@ -744,19 +734,6 @@ Page({
         this.setData('showVerifyModal', false);
     },
 
-    //跳转至详情页
-    jumpToDetail: function(e) {
-        console.log("跳转至详情页");
-        console.log(e);
-        let taskId = e.currentTarget.id;
-        console.log(taskId);
-        // let cpn = this.selectComponent(`#${e.currentTarget.id}`); //组件id不能是纯数字
-        // console.log(cpn);
-        app.setPreTab(this.data.activeName);
-        swan.navigateTo({
-            url: `/pages/modification/modification?taskId=${e.currentTarget.id}`
-        });
-    },
 
 
     //字符串('yyyy-MM-dd hh:mm')转日期对象
@@ -827,183 +804,8 @@ Page({
     },
 
 
-    //开始或结束任务
-    startOrEnd: function(e) {
-
-        console.log("组件按钮被点击了。。。");
-        var taskId = e.currentTarget.id;
-        var formId = e.e1.detail.formId;
-        var index = 0; //记录点击的任务序号
-        var taskStatus;
-        for(var i = 0; i < this.data.tasks.length; i++) {
-            if(this.data.tasks[i]['taskId'] == taskId) {
-                taskStatus = this.data.tasks[i]['taskStatus'];
-                index = i;
-                break;
-            }
-        }
-
-        // taskStatus = this.data.statusList[index];
-        console.log("formId:" + formId);
-        console.log("taskId:" + taskId);
-        console.log(index + " taskStatus:" + taskStatus);
-
-
-        if(taskStatus == 0) {
-            console.log("准备开始任务");
-            swan.showModal({
-                title: '温馨提示',
-                content: '您即将开始该任务',
-                success: res => {
-                    //若点击确定，则开始任务
-                    if(res.confirm) {
-                        swan.request({
-                            url: 'https://www.hedon.wang/project/task/start/' + taskId +
-                            "?formId="+formId,
-                            method: 'PUT',
-                            header: {
-                                'Authorization': 'bearer ' + app.data.access_token
-                            },
-                            success: res => {
-                                if(res.data.code == 1000) {
-                                    console.log('任务已开始。。。');
-                                    //刷新订阅ID，防止每次的 formID 都一样
-                                    app.setSubScribeId(res.data.data.subScribeId)
-                                    this.setData({
-                                        subScribeId: app.data.subScribeId
-                                    })
-                                    swan.showToast({
-                                        title: '奥利给！',
-                                        icon: 'success',
-                                        duration: 1000,
-                                    });
-                                } else {
-                                    swan.showToast({
-                                        title: '请重试',
-                                        icon: 'none',
-                                        duration: 1000,
-                                    });
-                                }
-                            },
-                            fail: res => {
-                                swan.showToast({
-                                    title: res,
-                                    icon: 'none',
-                                    duration: 1000,
-                                });
-                            },
-                            complete: res =>{
-                                this.getTasksByParam(this.data.activeName);
-                            }
-                        });
-                    }
-                },
-            });
-
-        } else if(taskStatus == 1) {
-
-            console.log('结束任务。。。');
-            //弹出模态框，待用户确认操作
-            swan.showModal({
-                title: '温馨提示',
-                content: '您即将结束该任务',
-                success: res => {
-                    //若点击确定，则结束任务
-                    if(res.confirm) {
-                        swan.request({
-                            url: 'https://www.hedon.wang/project/task/finish/' + taskId +
-                            "?formId="+formId,
-                            method: 'PUT',
-                            header: {
-                                'Authorization': 'bearer ' + app.data.access_token
-                            },
-                            success: res => {
-                                if(res.data.code == 1000) {
-                                    //刷新订阅ID，防止每次的 formID 都一样
-                                    app.setSubScribeId(res.data.data.subScribeId);
-                                    this.setData({
-                                        subScribeId: app.data.subScribeId
-                                    });
-
-                                    swan.showToast({
-                                        // 提示的内容
-                                        title: '恭喜你！',
-                                        icon: 'success',
-                                        image: '',
-                                        duration: 2000,
-                                    });
-                                } else{
-                                    swan.showToast({
-                                        title: '删除失败',
-                                        icon: 'none',
-                                        duration: 1000,
-                                    });
-                                }
-                            },
-                            fail: res => {
-                                swan.showToast({
-                                    title: res,
-                                    icon: 'none',
-                                    duration: 1000,
-                                });
-                            },
-                            complete: res =>{
-                                this.getTasksByParam(this.data.activeName);
-                            }
-                        });
-                    }
-                },
-            });
-        }
-    },
-
-    //删除任务
-    delete: function(e) {
-        console.log("删除任务：" + JSON.stringify(e))
-        console.log("删除任务：" + this.data.activeName);
-        var taskId = e.target.id;
-        console.log("要删除的id：" + taskId)
-        //弹出模态框，待用户确认操作
-        swan.showModal({
-            title: '温馨提示',
-            content: '您即将删除该任务',
-            success: res => {
-                //点击确定后，删除任务
-                if(res.confirm) {
-                    swan.request({
-                        url: 'https://www.hedon.wang/project/task/delete/' + taskId,
-                        method: 'DELETE',
-                        header: {
-                            'Authorization': 'bearer ' + app.data.access_token
-                        },
-                        success: res => {
-                            if(res.data.code == 1000) {
-                                swan.showToast({
-                                    title: '已删除',
-                                    icon: 'success',
-                                    duration: 1000,
-                                });
-                            }else{
-                                swan.showToast({
-                                    title: '删除失败',
-                                    icon: 'none',
-                                    duration: 1000,
-                                });
-                            }
-                        },
-                        fail: res =>{
-                            swan.showToast({
-                                title: res,
-                                icon: 'none',
-                                duration: 1000,
-                            });
-                        },
-                        complete: res =>{
-                            this.getTasksByParam(this.data.activeName);
-                        }
-                    });
-                }
-            },
-        });
+    //重新读取列表
+    updateList: function(e) {
+        this.getTasksByParam(this.data.activeName);
     },
 });

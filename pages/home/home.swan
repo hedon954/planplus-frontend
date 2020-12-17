@@ -51,7 +51,7 @@
         <!-- 任务列表 -->
         <view class="list">
             <task-detail
-            data-id="{{item.taskId}}"
+            taskId="{{item.taskId}}"
             s-for="tasks"
             id="{{item.taskId}}"
             formSubScribeId="{{subScribeId}}"
@@ -62,11 +62,13 @@
             countFontColor="{{fontStyleList[index]}}"
             isToday="{{isToday}}"
             isStart="{{statusList[index]}}"
-            bind:handleTap="jumpToDetail"
-            bind:handleStartEnd="startOrEnd"
-            bind:handleDelete="delete"
+            bind:handleStartEnd="updateList"
+            bind:handleDelete="updateList"
             class="{{activeName}}"
-            delStyle="{{deleteStyleList[index]}}">
+            activeName="{{activeName}}"
+            delStyle="{{deleteStyleList[index]}}"
+            taskStatus="{{statusList[index]}}"
+            >
             </task-detail>
         </view>
     </view>
