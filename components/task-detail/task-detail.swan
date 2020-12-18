@@ -3,12 +3,12 @@
         <view>
             <label style="{{delStyle}}">内容：{{content}}</label>
         </view>
-        <view>
-            <label style="{{delStyle}}">时间：{{time}}</label>
+        <view class="time-label" >
+            <label  style="{{delStyle}}">时间：{{time}}</label>
         </view>
-        <view>
+        <!-- <view>
             <label style="{{delStyle}}">地点：{{place}}</label>
-        </view>
+        </view> -->
     </view>
     <view class="right-part">
         <view class="btn-view">

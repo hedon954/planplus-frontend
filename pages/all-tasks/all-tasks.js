@@ -25,6 +25,13 @@ Page({
         // 监听页面初次渲染完成的生命周期函数
     },
     onShow: function() {
+
+        this.setData({
+            activeName: (app.data.preTab2 == '')? 'all': app.data.preTab2,
+        });
+
+        this.getTasksByActiveName(this.data.activeName);
+
         // 监听页面显示的生命周期函数
         swan.setPageInfo({
             title: '任务总览——PlanPlus时间管理大师',
@@ -35,8 +42,8 @@ Page({
             video: ''
         });
     },
-    onHide: function() {
-        // 监听页面隐藏的生命周期函数
+    onHide: function(){
+        app.setPreTab2(this.data.activeName);
     },
     onUnload: function() {
         // 监听页面卸载的生命周期函数

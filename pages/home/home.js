@@ -141,13 +141,20 @@ Page({
             subScribeId: app.data.subScribeId
         });
         console.log("onShow...")
-        if(!app.data.taskChanged) {
-            return;
-        }
+        // if(!app.data.taskChanged) {
+        //     return;
+        // }
         // //读取今日任务
         // this.getTodayTasks()
         console.log('onshow:hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'+this.data.activeName+this.data.isToday);
         this.getTasksByParam(this.data.activeName);
+    },
+
+    /**
+     * 页面隐藏时执行的函数
+     */
+    onHide: function(){
+        app.setPreTab(this.data.activeName);
     },
 
     /**
@@ -654,20 +661,20 @@ Page({
                     this.setData({
                         taskId: didaTask.taskId,
                         taskRemindStr: `将在${timeLeft}后提醒你${didaTask.taskContent}\r\n`,
-                        taskRemarkStr: `[地点]${didaTask.taskPlace}\r\n`,
+                        // taskRemarkStr: `[地点]${didaTask.taskPlace}\r\n`,
                         predictedConsumedTimeStr: '',
                         conflictTaskStr: ''
                     });
                     //预测耗时
                     if(res.data.data.hasPredicted == 1){
                         this.setData({
-                            predictedConsumedTimeStr: '================\r\n预计耗时：' + res.data.data.timeConsuming + '（参考）\r\n'
+                            predictedConsumedTimeStr: '==================\r\n======耗时推荐=====\r\n：' + res.data.data.timeConsuming + '（根据您以往数据进行推荐）\r\n'
                         })
                     };
                     //时间冲突
                     if(res.data.data.hasConflict == 1){
                         this.setData({
-                            conflictTaskStr: '=================\r\n检测出该时间段内有以下任务：\r\n' + res.data.data.conflictTasks + '\r\n'
+                            conflictTaskStr: '==================\r\n======冲突检测=====\r\n检测出该时间段内有以下任务：\r\n' + res.data.data.conflictTasks + '\r\n'
                         })
                     }
 

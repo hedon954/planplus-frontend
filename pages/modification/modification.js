@@ -3,6 +3,7 @@ const myDate = new Date();
 
 Page({
     data: {
+        options: null,
         subScribeId: app.data.subScribeId, //订阅ID
         formId: '',                        //表单ID，订阅通知的时候需要用到
         showTaskDelayModal: false,         //推迟任务模态框
@@ -72,6 +73,7 @@ Page({
     },
     onLoad(options) {
         this.setData({
+            options: options,
             taskId: options.taskId,
             showTaskDelayModal: false
         });
@@ -185,7 +187,7 @@ Page({
 
     onShow(){
         this.setData({
-            subScribeId: app.data.subScribeId
+            subScribeId: app.data.subScribeId,
         })
 
         swan.setPageInfo({
@@ -398,6 +400,7 @@ Page({
 
                                     });
                                 }, 800);
+                                this.onLoad(this.data.options);
                             }
                             catch (error) {
                                 console.log(error);
@@ -459,6 +462,7 @@ Page({
 
                                     });
                                 }, 800);
+                                this.onLoad(this.data.options);
                             }
                             catch (error) {
                                 console.log(error);
@@ -520,6 +524,7 @@ Page({
 
                                     });
                                 }, 800);
+                                this.onLoad(this.data.options);
                             }
                             catch (error) {
                                 console.log(error);
@@ -598,6 +603,7 @@ Page({
 
                         });
                     }, 800);
+                    this.onLoad(this.data.options);
 
                 }
                 catch (error) {
@@ -662,6 +668,7 @@ Page({
 
                         });
                     }, 800);
+                    this.onLoad(this.data.options);
                 }
                 catch (error) {
                     console.log(error);

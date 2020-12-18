@@ -13,6 +13,7 @@ App({
         subScribeId: 0,
         taskChanged: false,
         preTab: '', //home页面，记录进入修改界面之前tab的状态（今日or明日）
+        preTab2: '', //all-tasks页面，记录进入修改界面之前tab的状态（今日or明日）
         access_token:'',
         infoChanged:false,
         isNewUser: 0
@@ -28,6 +29,10 @@ App({
 
     setPreTab: function(param){
         this.data.preTab = param;
+    },
+
+    setPreTab2: function(param){
+        this.data.preTab2 = param;
     },
 
     setSubScribeId:function(param){

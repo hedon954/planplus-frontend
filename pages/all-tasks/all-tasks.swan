@@ -5,7 +5,7 @@
         <!-- 标题区域，包含日期切换按钮 -->
         <view class="title">
             <!-- 切换按钮 -->
-            <tabs tabs-active-text-color="#666" tabs-underline-color="#666" active-name={{activeName}} bindtabchange="getTasks">
+            <tabs tabs-active-text-color="#f4f4f4" tabs-underline-color="#ffffff" active-name={{activeName}} bindtabchange="getTasks" tabs-inactive-text-color="#f4f4f4" tabs-background-color="#9db4f3">
                 <tab-item class="tab1" name="all" label="所有" />
                 <tab-item class="tab2" name="done" label="已办" />
                 <tab-item class="tab3" name="todo" label="待办" />

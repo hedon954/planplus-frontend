@@ -54,10 +54,10 @@
             </picker>
         </view>
     </view>
-    <view class="sub-view">
+    <!-- <view class="sub-view">
         <label>地点：</label>
         <input type="text" value="{{place}}" bindinput="placeInput" disabled="{{!mutable}}" confirm-type="done"/>
-    </view>
+    </view> -->
     <view class="sub-view">
         <label>频率：</label>
         <view class="pick">

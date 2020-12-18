@@ -13,7 +13,12 @@
 }
 
 .task-content view {
-    margin-bottom: 10rpx;
+    margin-top: 20rpx;
+    margin-left: 5rpx;
+}
+
+.time-label{
+    margin-bottom: 20rpx;
 }
 
 .count-down {
